@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { SignUpFormComponent } from '../shared/sign-up-form/sign-up-form.component';
 
 
 export interface DialogData {
@@ -13,25 +14,14 @@ export interface DialogData {
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent {
-  animal: string | undefined;
-  name: string | undefined;
 
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    this.dialog.open(signUpDialog);
+    this.dialog.open(SignUpFormComponent,{
+      width:'30%'
+    });
   }
 }
 
-@Component({
-  selector: 'signUpDialog',
-  templateUrl: './signUpDialog.html',
-})
-export class signUpDialog {
-
-  constructor(public dialogref:MatDialogRef<signUpDialog>){}
-  closeDialog(){
-    this.dialogref.close();
-  }
-}
 

@@ -22,14 +22,14 @@
                     <div class="col-md-6">
                         <div class="signUpCard">
 
-                            <div class="card textAlign">
+                            <div class="card textAlignCenter">
                                 <h2><b>Get Started</b></h2>
                                 <p>Free upto 10 users</p>
                                 <button class="btn googleBtn boxShadow"><img src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.51/static/media/google-logo.c21ca9d1.svg" class="googleImg"><b> Continue with Google</b></button>
                                 <div class="lineBreak">
                                     <div class="line"></div><span>OR</span> <div class="line"></div>
                                 </div>
-                                <button class="btn emailBtn boxShadow" (click)="openDialog()"><b>Sign up with Email</b></button>
+                                <button class="btn emailBtn boxShadow" (click)="openDialog()"> <i class="fa fa-envelope" aria-hidden="true"></i> <b> Sign up with Email</b></button>
                                 <h3><b>Bug Tracker</b></h3>
                             </div>
                         </div>
@@ -39,4 +39,104 @@
             </div>
 
     </div>
+    </section>
+
+
+    <!-- Why Bug Tracker -->
+
+    <section class="why pt-5 pb-5">
+        <div class="container">
+            <div class="sectionHeading textAlignCenter ">
+                <h3><b>Why Bug Tracker?</b></h3>
+
+            </div>
+            <div class="row p-4">
+                    <div class="col-md-6 d-flex">
+                        <div class="img m-2">Image here</div>
+                        <div class="content">
+                            <h4>Custom Attributes & Actions</h4>
+                            <p>Automatically collect and monitor any interesting event with all the relevant context attached</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex">
+                        <div class="img m-2">Image here</div>
+                        <div class="content">
+                            <h4>Error Tracking Automatically</h4>
+                            <p>Group application errors into issues to get the context you need for root cause analysis and reduce MTTR</p>
+                        </div>
+                    </div>
+            </div>
+            <div class="row p-4">
+                <div class="col-md-6 d-flex">
+                    <div class="img m-2">Image here</div>
+                    <div class="content">
+                        <h4>Frontend To Backend Correlation</h4>
+                        <p>See key frontend performance metrics in context with APM traces from backend services in your applications</p>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex">
+                    <div class="img m-2">Image here</div>
+                    <div class="content">
+                        <h4>Out-Of-The-Box Dashboards</h4>
+                        <p>Access nearly instant time to value for both set up and investigation</p>
+                    </div>
+                </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+
+    <section class="features pt-5 pb-5">
+        <div class="container">
+            <div class="textAlignCenter">
+                <h2><b>Features</b></h2>
+            </div>
+
+            <div class="row feature">
+                <div class="col-md-6">
+                    <div class="">
+                        <img loading="lazy" class="featureImg" alt="image" srcset="https://imgix.datadoghq.com/img/dg/aggregate_errors.png?auto=format&w=652&dpr=1">
+                    </div>
+                </div>
+                <div class="col-md-6 paddingLeft">
+                    <h3 class="mb-5"><b>Automatically Aggregate Similar Errors into Issues</b></h3>
+                    <p style="line-height: 1.5rem;">-Reduce noise by automatically grouping related errors into issues based on error type, error message, and stack trace
+                        Follow issues over time to understand <br><br>-When they started, how they have evolved, and how often their errors are occurring
+                        <br><br>-Quickly filter through issues with a simple faceted search - no query language required</p>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row feature">
+                <div class="col-md-6">
+                    <h3 class="mb-5"><b>Triage Issues Faster with Error Tracking Monitors</b></h3>
+                    <p style="line-height: 1.5rem;">-Receive real-time alerts when new issues arise, so you can resolve them before many users are affected <br><br>-Quickly discover when a particular issue starts having too many occurrences or is impacting too many end users
+                        <br><br>-Get notified when an issue, that has been previously fixed, starts to have new occurrences</p>
+                    </div>
+                    <div class="col-md-6 featureImg1">
+                        <div class="">
+                            <video class="w-100" playsinline autoplay muted loop>
+                                <source src="https://imgix.datadoghq.com/video/dg/error_tracking_alerts.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+            </div>
+            <hr>
+            <div class="row feature">
+                <div class="col-md-6 featureImg1">
+                    <div class="">
+                        <img loading="lazy" class="featureImg" alt="image" srcset="https://imgix.datadoghq.com/img/dg/error_tracking_root_cause.png?auto=format&w=652&dpr=1">
+                    </div>
+                </div>
+                <div class="col-md-6 paddingLeft">
+                    <h3 class="mb-5"><b>Easily Identify & Troubleshoot the Root Cause of Errors</b></h3>
+                    <p style="line-height: 1.5rem;">-nvestigate errors down to lines of code with un-minification of JavaScript stack traces, deobfuscation of Android crashes, 
+                        and symbolication of iOS crashes <br><br>-Identify the root cause of an issue by linking error stack traces to the relevant source code through Datadog's integrations with Github, Gitlab,
+                         and Bitbucket
+                        <br><br>-Quickly determine where particular errors are most prevalent using all associated tags, such as version, url, and environment</p>
+                </div>
+            </div>
+            <hr>
+        </div>
     </section>
