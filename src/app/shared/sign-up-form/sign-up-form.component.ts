@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -13,16 +13,18 @@ export class SignUpFormComponent {
   closeDialog(){
     this.dialogref.close();
   }
+  signUpDetails = new FormGroup({
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required]);
-
-  // matcher = new MyErrorStateMatcher();
+  emailFormControl : new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+  passwordFormControl : new FormControl('', [Validators.required,Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]),
+  firstNameFormControl : new FormControl()
+  
+})
+lastNameFormControl = new FormControl()
+  
+onSubmit(){
+  this.dialogref.close();
+  alert('Welcome ' + this.signUpDetails.get('firstNameFormControl')?.value);
+}
 }
 
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }

@@ -1,5 +1,5 @@
 <h1 mat-dialog-title class="textAlignCenter h0">Sign up</h1>
-<form class = "signUpForm"action="">
+<form [formGroup]="signUpDetails" class = "signUpForm"  (submit)="onSubmit()">
 
     
     
@@ -7,12 +7,12 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input type="email" matInput [formControl]="emailFormControl" 
+            <input type="email"  matInput formControlName="emailFormControl" 
                    placeholder="Ex. pat@example.com">
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            <mat-error *ngIf=" signUpDetails.get('emailFormControl')?.hasError('pattern') && !signUpDetails.get('emailFormControl')?.hasError('required')">
                 Please enter a valid email address
             </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
+            <mat-error *ngIf="signUpDetails.get('emailFormControl')?.hasError('required')">
                 Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -21,9 +21,12 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input type="password" matInput [formControl]="passwordFormControl" 
+            <input type="password" matInput formControlName="passwordFormControl" 
             placeholder="">
-            <mat-error *ngIf="emailFormControl.hasError('required')">
+            <mat-error *ngIf="signUpDetails.get('passwordFormControl')?.hasError('pattern') && !signUpDetails.get('passwordFormControl')?.hasError('required')">
+                Please provide a strong password
+            </mat-error>
+            <mat-error *ngIf="signUpDetails.get('passwordFormControl')?.hasError('required')">
                 Password is <strong>required</strong>
             </mat-error>
         </mat-form-field>
@@ -31,7 +34,7 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Firstname</mat-label>
-            <input type="text" matInput  
+            <input type="text" matInput formControlName="firstNameFormControl" 
                    placeholder="Ex. John">
           </mat-form-field>
     </div>
@@ -39,7 +42,7 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Lastname</mat-label>
-            <input type="text" matInput  
+            <input type="text" matInput   formControlName="lastNameFormControl"
                    placeholder="Ex. Smith">
           </mat-form-field>
     </div>
@@ -47,7 +50,7 @@
         <p>Already a member? <strong><a href="#" style="color:  rgb(80, 80, 80);;">Log In</a></strong></p>
     </div>
     <div mat-dialog-actions>
-        <button mat-button>Submit</button>
-        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button type="submit" [disabled]="signUpDetails.invalid">Submit</button>
+        <button mat-button mat-dialog-close type="button">Cancel</button>
     </div>
 </form>
