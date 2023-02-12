@@ -79,3 +79,33 @@
 .carousel-inner{
     height: 92vh;
 }
+.fadeIn{
+    opacity: 0;
+    transition: 1s ease;
+}
+.fadeOut{
+    opacity: 1;
+}
+.slideLeft{
+    opacity: 0;
+    transform: translateX(-10%);
+    transition: 300ms ease-in;
+}
+.slideRight{
+    opacity: 0;
+    transform: translateX(10%);
+    transition: 300ms ease-in;
+}
+.slideComplete{
+    opacity: 1;
+    transform: translateX(0);
+}
+.animate-delay{
+    transition-delay: 0.2s;
+}
+.animate-delay1{
+    transition-delay: 0.4s;
+}
+.animate-delay2{
+    transition-delay: 0.6s;
+}
