@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { SignUpFormComponent } from './shared/sign-up-form/sign-up-form.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 
@@ -22,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
     NavbarComponent,
     LandingPageComponent,
     SignUpFormComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

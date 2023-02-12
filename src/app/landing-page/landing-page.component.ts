@@ -16,7 +16,6 @@ export interface DialogData {
 export class LandingPageComponent {
 
   constructor(public dialog: MatDialog) {}
-
   openDialog() {
     this.dialog.open(SignUpFormComponent,{
       width:'30%'
