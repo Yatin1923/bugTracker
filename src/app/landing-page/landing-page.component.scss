@@ -25,7 +25,10 @@
     padding: 20px 100px;
 }
 .emailBtn{
+    padding: 12px 0px;
     margin-bottom: 20px;
+}.googleBtn{
+    padding: 12px 0px;
 }
 .googleImg{
     width: 18px;
@@ -77,7 +80,7 @@
     padding: 30px 200px;
 }
 .carousel-inner{
-    height: 92vh;
+    min-height:80vh;
 }
 .fadeIn{
     opacity: 0;

@@ -34,7 +34,7 @@ export class LandingPageComponent {
        if (elementTop < windowHeight - elementVisible) {
          slideLeft[i].classList.add("slideComplete");
         } else {
-          // slideLeft[i].classList.remove("slideComplete");
+          slideLeft[i].classList.remove("slideComplete");
         }
       }
       var slideRight = document.querySelectorAll(".slideRight");
@@ -45,7 +45,7 @@ export class LandingPageComponent {
        if (elementTop < windowHeight - elementVisible) {
         slideRight[i].classList.add("slideComplete");
         } else {
-          // slideRight[i].classList.remove("slideComplete");
+          slideRight[i].classList.remove("slideComplete");
         }
       }
     var fadeIn = document.querySelectorAll(".fadeIn");
@@ -55,7 +55,7 @@ export class LandingPageComponent {
       if (elementTop < windowHeight - elementVisible) {
         fadeIn[i].classList.add("fadeOut");
       } else {
-        // fadeIn[i].classList.remove("fadeOut");
+        fadeIn[i].classList.remove("fadeOut");
       }
     }
   }
