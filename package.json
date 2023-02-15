@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "run": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "font-awesome": "^4.7.0",
     "mongoose": "^6.9.1",
     "rxjs": "~7.5.0",

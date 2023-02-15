@@ -1,4 +1,3 @@
-const { async } = require('rxjs');
 const userService = require('./userService');
 
 
