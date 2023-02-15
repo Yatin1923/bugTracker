@@ -1,25 +1,34 @@
 const { findByIdAndUpdate } = require('./projectsModel');
 const projectModel = require('./projectsModel')
 
+
+// Get All
+getProjects = async()=>{
+    const result = await projectModel.find();
+    console.log(result);
+    return result;
+} 
 // Create Project
 createProject = (project)=>{
     return new Promise((resolve,reject)=>{
         projectModel.findOne({name:project.name},async(err,_project)=>{
             if(err){
-                reject("Error creating project");
-            }
-            if(_project != null || _project != undefined){
-                resolve("A project with that name already exists");
-            }
-            else{
-                console.log(project);
-                const projectDetails = new projectModel({
-                    name : project.name,
-                    key: project.key,
-                    projectLead: project.projectLead
-                });
+                reject({message:"Error creating project"});
+            }else{
+
+                if(_project != null || _project != undefined){
+                    resolve({message:"A project with that name already exists"});
+                }
+                else{
+                    console.log(project);
+                    const projectDetails = new projectModel({
+                        name : project.name,
+                        key: project.key,
+                        projectLead: project.projectLead
+                    });
                     await projectDetails.save();
-                    resolve("project created successfully");
+                    resolve({message:"project created successfully"});
+                }
             }
         })
     })
@@ -73,4 +82,4 @@ deleteProject = async(projectName)=>{
     })   
 }
 
-module.exports = {createProject,updateProject,deleteProject};
+module.exports = {createProject,updateProject,deleteProject,getProjects};

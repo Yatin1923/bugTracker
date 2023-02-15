@@ -1,12 +1,18 @@
 const projectsService = require('./projectsService');
 
 
+getProjects = async(req,res)=>{
+    const result = await  projectsService.getProjects();
+    console.log(result);
+    res.send(result);
+}
+
 createProject = async(req,res)=>{
 
     try{
         const result =  await projectsService.createProject(req.body);
-        console.log(result)
-        res.send(result);
+        console.log(result.message)
+        res.send({"message":result.message});
         
             
             
@@ -38,4 +44,4 @@ deleteProject = async(req,res)=>{
     }
 }
 
-module.exports = {createProject, updateProject,deleteProject};
+module.exports = {createProject, updateProject,deleteProject,getProjects};

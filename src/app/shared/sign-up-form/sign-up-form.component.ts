@@ -11,9 +11,9 @@ import { AuthService } from './Auth/auth.service';
 })
 export class SignUpFormComponent {
   constructor(public dialogref:MatDialogRef<SignUpFormComponent>,public authService:AuthService){}
-  closeDialog(){
-    this.dialogref.close();
-  }
+  // closeDialog(){
+  //   this.dialogref.close();
+  // }
   signUpDetails = new FormGroup({
 
   emailFormControl : new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),

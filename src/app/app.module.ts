@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProjectsComponent } from './projects/projects.component';
 import {MatTableModule} from '@angular/material/table';
+import { CreateProjectFormComponent } from './shared/create-project-form/create-project-form/create-project-form.component';
 
 
 
@@ -26,7 +27,8 @@ import {MatTableModule} from '@angular/material/table';
     LandingPageComponent,
     SignUpFormComponent,
     FooterComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    CreateProjectFormComponent
   ],
   imports: [
     BrowserModule,

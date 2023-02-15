@@ -5,7 +5,7 @@
             <h3>Projects</h3>
         </div>
         <div class="createProject ">
-            <button mat-stroked-button  class=" btn btn-primary" href="#">Create Project</button>
+            <button mat-stroked-button  class=" btn btn-primary" href="#" (click)="openDialog()">Create Project</button>
         </div>
     </div>
     <div class="search">
@@ -16,10 +16,12 @@
             placeholder="Ex. John">
         </mat-form-field>
     </div>
-
+    
     <div class="table">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
           
@@ -36,10 +38,10 @@
             </ng-container>
           
             <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
+            <!-- <ng-container matColumnDef="weight">
               <th mat-header-cell *matHeaderCellDef> Type </th>
               <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-            </ng-container>
+            </ng-container> -->
           
             <!-- Symbol Column -->
             <ng-container matColumnDef="symbol">
@@ -47,8 +49,6 @@
               <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
             </ng-container>
           
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>  
     </div>
 </div>

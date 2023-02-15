@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component,OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProjectFormComponent } from '../shared/create-project-form/create-project-form/create-project-form.component';
 
 export interface PeriodicElement {
   name: string;
@@ -27,6 +30,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+
+  constructor(http:HttpClient,private dialog:MatDialog){}
+  ngOnInit(){
+    
+  }
+  openDialog(){
+    this.dialog.open(CreateProjectFormComponent,{
+      width:'30%'
+    })
+  }
+  displayedColumns: string[] = ['position', 'name', 'symbol'];
   dataSource = ELEMENT_DATA;
 }
