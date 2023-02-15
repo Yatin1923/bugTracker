@@ -14,6 +14,8 @@ import { SignUpFormComponent } from './shared/sign-up-form/sign-up-form.componen
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ProjectsComponent } from './projects/projects.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -24,6 +26,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     LandingPageComponent,
     SignUpFormComponent,
     FooterComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
