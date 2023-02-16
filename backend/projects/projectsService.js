@@ -5,7 +5,7 @@ const projectModel = require('./projectsModel')
 // Get All
 getProjects = async()=>{
     const result = await projectModel.find();
-    console.log(result);
+    // console.log(result);
     return result;
 } 
 // Create Project

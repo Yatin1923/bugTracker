@@ -2,10 +2,10 @@ const express = require('express');
 const projectsController = require('../projects/projectsController.js');
 var projectsRouter = express.Router();
 
-// Create Project
+// Create,Get Project
 projectsRouter.route('').post(projectsController.createProject).get(projectsController.getProjects);
 
-// Update Project
+// Update,Delete Project
 projectsRouter.route('/:name').post(projectsController.updateProject).delete(projectsController.deleteProject);
 
 

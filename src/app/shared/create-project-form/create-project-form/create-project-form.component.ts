@@ -20,7 +20,7 @@ export class CreateProjectFormComponent {
     projectLead : new FormControl('',[Validators.required]),
 
   });
-
+  
   onSubmit(){
     console.log("inside onSubmit");
     this.projectService.createProject(this.projectDetails.get('projectName')?.value!,this.projectDetails.get('key')?.value!,this.projectDetails.get('projectLead')?.value!);

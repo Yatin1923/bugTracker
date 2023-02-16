@@ -3,8 +3,7 @@ const projectsService = require('./projectsService');
 
 getProjects = async(req,res)=>{
     const result = await  projectsService.getProjects();
-    console.log(result);
-    res.send(result);
+    res.json(result);
 }
 
 createProject = async(req,res)=>{
@@ -33,9 +32,10 @@ updateProject = async(req,res)=>{
         res.send({"message": err.message});
     }
 }
-deleteProject = async(req,res)=>{
+deleteProject = (req,res)=>{
     try{
-        const result = await projectsService.deleteProject(req.params.name)
+        console.log('inside controller')
+        const result = projectsService.deleteProject(req.params.name)
         console.log(result);
         res.send(result);
     }catch(err){

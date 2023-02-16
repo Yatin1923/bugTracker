@@ -5,8 +5,24 @@ table{
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: white;
     border-radius: 5px;
-    
-    
+  }
+  .fa-trash{
+    margin-left: 1rem;
+    border: none;
+    background-color: transparent;
+  }
+  .fa-edit{
+    border: none;
+    background-color: transparent;
+  }
+  .fa-trash:hover{
+    margin-left: 1rem;
+    border: none;
+    color: blue;
+  }
+  .fa-edit:hover{
+    border: none;
+    color: blue;
   }
 
  

@@ -1,17 +1,10 @@
-<h1 mat-dialog-title class="textAlignCenter h0">Sign up</h1>
+<h1 mat-dialog-title class="textAlignCenter h0">Create project</h1>
 <form [formGroup]="projectDetails" class = "signUpForm"  (submit)="onSubmit()">
-
-    
-    
-    
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Project name</mat-label>
             <input type="text"  matInput formControlName="projectName" 
                    placeholder="Ex. pat@example.com">
-            <!-- <mat-error *ngIf=" signUpDetails.get('emailFormControl')?.hasError('pattern') && !signUpDetails.get('emailFormControl')?.hasError('required')">
-                Please enter a valid email address
-            </mat-error> -->
             <mat-error *ngIf="projectDetails.get('projectName')?.hasError('required')">
                 Project name is <strong>required</strong>
             </mat-error>
@@ -23,9 +16,6 @@
             <mat-label>Key</mat-label>
             <input type="text" matInput formControlName="key" 
             placeholder="">
-            <!-- <mat-error *ngIf="signUpDetails.get('passwordFormControl')?.hasError('pattern') && !signUpDetails.get('passwordFormControl')?.hasError('required')">
-                Please provide a strong password
-            </mat-error> -->
             <mat-error *ngIf="projectDetails.get('key')?.hasError('required')">
                 Key is <strong>required</strong>
             </mat-error>
@@ -41,17 +31,6 @@
                 </mat-error>
           </mat-form-field>
     </div>
-    
-    <!-- <div mat-dialog-content>
-        <mat-form-field appearance="outline">
-            <mat-label>Lastname</mat-label>
-            <input type="text" matInput   formControlName="lastNameFormControl"
-                   placeholder="Ex. Smith">
-          </mat-form-field>
-    </div> -->
-    <!-- <div class="textAlignCenter"> 
-        <p>Already a member? <strong><a href="#" style="color:  rgb(80, 80, 80);;">Log In</a></strong></p>
-    </div> -->
     <div mat-dialog-actions>
         <button mat-button type="submit" [disabled]="projectDetails.invalid">Create</button>
         <button mat-button mat-dialog-close type="button">Cancel</button>
