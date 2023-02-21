@@ -26,7 +26,8 @@ createUser = (user)=>{
                                          email : _user.email,
                                          password:hash,
                                          firstname:_user.firstname,
-                                         lastname : _user.lastname
+                                         lastname: _user.lastname,
+                                         projects:[]
                                         });
                                         await userDetails.save();
                                     })

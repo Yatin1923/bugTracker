@@ -6,7 +6,7 @@ const userModel = require('../users/userModel');
 // Get All
 getProjects = async()=>{
     //let projects = new projectModel();
-    const result = await userModel.findOne({email:"yatinchokshi95@gmail.com"},(err, user)=>{
+    const result = await userModel.findOne({email:"dev@ymail.com"},(err, user)=>{
         if(err){
             console.log(err);
         }
@@ -19,31 +19,50 @@ getProjects = async()=>{
 // Create Project
 createProject = (project)=>{
     return new Promise((resolve,reject)=>{
-        userModel.findOne({email:"yatinchokshi95@gmail.com"},async(err,user)=>{
+        userModel.findOne({ email:"dev@ymail.com"},async(err,user)=>{
             if(err){
                 console.log(err);
+          }
+          var userProjects = user.projects
+          projectExists: any = false;
+          for (var i = 0; i < userProjects.length; i++) {
+            if (userProjects[i].name == project.name) {
+              reject({ message: "A project with that name already exists" });
+              projectExists = true;
             }
-            projectModel.findOne({name:project.name},async(err,_project)=>{
-                if(err){
-                    reject({message:"Error creating project"});
-                }else{
+          }
+          if (!projectExists) {
+
+          const projectDetails = new projectModel({
+            name: project.name,
+            key: project.key,
+            projectLead: project.projectLead
+          });
+          user.projects.push(projectDetails);
+          await user.save();
+          resolve({ message: "project created successfully" });
+          }
+            //projectModel.findOne({name:project.name},async(err,_project)=>{
+            //    if(err){
+            //        reject({message:"Error creating project"});
+            //    }else{
                     
-                    if(_project != null || _project != undefined){
-                    resolve({message:"A project with that name already exists"});
-                }
-                else{
-                    console.log(project);
-                    const projectDetails = new projectModel({
-                        name : project.name,
-                        key: project.key,
-                        projectLead: project.projectLead
-                    });
-                    user.projects.push(projectDetails);
-                    await user.save();
-                    resolve({message:"project created successfully"});
-                }
-            }
-        })
+            //        if(_project != null || _project != undefined){
+            //        resolve({message:"A project with that name already exists"});
+            //    }
+            //    else{
+            //        console.log(project);
+            //        const projectDetails = new projectModel({
+            //            name : project.name,
+            //            key: project.key,
+            //            projectLead: project.projectLead
+            //        });
+            //        user.projects.push(projectDetails);
+            //        await user.save();
+            //        resolve({message:"project created successfully"});
+            //    }
+            //}
+        //})
     })
     })
 }
@@ -76,7 +95,8 @@ updateProject = (projectName,project)=>{
 }
 // Delete project
 deleteProject = async(projectName)=>{
-    return new Promise((resolve,reject)=>{userModel.findOne({email:"yatinchokshi95@gmail.com"},async(err,user)=>{
+  return new Promise((resolve, reject) => {
+    userModel.findOne({ email:"dev@ymail.com"},async(err,user)=>{
        // let userProjects = new projectModel()
         userProjects = user.projects;
         for(var i = 0;i<userProjects.length;i++){
