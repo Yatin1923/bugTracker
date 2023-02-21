@@ -1,4 +1,5 @@
-import {Component, HostListener, } from '@angular/core';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import {Component, HostListener,OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { SignUpFormComponent } from '../shared/sign-up-form/sign-up-form.component';
 
@@ -14,9 +15,19 @@ export interface DialogData {
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent {
+  user: any;
+  loggedIn: any;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,private authService:SocialAuthService) {}
 
+  ngOnInit(){
+    this.authService.
+    authState.subscribe((user)=>{
+      this.user = user;
+      this.loggedIn = (user!=null)
+      console.log(user);
+    })
+  }
 
   openDialog() {
     this.dialog.open(SignUpFormComponent,{

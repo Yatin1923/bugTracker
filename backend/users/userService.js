@@ -4,8 +4,10 @@ const { async } = require('rxjs');
 
 
 createUser = (user)=>{
+            console.log(user);
             return new Promise((resolve,reject)=>{
                 const _user = user;
+                console.log(user);
                 userModel.findOne({email:user.email},async(err,user)=>{
                  
                         if(err){

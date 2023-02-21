@@ -34,9 +34,8 @@ updateProject = async(req,res)=>{
 }
 deleteProject = (req,res)=>{
     try{
-        console.log('inside controller')
         const result = projectsService.deleteProject(req.params.name)
-        console.log(result);
+        //console.log(result);
         res.send(result);
     }catch(err){
         console.log(err);

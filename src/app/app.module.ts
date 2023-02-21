@@ -17,7 +17,11 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ProjectsComponent } from './projects/projects.component';
 import {MatTableModule} from '@angular/material/table';
 import { CreateProjectFormComponent } from './shared/create-project-form/create-project-form/create-project-form.component';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
 
 
 @NgModule({
@@ -42,9 +46,32 @@ import { CreateProjectFormComponent } from './shared/create-project-form/create-
     MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '710907190539-bf57032h22l1ibvth6klhgsf5809eo35.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
