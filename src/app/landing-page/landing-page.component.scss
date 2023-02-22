@@ -20,15 +20,26 @@
     width: 31px;
     margin-right: 8px
 }
-
+// .signUp{
+//     opacity: 1;
+//     transition: opacity 1s ease;
+// }
+// .logIn{
+//     opacity: 1;
+//     transition: opacity 1s ease;
+// }
 .signUpCard{
     padding: 20px 100px;
 }
 .emailBtn{
+    width: 100%;
     padding: 12px 0px;
     margin-bottom: 20px;
 }.googleBtn{
     padding: 12px 0px;
+}
+.mat-form-field{
+    width: 100%;
 }
 .googleImg{
     width: 18px;

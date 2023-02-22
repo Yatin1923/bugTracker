@@ -6,8 +6,8 @@ const userRouter = require('./routes/userRoutes');
 const projectsRouter = require('./routes/projectRoutes');
 mongoose.set('strictQuery',false);
 
-app.use(cors())
-
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 app.listen(3000,(err)=>{
     if(err)
     console.log(err)

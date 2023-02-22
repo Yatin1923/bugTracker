@@ -11,11 +11,22 @@ export const rowsAnimation =
       ])
     ]);
 
-    export const rowUpdate =
-  trigger('rowUpdate', [
+export const rowUpdate =
+    trigger('rowUpdate', [
     transition('void => *', animate('5000ms', keyframes([
       style({backgroundColor: 'initial', boxShadow: 'none', offset: 0} ),
       style({backgroundColor: 'red', boxShadow: '0 0 5px red', offset: 0.1} ),
       style({backgroundColor: 'initial', boxShadow: 'none', offset: 1} ),
     ])))
   ]);
+
+  export const inoutAnimation = trigger('inoutAnimation',[
+    state('signUp',style({
+      opacity:1
+    })),
+    state('logIn',style({
+      opacity:0.5
+    })),
+    transition('signUp=>logIn',animate('500ms ease-in')),
+    transition('logIn=>signUp',animate('500ms ease-in'))
+  ])

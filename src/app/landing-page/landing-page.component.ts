@@ -1,13 +1,11 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import {Component, HostListener,OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { AuthService } from '../shared/sign-up-form/Auth/auth.service';
 import { SignUpFormComponent } from '../shared/sign-up-form/sign-up-form.component';
 
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-landing-page',
@@ -17,11 +15,16 @@ export interface DialogData {
 export class LandingPageComponent {
   user: any;
   loggedIn: any;
-
-  constructor(public dialog: MatDialog,private authService:SocialAuthService) {}
-
+  loginCard:boolean = false
+  constructor(public dialog: MatDialog,private socialAuthService:SocialAuthService, private authService:AuthService) {}
+  loginCredentials = new FormGroup(
+    {
+      emailFormControl : new FormControl(),
+      passwordFormControl :new FormControl()
+    }
+  )
   ngOnInit(){
-    this.authService.
+    this.socialAuthService.
     authState.subscribe((user)=>{
       this.user = user;
       this.loggedIn = (user!=null)
@@ -29,11 +32,17 @@ export class LandingPageComponent {
     })
   }
 
+  onLogin(){
+    alert("hello "+ this.loginCredentials.get('emailFormControl')?.value);
+    this.loginCredentials.reset();
+  }
   openDialog() {
     this.dialog.open(SignUpFormComponent,{
       width:'30%'
     });
   }
+
+ 
   @HostListener('window:scroll')
    animations() {
      var elementVisible = 100;

@@ -22,16 +22,50 @@
                     <div class="col-md-6">
                         <div class="signUpCard">
                             
-                            <div class="card textAlignCenter">
-                                <h2><b>Get Started</b></h2>
-                                <p>Free upto 10 users</p>
-                                <div class="googleBtn" >
-                                    <asl-google-signin-button id="googleSignIn" class="" type='standard' size='large' text="continue_with" width="375"  theme="filled_blue"></asl-google-signin-button>
+                            <div id="card" class="card textAlignCenter" [ngClass]="{'logIn':loginCard,'signUp':!loginCard}">
+
+                                <!-- signUp Card -->
+                                <div class="signUp animate__animated animate__fadeIn" *ngIf="!loginCard" >
+
+                                    <h2><b>Get Started</b></h2>
+                                    <p>Free upto 10 users</p>
+                                    <div class="googleBtn">
+                                        <asl-google-signin-button id="googleSignIn" class="" type='standard' size='large' text="continue_with" width="375"  theme="filled_blue"></asl-google-signin-button>
+                                    </div>
+                                    <div class="lineBreak">
+                                        <div class="line"></div><span>OR</span> <div class="line"></div>
+                                    </div>
+                                    <button class="btn emailBtn boxShadow" (click)="openDialog()"> <i class="fa fa-envelope" aria-hidden="true"></i> <b> Sign up with Email</b></button>
+                                    <div class="textAlignCenter"> 
+                                        <p>Already a member? <strong><a href="#" (click)="this.loginCard = !this.loginCard;" style="color:  rgb(80, 80, 80);;">Log In</a></strong></p>
+                                    </div>
                                 </div>
-                                <div class="lineBreak">
-                                    <div class="line"></div><span>OR</span> <div class="line"></div>
-                                </div>
-                                <button class="btn emailBtn boxShadow" (click)="openDialog()"> <i class="fa fa-envelope" aria-hidden="true"></i> <b> Sign up with Email</b></button>
+                                    <!-- Login Card -->
+                                    <div class="logIn animate__animated animate__fadeIn" *ngIf="loginCard" >
+
+                                        <h2 ><b>Log In</b></h2>
+                                        <form action="" [formGroup]="loginCredentials" (ngSubmit)="onLogin()">
+
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Email</mat-label>
+                                                <input type="email"  matInput formControlName="emailFormControl" 
+                                                placeholder="Ex. pat@example.com">
+                                            </mat-form-field>
+                                            
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Password</mat-label>
+                                                <input type="password"  matInput formControlName="passwordFormControl">
+                                            </mat-form-field>
+
+                                            <button class="btn btn-primary emailBtn boxShadow"><b>Login</b></button>
+                                        </form>
+                                            
+                                            <div class="textAlignCenter"> 
+                                                <p>New User? <strong><a href="#" (click)="this.loginCard = !this.loginCard;" style="color:  rgb(80, 80, 80);;">SignUp</a></strong></p>
+                                            </div>
+                                    </div>
+
+
                                 <h3><b>Bug Tracker</b></h3>
                             </div>
                         </div>
