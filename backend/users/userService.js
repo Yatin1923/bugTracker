@@ -4,14 +4,11 @@ const { async } = require('rxjs');
 var passport = require('passport');
 const initializePassport = require('../passport-config');
 
-
-initializePassport(passport, "yatinchokshi95@gmail.com");
-
 createUser = (user)=>{
             console.log(user);
             return new Promise((resolve,reject)=>{
                 const _user = user;
-                console.log(user);
+                // console.log(user);
                 userModel.findOne({email:user.email},async(err,user)=>{
                  
                         if(err){

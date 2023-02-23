@@ -4,11 +4,9 @@ var userController = require('../users/userController.js');
 const userRouter = express.Router();
 
 userRouter.route('/signup').post(userController.createUser)
-userRouter.route('/login').post( passport.authenticate('local', {
-  successRedirect: 'http://localhost:4200/projects',
-  failureRedirect: '/error',
-  //successFlash: true,
-  //failureFlash:true
+userRouter.route('/login').post(passport.authenticate('local', {
+  failureRedirect:"/error",
+  successRedirect:"/success"
 }))
 
 module.exports = userRouter;
