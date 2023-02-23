@@ -3,13 +3,32 @@ const app = express();
 var session = require('express-session')
 var passport = require('passport');
 const cors=require('cors');
-app.use(cors());
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
 const mongoose = require('mongoose');
 const userRouter = require('./routes/userRoutes');
 const projectsRouter = require('./routes/projectRoutes');
 
 mongoose.set('strictQuery',false);
-
+// app.use(function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 app.use(express.urlencoded({ extended: false }));
 app.listen(3000,(err)=>{
     if(err)

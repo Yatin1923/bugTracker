@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\projects",
+    "\\users"
   ],
-  "SelectedNode": "\\passport-config.js",
+  "SelectedNode": "\\projects\\projectsService.js",
   "PreviewInSolutionExplorer": false
 }
