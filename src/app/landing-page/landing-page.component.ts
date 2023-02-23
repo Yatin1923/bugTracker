@@ -33,7 +33,7 @@ export class LandingPageComponent {
   }
 
   onLogin(){
-    alert("hello "+ this.loginCredentials.get('emailFormControl')?.value);
+    this.authService.loginUser(this.loginCredentials.get('emailFormControl')?.value,this.loginCredentials.get('passwordFormControl')?.value)
     this.loginCredentials.reset();
   }
   openDialog() {

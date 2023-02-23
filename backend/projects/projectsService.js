@@ -9,10 +9,16 @@ getProjects = async()=>{
     const result = await userModel.findOne({email:"dev@ymail.com"},(err, user)=>{
         if(err){
             console.log(err);
-        }
-        projects = user.projects;
+      }
+
+      //if (user.projects != null) {
+      //  console.log("notnull");
+      //  projects = user.projects;
+      //  return user.projects;
+
+      //}
+      return null
         //console.log(projects);
-        return user.projects;
     }).clone();
     return projects;
 } 
