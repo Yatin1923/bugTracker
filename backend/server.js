@@ -6,7 +6,7 @@ const userRouter = require('./routes/userRoutes');
 const projectsRouter = require('./routes/projectRoutes');
 const session = require('express-session')
 const passport = require('passport');
-const { initializePassport } = require('./passport-config');
+const { initializePassport,isAuthenticated } = require('./passport-config');
 
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb://127.0.0.1/bugTracker',(err)=>{
@@ -15,7 +15,6 @@ mongoose.connect('mongodb://127.0.0.1/bugTracker',(err)=>{
     else
     console.log('Connected to database successfully');
 })
-
 
 initializePassport(passport);
 app.use(express.json());
@@ -29,7 +28,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:4200",
+  credentials:true
+}));
 app.use('/user',userRouter);
 app.use('/projects',projectsRouter);
 
@@ -39,7 +41,7 @@ app.use('/projects',projectsRouter);
 
 
 
-app.listen(3000,(err)=>{
+app.listen(3000,(req,res,err)=>{
     if(err)
     console.log(err)
     else

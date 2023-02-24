@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from './Auth/auth.service';
+import { AuthService } from '../../Auth/auth.service';
 
 @Component({
   selector: 'app-sign-up-form',

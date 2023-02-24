@@ -15,15 +15,5 @@ createUser = async(req,res)=>{
         res.send({"message": err.message});
     }
 }
-//loginUser = async (req, res) => {
-//  try {
-//    const result = await userService.loginUser(req.body);
-//    console.log(result.status);
-//    res.send({ "status": result.status, "result": result.msg });
-//  } catch (err) {
-//    console.log(err)
-//    res.send({ "message": err.message });
-//  }
-//}
 
-module.exports = { createUser };
+module.exports = { createUser};

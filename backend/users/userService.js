@@ -44,30 +44,4 @@ createUser = (user)=>{
 
 
 
-
-//loginUser = (user) => {
-//  console.log(user);
-//  return new Promise((resolve, reject) => {
-
-//    userModel.findOne({ email: user.email }, async (err, _user) => {
-//      if (err) {
-//        reject({ status: false, msg: 'Error occured' })
-//      } else {
-//        if (_user == null || _user == undefined) {
-//          resolve({ status: false, msg: 'No account with specified email found' });
-//        } else {
-//          bcrypt.compare(user.password, _user.password, (err, same) => {
-//            if (same) {
-//              resolve({ status: true, msg: 'Logged in successfully' })
-//            } else {
-//              resolve({ status: false, msg: 'Incorrect password' })
-//            }
-//          });
-          
-//        }
-//      }
-//    });
-//  });
-//}
-
 module.exports = { createUser};

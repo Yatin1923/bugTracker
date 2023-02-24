@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router  } from '@angular/router';
 import { response } from 'express';
@@ -11,7 +11,7 @@ export class AuthService {
   loginUrl:string = "http://localhost:3000/user/login"
   
   constructor(private http: HttpClient,private router: Router){}
- 
+  isLoggedIn:boolean;
  
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
@@ -23,23 +23,26 @@ export class AuthService {
   }
   
   loginUser(email:string,password:string){
-    this.http.post(this.loginUrl,{email:email,password:password}).subscribe({
+    this.http.post(this.loginUrl,{email:email,password:password},{withCredentials:true}).subscribe({
       next: (response) => {
         console.log(response);
         if(response == true){
-          setTimeout(()=>{
-            this.router.navigate(['/projects']);
-
-          },10000)
+          sessionStorage.setItem('isLoggedIn',"true");
+          this.router.navigate(['/projects']);
         }
       },
       error: (error) => {
+        this.isLoggedIn = false
         console.log(error.status);
         if(error.status){
           alert("Incorrect username or password");
         }
       }
     });
+  }
+
+  isAuthenticated() {
+    return sessionStorage.getItem("isLoggedIn");
   }
 
 

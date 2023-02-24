@@ -45,7 +45,7 @@ exports.initializePassport = (passport)=>{
 };
 
 exports.isAuthenticated = (req,res,next)=>{
-  if(req.user) return next();
+  if(req.user) return true;
 
-  res.redirect("/");
+  return false;
 }

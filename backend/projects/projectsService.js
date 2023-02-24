@@ -8,14 +8,17 @@ const { request } = require('express');
 getProjects = async(user)=>{
     let projects = null;
    console.log("user" , user);
-    await userModel.findOne({email:user.email},(err, user)=>{
-        if(err){
-            console.log(err);
-        }if(user){
-            projects = user.projects;
-        }
-    }).clone();
-    return projects;
+   if(user){
+
+       await userModel.findOne({email:user.email},(err, user)=>{
+           if(err){
+               console.log(err);
+            }if(user){
+                projects = user.projects;
+            }
+        }).clone();
+        return projects;
+    }
 } 
 // Create Project
 createProject = (project,user)=>{

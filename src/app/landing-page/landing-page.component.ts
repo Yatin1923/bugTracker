@@ -2,7 +2,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import {Component, HostListener,OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { AuthService } from '../shared/sign-up-form/Auth/auth.service';
+import { AuthService } from '../Auth/auth.service';
 import { SignUpFormComponent } from '../shared/sign-up-form/sign-up-form.component';
 
 
