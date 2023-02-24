@@ -11,7 +11,7 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   getProject(){
-    const result = this.http.get(this.basedUrl);
+    const result = this.http.get(this.basedUrl, {withCredentials: true});
     return result;
   }
   deleteProject(name:String){

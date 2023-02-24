@@ -24,16 +24,19 @@ exports.initializePassport = (passport)=>{
     }
     })
   );
-    passport.serializeUser(()=>{
-      console.log("serializing user");
-    })
-  passport.serializeUser((user,done)=>{
-    done(null,user.id);
-  })
-  passport.deserializeUser((id,done)=>{
+    passport.serializeUser((user,done)=>{
+      console.log("serializing user:" +user);
+
+      done(null,user.id);
+    });
+    passport.deserializeUser((id,done)=>{
     try{
-      const user = userModel.findById(id);
-      done(null,user); 
+      console.log("deserializing user:" + id);
+      const result = userModel.findById(id,(err,user_)=>{
+        if(err)return done(err);
+        done(null,user_); 
+        
+      });
     }
     catch(err){
       done(err,false);

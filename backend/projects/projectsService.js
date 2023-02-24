@@ -1,43 +1,38 @@
 const { findByIdAndUpdate } = require('./projectsModel');
 const projectModel = require('./projectsModel');
 const userModel = require('../users/userModel');
+const { request } = require('express');
 
 
 // Get All
-getProjects = async()=>{
-    //let projects = new projectModel();
-    const result = await userModel.findOne({email:"dev@ymail.com"},(err, user)=>{
+getProjects = async(user)=>{
+    let projects = null;
+   console.log("user" , user);
+    await userModel.findOne({email:user.email},(err, user)=>{
         if(err){
             console.log(err);
-      }
-
-      //if (user.projects != null) {
-      //  console.log("notnull");
-      //  projects = user.projects;
-      //  return user.projects;
-
-      //}
-      return null
-        //console.log(projects);
+        }if(user){
+            projects = user.projects;
+        }
     }).clone();
     return projects;
 } 
 // Create Project
-createProject = (project)=>{
+createProject = (project,user)=>{
     return new Promise((resolve,reject)=>{
-        userModel.findOne({ email:"dev@ymail.com"},async(err,user)=>{
+        userModel.findOne({ email:user.email},async(err,user)=>{
             if(err){
                 console.log(err);
           }
           var userProjects = user.projects
-          projectExists: any = false;
+          var projectExists = false;
           for (var i = 0; i < userProjects.length; i++) {
             if (userProjects[i].name == project.name) {
               reject({ message: "A project with that name already exists" });
               projectExists = true;
             }
           }
-          if (!projectExists) {
+          if(!projectExists) {
 
           const projectDetails = new projectModel({
             name: project.name,
@@ -73,7 +68,7 @@ createProject = (project)=>{
     })
 }
 // Update project
-updateProject = (projectName,project)=>{
+updateProject = (projectName,project,user)=>{
     return new Promise((resolve,reject)=>{
         console.log(projectName);
         projectModel.findOne({name:projectName},async(err,_project)=>{
@@ -100,9 +95,9 @@ updateProject = (projectName,project)=>{
     })
 }
 // Delete project
-deleteProject = async(projectName)=>{
+deleteProject = async(projectName,user)=>{
   return new Promise((resolve, reject) => {
-    userModel.findOne({ email:"dev@ymail.com"},async(err,user)=>{
+    userModel.findOne({ email:user.email},async(err,user)=>{
        // let userProjects = new projectModel()
         userProjects = user.projects;
         for(var i = 0;i<userProjects.length;i++){
