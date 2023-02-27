@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable ,OnInit} from '@angular/core';
 import { Router  } from '@angular/router';
 import { response } from 'express';
 import { AuthData } from './auth-data.model';
@@ -11,8 +11,8 @@ export class AuthService {
   loginUrl:string = "http://localhost:3000/user/login"
   
   constructor(private http: HttpClient,private router: Router){}
-  isLoggedIn:boolean;
- 
+  //isLoggedIn:boolean;
+
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
       email: email, password: password, firstname: firstname, lastname: lastname
@@ -27,12 +27,13 @@ export class AuthService {
       next: (response) => {
         console.log(response);
         if(response == true){
+          localStorage.setItem('isLoggedIn',"true");
           sessionStorage.setItem('isLoggedIn',"true");
           this.router.navigate(['/projects']);
         }
       },
       error: (error) => {
-        this.isLoggedIn = false
+        
         console.log(error.status);
         if(error.status){
           alert("Incorrect username or password");
@@ -42,7 +43,9 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return sessionStorage.getItem("isLoggedIn");
+    const localLogin = localStorage.getItem("isLoggedIn");
+    const sessionLogin = sessionStorage.getItem("isLoggedIn");
+    return sessionLogin || localLogin
   }
 
 

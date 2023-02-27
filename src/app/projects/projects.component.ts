@@ -45,6 +45,13 @@ export class ProjectsComponent {
   }
   displayedColumns: string[] = ['name', 'key', 'projectLead','action'];
 
+
+  isEmpty(){
+    if(this.dataSource.data){
+      return false;
+    }
+    return true;
+  }
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

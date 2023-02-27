@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  ngOnDestroy(){
+    localStorage.removeItem('isLoggedIn');
+   }
+   constructor(){
+    window.onbeforeunload = ()=>{
+      localStorage.removeItem('isLoggedIn');
+    }
+   }
   title = 'bugTracker';
 }
