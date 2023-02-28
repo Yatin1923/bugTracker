@@ -42,6 +42,28 @@ createUser = (user)=>{
 
 };
 
+logoutUser = (req)=>{
+    return new Promise ((resolve,reject)=>{
+
+        req.logOut((err,res)=>{
+            if(err){
+                console.log(err);
+                reject("Error: "+err);
+                
+            }else{
+                // console.log(result);
+                resolve("logged out successfully");
+                
+            }
+        });    
+    })
+}
+isAuthenticated = async(req,res)=>{
+    console.log(req.user);
+    if(req.user) return true;
+
+    return false;
+}
 
 
-module.exports = { createUser};
+module.exports = { createUser,logoutUser,isAuthenticated};

@@ -6,7 +6,7 @@ const userRouter = require('./routes/userRoutes');
 const projectsRouter = require('./routes/projectRoutes');
 const session = require('express-session')
 const passport = require('passport');
-const { initializePassport,isAuthenticated } = require('./passport-config');
+const { initializePassport } = require('./passport-config');
 
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb://127.0.0.1/bugTracker',(err)=>{

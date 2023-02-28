@@ -11,15 +11,21 @@ export class LoginGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const isLoggedIn = this.authService.isAuthenticated();
-    console.log(isLoggedIn);
-    if (isLoggedIn == "true") {
-      this.router.navigate(['/projects']);
-      return false;
-    }
-    else{
-      return true;
-    }
+      return new Promise((resolve,reject)=>{
+        
+        this.authService.isAuthenticated().subscribe(response=>{
+          console.log(!response);
+          if (response) {
+            this.router.navigate(['/projects']);
+            resolve(false);
+          }
+          else{
+            resolve(true);
+          }
+        })
+      })
+
+
   }
   
 }

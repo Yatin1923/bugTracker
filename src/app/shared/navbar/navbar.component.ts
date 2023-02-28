@@ -32,4 +32,8 @@ export class NavbarComponent {
       width:'30%'
     });
   }
+  logout(){
+    this.router.navigate(['/']);    
+    this.authService.logout();
+  }
 }
