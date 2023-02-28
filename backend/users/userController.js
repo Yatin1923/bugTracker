@@ -16,17 +16,13 @@ createUser = async(req,res)=>{
     }
 }
 logoutUser = async(req,res)=>{
-    const result = await userService.logoutUser(req);
-    
-    res.send(result);
+    const result = await userService.logoutUser(req);    
+    // res.send(result);
     
 }
 
 isAuthenticated = async(req, res)=>{
-    console.log("asdf: "+req.isAuthenticated());
-    const result =  await userService.isAuthenticated(req);
-    console.log("isAuthenticated:" + result);
-    
+    const result =  await userService.isAuthenticated(req);    
     res.send(result);
 
 } 

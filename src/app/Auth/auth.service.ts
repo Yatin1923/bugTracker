@@ -15,28 +15,27 @@ export class AuthService {
   
   logout() {
     this.router.navigate(['/']);
-    this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe(response => {
-    });
+    this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe();
   }
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
       email: email, password: password, firstname: firstname, lastname: lastname
     }
     this.http.post(this.basedUrl+'/signup',authData).subscribe(response=>{
-      console.log(response);
+      // console.log(response);
     })
   }
   
   loginUser(email:string,password:string){
     this.http.post(this.basedUrl+'/login',{email:email,password:password},{withCredentials:true}).subscribe({
       next: (response) => {
-        if(response == true){
+        if(response){
           this.router.navigate(['/projects']);
         }
       },
       error: (error) => {
         
-        console.log(error.status);
+        // console.log(error.status);
         if(error.status){
           alert("Incorrect username or password");
         }

@@ -28,7 +28,7 @@ export class LandingPageComponent {
     authState.subscribe((user)=>{
       this.user = user;
       this.loggedIn = (user!=null)
-      console.log(user);
+      // console.log(user);
     })
   }
 

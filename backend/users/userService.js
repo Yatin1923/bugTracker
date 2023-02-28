@@ -58,11 +58,8 @@ logoutUser = (req)=>{
         });    
     })
 }
-isAuthenticated = async(req,res)=>{
-    console.log(req.user);
-    if(req.user) return true;
-
-    return false;
+isAuthenticated = async(req,res)=>{   
+    return req.isAuthenticated();
 }
 
 

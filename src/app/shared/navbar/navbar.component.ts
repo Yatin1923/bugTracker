@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpFormComponent } from '../sign-up-form/sign-up-form.component';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,18 +16,18 @@ export class NavbarComponent {
   isLoggedIn: any 
   ngOnInit(){
     this.router.events.subscribe(event => {
-      if(event.constructor.name === 'NavigationEnd') {
-        this.isLoggedIn = this.authService.isAuthenticated();
-      }
-      if(this.isLoggedIn == null){
-        this.isLoggedIn = false;
+      if(event instanceof NavigationEnd) {
+          this.authService.isAuthenticated().subscribe(response=>{
+            this.isLoggedIn = response;
+            // console.log(this.isLoggedIn);
+          });
       }
     })
   }
 
 
   openDialog() {
-    console.log(this.isLoggedIn);
+    // console.log(this.isLoggedIn);
     this.dialog.open(SignUpFormComponent,{
       width:'30%'
     });
