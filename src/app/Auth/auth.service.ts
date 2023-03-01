@@ -11,18 +11,15 @@ export class AuthService {
   basedUrl:string = "http://localhost:3000/user"
   
   constructor(private http: HttpClient,private router: Router){}
-  //isLoggedIn:boolean;
   
   logout() {
-    this.router.navigate(['/']);
     this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe();
-  }
+}
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
       email: email, password: password, firstname: firstname, lastname: lastname
     }
     this.http.post(this.basedUrl+'/signup',authData).subscribe(response=>{
-      // console.log(response);
     })
   }
   
@@ -35,7 +32,6 @@ export class AuthService {
       },
       error: (error) => {
         
-        // console.log(error.status);
         if(error.status){
           alert("Incorrect username or password");
         }

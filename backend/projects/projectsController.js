@@ -3,10 +3,6 @@ const express = require('express');
 
 
 getProjects = async(req,res)=>{
-    console.log(req.user);
-    if(req.user){
-        console.log(req.user);
-    }
     const result = await  projectsService.getProjects(req.user);    
     res.json(result);
 }
@@ -14,9 +10,7 @@ getProjects = async(req,res)=>{
 createProject = async(req,res)=>{
 
     try{
-        console.log(req.user);
         const result =  await projectsService.createProject(req.body,req.user);
-        console.log(result.message)
         res.send({"message":result.message});
         
             
@@ -30,7 +24,6 @@ createProject = async(req,res)=>{
 updateProject = async(req,res)=>{
     try{
         const result = await projectsService.updateProject(req.params.name,req.body,req.user);
-        console.log(result);
         res.send(result);
 
     }catch(err){
@@ -41,7 +34,6 @@ updateProject = async(req,res)=>{
 deleteProject = (req,res)=>{
     try{
         const result = projectsService.deleteProject(req.params.name,req.user)
-        //console.log(result);
         res.send(result);
     }catch(err){
         console.log(err);

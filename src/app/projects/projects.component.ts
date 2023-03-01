@@ -33,7 +33,6 @@ export class ProjectsComponent {
 
   getProjects(){
     this.projectService.getProject().subscribe((data:any)=>{
-      console.log(data);
       this.dataSource = new MatTableDataSource(data);
     })
   }
@@ -55,8 +54,6 @@ export class ProjectsComponent {
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-   // console.log(this.dataSource.filter);
-    // this.dataSource = this.dataSource.filter
   }
  
 }

@@ -5,10 +5,8 @@ var passport = require('passport');
 const initializePassport = require('../passport-config');
 
 createUser = (user)=>{
-            console.log(user);
             return new Promise((resolve,reject)=>{
                 const _user = user;
-                // console.log(user);
                 userModel.findOne({email:user.email},async(err,user)=>{
                  
                         if(err){
@@ -20,7 +18,6 @@ createUser = (user)=>{
                                 resolve({status:false,msg:'Account with this email already exists'});
                                 
                             }else{
-                                console.log(_user);
                                 bcrypt.hash(_user.password,10).then(async(hash)=>{
          
                                     const userDetails = new userModel({
@@ -42,17 +39,14 @@ createUser = (user)=>{
 
 };
 
-logoutUser = (req)=>{
+logoutUser = (req,res)=>{
     return new Promise ((resolve,reject)=>{
-
         req.logOut((err,res)=>{
             if(err){
-                console.log(err);
-                reject("Error: "+err);
+                reject(err);
                 
             }else{
-                // console.log(result);
-                resolve("logged out successfully");
+            resolve(true);
                 
             }
         });    

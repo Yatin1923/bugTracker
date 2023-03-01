@@ -14,7 +14,6 @@ export class LoginGuard implements CanActivate {
       return new Promise((resolve,reject)=>{
         
         this.authService.isAuthenticated().subscribe(response=>{
-          // console.log(!response);
           if (response) {
             this.router.navigate(['/projects']);
             resolve(false);

@@ -25,7 +25,6 @@ export class ProjectService {
       projectLead:projectlead
     }
     this.http.post(this.basedUrl,projectDetails, {withCredentials: true}).subscribe(response=>{
-      console.log(response);
     });
   }
 }
