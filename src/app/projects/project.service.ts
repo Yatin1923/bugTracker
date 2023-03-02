@@ -17,6 +17,12 @@ export class ProjectService {
     const result = this.http.delete(url, {withCredentials: true})
     return result;
   }
+  
+  editProject(name:String){
+    const url = this.basedUrl +'/'+name;
+    const result = this.http.put(url, {}, {withCredentials: true})
+    return result;
+  }
 
   createProject(name:String,key:String,projectlead:String){
     const projectDetails:projectModel = {

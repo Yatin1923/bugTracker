@@ -24,19 +24,21 @@ export class AuthService {
   }
   
   loginUser(email:string,password:string){
-    this.http.post(this.basedUrl+'/login',{email:email,password:password},{withCredentials:true}).subscribe({
-      next: (response) => {
-        if(response){
-          this.router.navigate(['/projects']);
+   return new Promise((resolve,reject)=>{
+
+     this.http.post(this.basedUrl+'/login',{email:email,password:password},{withCredentials:true}).subscribe({
+       next: (response) => {
+         if(response){
+           this.router.navigate(['/projects']);
+          }
+        },
+        error: (error) => {
+          
+          resolve("Incorrect username or password");
+          
         }
-      },
-      error: (error) => {
-        
-        if(error.status){
-          alert("Incorrect username or password");
-        }
-      }
-    });
+      });
+    }) 
   }
 
   isAuthenticated() {

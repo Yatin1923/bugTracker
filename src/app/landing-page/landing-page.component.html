@@ -45,14 +45,14 @@
 
                                         <h2 ><b>Log In</b></h2>
                                         <form action="" [formGroup]="loginCredentials" (ngSubmit)="onLogin()">
-
-                                            <mat-form-field appearance="outline">
+                                            <mat-error class="animate__animated animate__fadeIn" [innerHTML]="error"></mat-error>
+                                            <mat-form-field appearance="outline" [ngClass]="{'mat-form-field-invalid':error}">
                                                 <mat-label>Email</mat-label>
-                                                <input type="email"  matInput formControlName="emailFormControl" 
+                                                <input type="email" matInput formControlName="emailFormControl" 
                                                 placeholder="Ex. pat@example.com">
                                             </mat-form-field>
                                             
-                                            <mat-form-field appearance="outline">
+                                            <mat-form-field appearance="outline" [ngClass]="{'mat-form-field-invalid':error}">
                                                 <mat-label>Password</mat-label>
                                                 <input type="password"  matInput formControlName="passwordFormControl">
                                             </mat-form-field>
@@ -61,7 +61,7 @@
                                         </form>
                                             
                                             <div class="textAlignCenter"> 
-                                                <p>New User? <strong><a href="#" (click)="this.loginCard = !this.loginCard;" style="color:  rgb(80, 80, 80);;">SignUp</a></strong></p>
+                                                <p>New User? <strong><a href="#" (click)="this.loginCard = !this.loginCard; error = ''" style="color:  rgb(80, 80, 80);;">SignUp</a></strong></p>
                                             </div>
                                     </div>
 

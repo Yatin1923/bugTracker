@@ -90,6 +90,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+              "src/bugTracker.png",
               "src/assets"
             ],
             "styles": [

@@ -1,5 +1,5 @@
 .getStarted{
-    margin-top: 70px;
+    // margin-top: 70px;
     padding-top: 40px;
     height: 92vh;
     color: white;
@@ -34,7 +34,11 @@
 .signUpCard{
     color: var(--textPrimary);
     padding: 20px 100px;
-    height: 450px;
+    min-height: 460px;
+    transition: 500ms ease;;
+}
+.signUpCard.long {
+    max-height: 600px;
 }
 .emailBtn{
     width: 100%;

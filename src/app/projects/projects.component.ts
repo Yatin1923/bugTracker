@@ -37,6 +37,16 @@ export class ProjectsComponent {
     })
   }
 
+  editProjectForm(name:string,key:string,projectLead:string){
+    const dialogref = this.dialog.open(CreateProjectFormComponent,{
+      width:'30%',
+    })
+    dialogref.afterClosed().subscribe(()=>
+      this.getProjects()
+    )
+    
+
+  }
   deleteProject(name:String){
      this.projectService.deleteProject(name).subscribe(()=>{
        this.getProjects();

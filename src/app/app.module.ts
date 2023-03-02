@@ -22,6 +22,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
+import {MatMenuModule} from '@angular/material/menu'
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {
     ReactiveFormsModule,
     HttpClientModule,
     MatTableModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatMenuModule
   ],
   providers: [
     {

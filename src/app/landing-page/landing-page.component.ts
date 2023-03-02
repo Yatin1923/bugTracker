@@ -67,10 +67,11 @@ export class LandingPageComponent {
       // console.log(user);
     })
   }
-
-  onLogin(){
-    this.authService.loginUser(this.loginCredentials.get('emailFormControl')?.value,this.loginCredentials.get('passwordFormControl')?.value)
-    this.loginCredentials.reset();
+error:any;
+  async onLogin(){
+   const result =  await this.authService.loginUser(this.loginCredentials.get('emailFormControl')?.value,this.loginCredentials.get('passwordFormControl')?.value)
+    this.error = result
+   this.loginCredentials.reset();
   }
   openDialog() {
     this.dialog.open(SignUpFormComponent,{

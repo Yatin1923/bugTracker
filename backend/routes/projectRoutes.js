@@ -11,7 +11,8 @@ projectsRouter.route('').post(projectsController.createProject).get(projectsCont
 });
 
 // Update,Delete Project
-projectsRouter.route('/:name').post(projectsController.updateProject).delete(projectsController.deleteProject);
+projectsRouter.route('/:name').post(projectsController.updateProject).delete(projectsController.deleteProject).put(projectsController.updateProject);
+
 
 
 module.exports = projectsRouter;
