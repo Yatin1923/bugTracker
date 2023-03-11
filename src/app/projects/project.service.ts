@@ -18,9 +18,16 @@ export class ProjectService {
     return result;
   }
   
-  editProject(name:String){
-    const url = this.basedUrl +'/'+name;
-    const result = this.http.put(url, {}, {withCredentials: true})
+  editProject(_name:string,name:String,key:String,projectlead:String){
+    // console.log("editProject: ",_name)
+    const url = this.basedUrl +'/'+_name;
+
+    const projectDetails:projectModel = {
+      name:name,
+      key:key,
+      projectLead:projectlead
+    }
+    const result = this.http.put(url, projectDetails, {withCredentials: true}).subscribe();
     return result;
   }
 

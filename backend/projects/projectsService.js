@@ -51,23 +51,31 @@ createProject = (project,user)=>{
 // Update project
 updateProject = (projectName,project,user)=>{
     return new Promise((resolve,reject)=>{
-        projectModel.findOne({name:projectName},async(err,_project)=>{
+        userModel.findOne({ email:user.email},async(err,user)=>{
             if(err){
-                reject('Error:' + err)
+                console.log(err);
+          }
+          var userProjects = user.projects;
+          var projectExists = false;
+          for (var i = 0; i < userProjects.length; i++) {
+            if (userProjects[i].name == projectName) {
+
+                projectExists = true;
+
+                userProjects[i].name = project.name;
+                userProjects[i].key = project.key;
+                userProjects[i].projectLead = project.projectLead;
+                break;
             }
-            if(_project == null || _project == undefined){
-                resolve("Project not found");
-            }else{
-                const projectDetails = new projectModel({
-                    _id:_project.id,
-                    name : project.name,
-                    key: project.key,
-                    projectLead: project.projectLead
-                });
-                await projectModel.findByIdAndUpdate(_project.id,projectDetails);
-                resolve("Project updated");
-            }
-        })
+          }
+          if(projectExists){
+              resolve({ message: "project updated successfully" });
+          }else{
+            resolve({message:"project not found"})
+          }
+          await user.save();
+          
+    })
     })
 }
 // Delete project

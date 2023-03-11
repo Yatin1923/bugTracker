@@ -38,8 +38,14 @@ export class ProjectsComponent {
   }
 
   editProjectForm(name:string,key:string,projectLead:string){
+    //console.log(name + ": " + key + ": " + projectLead)
     const dialogref = this.dialog.open(CreateProjectFormComponent,{
       width:'30%',
+      data:{
+        name:name,
+        key:key,
+        projectLead:projectLead
+      }
     })
     dialogref.afterClosed().subscribe(()=>
       this.getProjects()

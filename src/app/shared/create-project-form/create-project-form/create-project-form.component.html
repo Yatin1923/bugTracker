@@ -1,4 +1,5 @@
-<h1 mat-dialog-title class="textAlignCenter h0">Create project</h1>
+<h1 mat-dialog-title class="textAlignCenter h0" *ngIf="!data">Create project</h1>
+<h1 mat-dialog-title class="textAlignCenter h0" *ngIf="data">Edit project</h1>
 <form [formGroup]="projectDetails" class = "signUpForm"  (submit)="onSubmit()">
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
@@ -32,7 +33,8 @@
           </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button mat-button type="submit" [disabled]="projectDetails.invalid">Create</button>
+        <button mat-button type="submit" [disabled]="projectDetails.invalid" *ngIf="!data">Create</button>
+        <button mat-button type="submit" [disabled]="projectDetails.invalid" *ngIf="data">Update</button>
         <button mat-button mat-dialog-close type="button">Cancel</button>
     </div>
 </form>

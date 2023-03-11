@@ -45,7 +45,7 @@
           
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th>
-              <td mat-cell *matCellDef="let element"><button class="fa fa-edit" (click)="editProjectForm(element.name,element.key,element.projectLead)"></button> <button (click)="deleteProject(element.name)" class="fa fa-trash" aria-hidden="true"></button> </td>
+              <td mat-cell *matCellDef="let element"><button class="fa fa-lg fa-edit" (click)="editProjectForm(element.name,element.key,element.projectLead)"></button> <button (click)="deleteProject(element.name)" class="fa fa-lg fa-trash" aria-hidden="true"></button> </td>
             </ng-container>
           </table>  
     </div>
