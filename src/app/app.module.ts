@@ -22,7 +22,9 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
-import {MatMenuModule} from '@angular/material/menu'
+import {MatMenuModule} from '@angular/material/menu';
+import { BugsComponent } from './bugs/bugs.component'
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {MatMenuModule} from '@angular/material/menu'
     SignUpFormComponent,
     FooterComponent,
     ProjectsComponent,
-    CreateProjectFormComponent
+    CreateProjectFormComponent,
+    BugsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import {MatMenuModule} from '@angular/material/menu'
     HttpClientModule,
     MatTableModule,
     SocialLoginModule,
-    MatMenuModule
+    MatMenuModule,
+    DragDropModule
   ],
   providers: [
     {

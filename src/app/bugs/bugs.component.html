@@ -1,0 +1,101 @@
+<div class="container">
+                <div class="vertical-padding">
+                    <div class="heading d-flex justify-content-between">
+
+                        <div class="">
+                            <h3>Bugs</h3>
+                        </div>
+                        <div class="createProject ">
+                            <button mat-stroked-button  class=" btn btn-primary" href="#" (click)="createBug()">Create Bug</button>
+                        </div>
+                    </div>
+                    <div class="search">
+                
+                        <mat-form-field class="mt-3 bg-light" appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input type="text" matInput 
+                            placeholder="Ex. John" (keyup)="applyFilter($event)">
+                        </mat-form-field>
+                    </div>
+                    
+                    <div cdkDropListGroup>
+                        <div class="bug-container">
+                            <h4>New</h4>
+                            <div
+                            cdkDropList
+                            [cdkDropListData]="new"
+                            class="bug-list"
+                            (cdkDropListDropped)="drop($event)">
+                            
+                            <div class="bug-box" *ngFor="let item of new" cdkDrag>
+                                    <a href="/" style="text-decoration: none;" class="bug-content">
+                                        <div class="id">{{item.id}}</div>
+                                        <div class="title">
+                                            {{item.title}}
+                                        </div>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="bug-container">
+                            <h4>Active</h4>
+                            <div
+                            cdkDropList
+                            [cdkDropListData]="active"
+                            class="bug-list"
+                            (cdkDropListDropped)="drop($event)">
+
+                                <div class="bug-box" *ngFor="let item of active" cdkDrag>
+                                    <a href="/" style="text-decoration: none;" class="bug-content">
+                                        <div class="id">{{item.id}}</div>
+                                        <div class="title">
+                                            {{item.title}}
+                                        </div>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="bug-container">
+                            <h4>Resolved</h4>
+                            <div
+                            cdkDropList
+                            [cdkDropListData]="resolved"
+                            class="bug-list"
+                            (cdkDropListDropped)="drop($event)">
+
+                                <div class="bug-box" *ngFor="let item of resolved" cdkDrag>
+                                    <a href="/" style="text-decoration: none;" class="bug-content">
+                                        <div class="id">{{item.id}}</div>
+                                        <div class="title">
+                                            {{item.title}}
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="bug-container">
+                            <h4>Paused</h4>
+                            <div
+                            cdkDropList
+                            [cdkDropListData]="paused"
+                            class="bug-list"
+                            (cdkDropListDropped)="drop($event)">
+
+                                <div class="bug-box" *ngFor="let item of paused" cdkDrag>
+                                    <a href="/" style="text-decoration: none;" class="bug-content">
+                                        <div class="id">{{item.id}}</div>
+                                        <div class="title">
+                                            {{item.title}}
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>

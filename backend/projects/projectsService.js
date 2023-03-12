@@ -71,13 +71,14 @@ updateProject = (projectName,project,user)=>{
           if(projectExists){
               resolve({ message: "project updated successfully" });
           }else{
-            resolve({message:"project not found"})
+            resolve({message:"project not found"});
           }
           await user.save();
           
     })
     })
 }
+
 // Delete project
 deleteProject = async(projectName,user)=>{
   return new Promise((resolve, reject) => {
@@ -87,7 +88,7 @@ deleteProject = async(projectName,user)=>{
         for(var i = 0;i<userProjects.length;i++){
             if(userProjects[i].name == projectName){
                 userProjects[i].remove();
-
+                resolve({messge:"project deleted successfully"})
             }
         }
         await user.save();
