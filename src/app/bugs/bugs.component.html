@@ -27,13 +27,19 @@
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
                             
-                            <div class="bug-box" *ngFor="let item of new" cdkDrag>
+                            <div class="bug-box boxShadow" *ngFor="let item of new" cdkDrag>
+                                <div class="id"><b> {{item.id}}</b></div>
                                     <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="id">{{item.id}}</div>
-                                        <div class="title">
-                                            {{item.title}}
-                                        </div>
+                                        <div class="title">{{item.title}}</div>
                                     </a>
+                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="status">
+                                            <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
+                                                <select class="status-select">
+                                                    <option *ngFor="let status of status">{{status}}</option>
+                                                </select>
+
+                                        </div>
                                 </div>
                                 
                             </div>
@@ -46,13 +52,20 @@
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
 
-                                <div class="bug-box" *ngFor="let item of active" cdkDrag>
+                                <div class="bug-box boxShadow" *ngFor="let item of active" cdkDrag>
+                                    <div class="id"><b> {{item.id}}</b></div>
                                     <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="id">{{item.id}}</div>
                                         <div class="title">
                                             {{item.title}}
                                         </div>
                                     </a>
+                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="status">
+                                            <i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
+                                            <select class="status-select">
+                                                <option *ngFor="let status of status">{{status}}</option>
+                                              </select>
+                                        </div>
                                 </div>
                                 
                             </div>
@@ -65,13 +78,20 @@
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
 
-                                <div class="bug-box" *ngFor="let item of resolved" cdkDrag>
+                                <div class="bug-box boxShadow" *ngFor="let item of resolved" cdkDrag>
+                                    <div class="id"><b> {{item.id}}</b></div>
                                     <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="id">{{item.id}}</div>
-                                        <div class="title">
+                                            <div class="title">
                                             {{item.title}}
                                         </div>
                                     </a>
+                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="status">
+                                            <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
+                                            <select class="status-select">
+                                                <option *ngFor="let status of status">{{status}}</option>
+                                              </select>
+                                        </div>
                                 </div>
 
                             </div>
@@ -85,13 +105,19 @@
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
 
-                                <div class="bug-box" *ngFor="let item of paused" cdkDrag>
+                                <div class="bug-box boxShadow" *ngFor="let item of paused" cdkDrag>
+                                    <div class="id"><b> {{item.id}}</b></div>
                                     <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="id">{{item.id}}</div>
                                         <div class="title">
                                             {{item.title}}
                                         </div>
                                     </a>
+                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="status"><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
+                                            <select class="status-select">
+                                                <option *ngFor="let status of status">{{status}}</option>
+                                              </select>
+                                        </div>
                                 </div>
 
                             </div>

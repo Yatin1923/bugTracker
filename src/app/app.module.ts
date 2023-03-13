@@ -25,7 +25,7 @@ import {
 import {MatMenuModule} from '@angular/material/menu';
 import { BugsComponent } from './bugs/bugs.component'
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatTableModule,
     SocialLoginModule,
     MatMenuModule,
-    DragDropModule
+    DragDropModule,
+    MatSelectModule
   ],
   providers: [
     {

@@ -6,17 +6,17 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrls: ['./bugs.component.scss']
 })
 export class BugsComponent {
-  new = [{id:1,title:'Get to work'}, {id:2,title:'Pick up groceries'}, {id:3,title:'Go home'}, {id:4,title:'Fall asleep'}];
+  new = [{id:1,title:'Get to work',assignedTo:'Yatin'}, {id:2,title:'Pick up groceries',assignedTo:'Yatin'}, {id:3,title:'Go home',assignedTo:'Yatin'}, {id:4,title:'Fall asleep',assignedTo:'Yatin'}];
 
-  active = [{id:1,title:'Get to work'}, {id:2,title:'Pick up groceries'}, {id:3,title:'Go home'}, {id:4,title:'Fall asleep'}];
+  active = [{id:1,title:'Get to work',assignedTo:'Yatin'}, {id:2,title:'Pick up groceries',assignedTo:'Yatin'}, {id:3,title:'Go home',assignedTo:'Yatin'}, {id:4,title:'Fall asleep',assignedTo:'Yatin'}];
   
-  resolved = [{id:1,title:'Get to work'}, {id:2,title:'Pick up groceries'}, {id:3,title:'Go home'}, {id:4,title:'Fall asleep'}];
+  resolved = [{id:1,title:'Get to work',assignedTo:'Yatin'}, {id:2,title:'Pick up groceries',assignedTo:'Yatin'}, {id:3,title:'Go home',assignedTo:'Yatin'}, {id:4,title:'Fall asleep',assignedTo:'Yatin'}];
   
-  paused = [{id:1,title:'Get to work'}, {id:2,title:'Pick up groceries'}, {id:3,title:'Go home'}, {id:4,title:'Fall asleep'}];
+  paused = [{id:1,title:'Get to work',assignedTo:'Yatin'}, {id:2,title:'Pick up groceries',assignedTo:'Yatin'}, {id:3,title:'Go home',assignedTo:'Yatin'}, {id:4,title:'Fall asleep',assignedTo:'Yatin'}];
 
   dataSource:any;
 
-
+  status = ["New","Active","Resolved","Paused"];
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

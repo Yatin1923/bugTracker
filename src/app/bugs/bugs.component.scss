@@ -13,18 +13,47 @@
     overflow: hidden;
     display: block;
   }
-  .bug-content{
-    height: 100%;
-    width: 100%;
-  }
+  // .bug-content{
+  //   height: 100%;
+  //   width: 100%;
+  // }
   .bug-box {
     padding: 20px 10px;
-    border: solid 1px #ccc;
+    border: 1px solid #ccc;
+    border-top: solid 3px #0e6ffd;
+    //border: solid 1px #ccc;
     display: flex;
     flex-direction: column;
     height: 200px;
     margin-bottom: 30px;
     background-color: white;
+  }
+  .fa{
+    padding: 4px 0 ;
+  }
+  .status{
+    display: flex;
+    // justify-content: space-between;
+    padding: 5px;
+  }
+  .status:hover{
+    border: solid 1px #ccc;
+  }
+  select {
+    padding: 0 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    outline: none;
+  }
+  select:last-child {
+    border: none;
+  }
+  .status-select{
+    width: 100%;
+    text-decoration: none;
+    border: none;
   }
   
   .cdk-drag-preview {

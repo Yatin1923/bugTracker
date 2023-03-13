@@ -39,24 +39,6 @@ const bugSchema = new mongoose.Schema({
     }
 
 });
-const projectSchema = new mongoose.Schema({
-    
-    
-    bugs:[bugSchema],
-    name:{
-        type:String,
-        required:true
-    },
-    key:{
-        type:String,
-        required:true
-    },
-    projectLead:{
-        type:String,
-        required:true
-    }
 
-});
-
-module.exports = mongoose.model('projects',projectSchema);
+module.exports = mongoose.model('bugs',bugSchema);
 
