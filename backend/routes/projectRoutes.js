@@ -14,9 +14,9 @@ projectsRouter.route('').post(projectsController.createProject).get(projectsCont
 projectsRouter.route('/:name').post(projectsController.updateProject).delete(projectsController.deleteProject).put(projectsController.updateProject);
 
 // Create, Get bugs
-projectsRouter.route('/:name/bugs').post(bugController.createBug).get(bugController.getBugs);
+projectsRouter.route('/:projectName/bugs').post(bugController.createBug).get(bugController.getBugs);
 
 // Update, Delete bugs
-projectsRouter.route('/:projectName/bugs/:bugName').put(bugController.updateBug).delete(bugController.getBugs);
+projectsRouter.route('/:projectName/bugs/:bugId').put(bugController.updateBug).delete(bugController.getBugs);
 
 module.exports = projectsRouter;

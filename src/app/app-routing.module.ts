@@ -10,7 +10,7 @@ import { BugsComponent } from './bugs/bugs.component';
 const routes: Routes = [
   {path:'', component:LandingPageComponent,canActivate:[LoginGuard]},
   {path:'projects', component:ProjectsComponent,canActivate: [AuthGuard]},
-  {path:'projects/bugs',component:BugsComponent,canActivate: [AuthGuard]}
+  {path:'projects/:projectName',component:BugsComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({

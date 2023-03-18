@@ -9,13 +9,19 @@ createBug = async(projectName,user,bug)=>{
         if(user != null){
             let project = user.projects.find(x=>x.name == projectName);
             if(project){
-               let bugExists =  project.bugs.find(x=>x.title == bug.title);
-               if(bugExists){
-                return resolve("bug with that name already exists");
-               }
+                let bugExists =  project.bugs.find(x=>x.title == bug.title);
+                if(bugExists){
+                    return resolve("bug with that name already exists");
+                }
+                console.log("Bug",bug.new)
                 const bugDetails = new bugModel({
                     title:bug.title,
-                    assignedTo:bug.assignedTo
+                    description:bug.description,
+                    assignedTo:bug.assignedTo,
+                    new:bug.new?true:false,
+                    active:bug.active?true:false,
+                    resolved:bug.resolved?true:false,
+                    paused:bug.paused?true:false
                 });
             project.bugs.push(bugDetails);
             await user.save();
@@ -31,8 +37,10 @@ createBug = async(projectName,user,bug)=>{
 
 getBugs = async(projectName,user)=>{
     if(user!=null){
-        let project = user.projects.find(x=>x.name==projectName);
+        //console.log("user",user);
+        let project = await user.projects.find(x=>x.name==projectName);
         if(project){
+            //console.log("ProjectBugs: " + project.bugs);
             return project.bugs;
         }
         else{
@@ -41,16 +49,17 @@ getBugs = async(projectName,user)=>{
     }
 }
 
-updateBug = async(projectName,bugName,newBug,user)=>{
+updateBug = async(projectName,bugId,newBug,user)=>{
     return new Promise(async(resolve,reject)=>{
 
         if(user!=null){
             let project = user.projects.find(x=>x.name==projectName);
+           // console.log(project);
         if(project){
-            let bug = project.bugs.find(x=>x.title==bugName);
+            let bug = project.bugs.find(x=>x._id==bugId);
             if(bug){
 
-                console.log(bug);
+               // console.log(bug);
                 bug.title = newBug.title;
                 bug.assignedTo = newBug.assignedTo;
                 bug.description = newBug.description;

@@ -18,54 +18,70 @@
                         </mat-form-field>
                     </div>
                     
-                    <div cdkDropListGroup>
+                    <!-- <div cdkDropListGroup> -->
                         <div class="bug-container">
                             <h4>New</h4>
                             <div
+                            id="new"
                             cdkDropList
-                            [cdkDropListData]="new"
+                            #new="cdkDropList"
+                            [cdkDropListData]="newBugs"
+                            [cdkDropListConnectedTo]="[active,resolved,paused]"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
-                            
-                            <div class="bug-box boxShadow" *ngFor="let item of new" cdkDrag>
-                                <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="title">{{item.title}}</div>
-                                    </a>
-                                        <div class="assignedTo">{{item.assignedTo}}</div>
-                                        <div class="status">
-                                            <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
-                                                <select class="status-select">
-                                                    <option *ngFor="let status of status">{{status}}</option>
-                                                </select>
+                            <div *ngFor="let item of newBugs; let i = index">
 
-                                        </div>
+                                <div class="bug-box boxShadow" style="border-top: solid 3px #AEA5AE;" *ngIf="newBugs!=null" cdkDrag>
+                                    <div class="id"><b> {{item.title}}</b></div>
+                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                        <div class="title">{{item.description}}</div>
+                                    </a>
+                                    <div class="assignedTo">{{item.assignedTo}}</div>
+                                    <div class="status">
+                                        <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
+                                        <select (change)="optionChange($event,i,newBugs)" (focus)="previousOption($event)" class="status-select">
+                                            <option selected value="new">New</option>
+                                            <option value="active">Active</option>
+                                            <option value="resolved">Resolved</option>
+                                            <option value="paused">Paused</option>
+                                        </select>
+                                        
+                                    </div>
                                 </div>
                                 
+                            </div>
                             </div>
                         </div>
                         <div class="bug-container">
                             <h4>Active</h4>
                             <div
+                            id="active"
                             cdkDropList
-                            [cdkDropListData]="active"
+                            #active="cdkDropList"
+                            [cdkDropListConnectedTo]="[new,resolved,paused]"
+                            [cdkDropListData]="activeBugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
+                                <div *ngFor="let item of activeBugs; let i = index">
 
-                                <div class="bug-box boxShadow" *ngFor="let item of active" cdkDrag>
-                                    <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="/" style="text-decoration: none;" class="bug-content">
-                                        <div class="title">
-                                            {{item.title}}
-                                        </div>
-                                    </a>
+                                    <div class="bug-box boxShadow" style="border-top: solid 3px #0e6ffd;" *ngIf="activeBugs" cdkDrag>
+                                        <div class="id"><b> {{item.title}}</b></div>
+                                        <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                            <div class="title">
+                                                {{item.description}}
+                                            </div>
+                                        </a>
                                         <div class="assignedTo">{{item.assignedTo}}</div>
                                         <div class="status">
                                             <i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
-                                            <select class="status-select">
-                                                <option *ngFor="let status of status">{{status}}</option>
-                                              </select>
+                                            <select (change)="optionChange($event,i,activeBugs)" class="status-select">
+                                                <option value="new">New</option>
+                                                <option selected value="active">Active</option>
+                                                <option value="resolved">Resolved</option>
+                                                <option value="paused">Paused</option>
+                                            </select>
                                         </div>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -73,25 +89,33 @@
                         <div class="bug-container">
                             <h4>Resolved</h4>
                             <div
+                            id="resolved"
                             cdkDropList
-                            [cdkDropListData]="resolved"
+                            #resolved = "cdkDropList"
+                            [cdkDropListConnectedTo]="[new,active,paused]"
+                            [cdkDropListData]="resolvedBugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
+                                <div  *ngFor="let item of resolvedBugs; let i = index">
 
-                                <div class="bug-box boxShadow" *ngFor="let item of resolved" cdkDrag>
-                                    <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="/" style="text-decoration: none;" class="bug-content">
-                                            <div class="title">
-                                            {{item.title}}
+                                    <div class="bug-box boxShadow" style="border-top: solid 3px #339933;" *ngIf="resolvedBugs"  cdkDrag>
+                                        <div class="id"><b> {{item.title}}</b></div>
+                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                        <div class="title">
+                                            {{item.description}}
                                         </div>
                                     </a>
-                                        <div class="assignedTo">{{item.assignedTo}}</div>
-                                        <div class="status">
-                                            <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
-                                            <select class="status-select">
-                                                <option *ngFor="let status of status">{{status}}</option>
-                                              </select>
-                                        </div>
+                                    <div class="assignedTo">{{item.assignedTo}}</div>
+                                    <div class="status">
+                                        <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
+                                        <select (change)="optionChange($event,i,resolvedBugs)" class="status-select">
+                                            <option value="new">New</option>
+                                            <option value="active">Active</option>
+                                            <option selected value="resolved">Resolved</option>
+                                            <option value="paused">Paused</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 </div>
 
                             </div>
@@ -101,27 +125,35 @@
                             <h4>Paused</h4>
                             <div
                             cdkDropList
-                            [cdkDropListData]="paused"
+                            id="paused"
+                            #paused="cdkDropList"
+                            [cdkDropListConnectedTo]="[new,active,resolved]"
+                            [cdkDropListData]="pausedBugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
+                            <div *ngFor="let item of pausedBugs; let i = index">
 
-                                <div class="bug-box boxShadow" *ngFor="let item of paused" cdkDrag>
-                                    <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="/" style="text-decoration: none;" class="bug-content">
+                                <div class="bug-box boxShadow" style="border-top: solid 3px #dc3545;" *ngIf="pausedBugs" cdkDrag>
+                                    <div class="id" ><b> {{item.title}}</b></div>
+                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
                                         <div class="title">
-                                            {{item.title}}
+                                            {{item.description}}
                                         </div>
                                     </a>
                                         <div class="assignedTo">{{item.assignedTo}}</div>
                                         <div class="status"><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
-                                            <select class="status-select">
-                                                <option *ngFor="let status of status">{{status}}</option>
-                                              </select>
+                                            <select (change)="optionChange($event,i,pausedBugs)" class="status-select">
+                                                <option value="new">New</option>
+                                                <option value="active">Active</option>
+                                                <option value="resolved">Resolved</option>
+                                                <option selected value="paused">Paused</option>
+                                            </select>
                                         </div>
+                                    </div>
+                                    
                                 </div>
-
                             </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
 </div>
