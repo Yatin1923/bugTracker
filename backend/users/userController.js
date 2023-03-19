@@ -24,4 +24,10 @@ isAuthenticated = async(req, res)=>{
     res.send(result);
 
 } 
-module.exports = { createUser,logoutUser,isAuthenticated};
+
+getUsers= async(req, res)=>{
+    const result = await userService.getUsers(req);
+    console.log(result);
+    res.send(result);
+}
+module.exports = { createUser,logoutUser,isAuthenticated,getUsers};

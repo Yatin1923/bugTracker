@@ -15,6 +15,9 @@ export class AuthService {
   logout() {
     this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe();
 }
+  getUsers(){
+     return this.http.get(this.basedUrl+'/'+"users",{withCredentials:true});
+  }
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
       email: email, password: password, firstname: firstname, lastname: lastname

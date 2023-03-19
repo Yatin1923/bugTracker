@@ -1,0 +1,47 @@
+<h1 mat-dialog-title class="textAlignCenter h0">Create Bug</h1>
+<form [formGroup]="bugDetails" class = "signUpForm"  (submit)="onSubmit()">
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Bug title</mat-label>
+            <input type="text"  matInput formControlName="bugTitle" 
+                   placeholder="Ex. Dashboard bug">
+            <mat-error *ngIf="bugDetails.get('bugTitle')?.hasError('required')">
+                Bug title is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+    <div  mat-dialog-content>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input type="text" matInput formControlName="description" 
+            placeholder="">
+            <!-- <mat-error *ngIf="bugDetails.get('key')?.hasError('required')">
+                Key is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Assigned to</mat-label>
+            <mat-select [formControl]="bugServerSideCtrl" placeholder="Bank">
+                <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let bug of filteredServerSidebugs | async" [value]="bug.firstname">
+                  {{bug.firstname}} {{bug.lastname}}
+                  {{bug.email}}
+                </mat-option>
+              </mat-select>
+                   <!-- <mat-error *ngIf="bugDetails.get('projectLead')?.hasError('required')">
+                    Project lead is <strong>required</strong>
+                </mat-error> -->
+          </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button type="submit" [disabled]="bugDetails.invalid">Create</button>
+        <button mat-button mat-dialog-close type="button">Cancel</button>
+    </div>
+</form>
+ 

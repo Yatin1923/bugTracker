@@ -3,6 +3,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { BugService } from './bug.service';
 import { ActivatedRoute } from '@angular/router';
 import { response } from 'express';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateBugFormComponent } from './create-bugs-form/create-bug-form/create-bug-form.component';
 @Component({
   selector: 'app-bugs',
   templateUrl: './bugs.component.html',
@@ -14,18 +16,17 @@ export class BugsComponent {
   resolvedBugs:any = [];
   pausedBugs:any = [];
   newBugs:any=[];
-  constructor(private bugService : BugService,private route: ActivatedRoute){}
+  constructor(private bugService : BugService,private route: ActivatedRoute,private dialog:MatDialog){}
 
   dataSource:any;
   // status:any;
   ngOnInit(){
   this.getBugs();
   }
-  ngOnDestroy(){
-    alert("destroy");
-  }
-  ngOnChanges(changes: SimpleChanges){
-    alert("destroy");
+  openDialog(){
+    const dialogref = this.dialog.open(CreateBugFormComponent,{
+      width:'30%'
+    })
   }
   getNewBugs(){
 

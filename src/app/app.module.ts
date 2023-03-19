@@ -26,6 +26,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { BugsComponent } from './bugs/bugs.component'
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSelectModule} from '@angular/material/select';
+import { CreateBugFormComponent } from './bugs/create-bugs-form/create-bug-form/create-bug-form.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {MatSelectModule} from '@angular/material/select';
     FooterComponent,
     ProjectsComponent,
     CreateProjectFormComponent,
-    BugsComponent
+    BugsComponent,
+    CreateBugFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import {MatSelectModule} from '@angular/material/select';
     SocialLoginModule,
     MatMenuModule,
     DragDropModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {

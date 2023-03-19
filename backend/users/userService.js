@@ -55,6 +55,11 @@ logoutUser = (req,res)=>{
 isAuthenticated = async(req,res)=>{   
     return req.isAuthenticated();
 }
+getUsers = async(req)=>{
+    if(req.user){
+        return userModel.find({},{"email":1,"firstname":1,"lastname":1});
+    }
+    else return "User not logged in";
+}
 
-
-module.exports = { createUser,logoutUser,isAuthenticated};
+module.exports = { createUser,logoutUser,isAuthenticated,getUsers};
