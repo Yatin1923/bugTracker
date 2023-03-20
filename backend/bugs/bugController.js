@@ -4,7 +4,7 @@ const bugService = require('./bugService');
 createBug = async(req,res)=>{
 
    const result = await bugService.createBug(req.params.projectName,req.user,req.body);
-   res.send(result);
+//    res.send(result);
 }
 
 getBugs = async(req, res)=>{

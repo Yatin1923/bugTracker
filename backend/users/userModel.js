@@ -15,7 +15,7 @@ const bugSchema = new mongoose.Schema({
     },
     assignedTo:{
         type:String,
-        required:true
+        required:false
     },
     new:{
         type:Boolean,

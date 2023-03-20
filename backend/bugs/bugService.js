@@ -18,10 +18,10 @@ createBug = async(projectName,user,bug)=>{
                     title:bug.title,
                     description:bug.description,
                     assignedTo:bug.assignedTo,
-                    new:bug.new?true:false,
-                    active:bug.active?true:false,
-                    resolved:bug.resolved?true:false,
-                    paused:bug.paused?true:false
+                    new:true,
+                    active:false,
+                    resolved:false,
+                    paused:false
                 });
             project.bugs.push(bugDetails);
             await user.save();

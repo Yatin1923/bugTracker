@@ -25,15 +25,23 @@ export class BugsComponent {
   }
   openDialog(){
     const dialogref = this.dialog.open(CreateBugFormComponent,{
-      width:'30%'
+      width:'30%',data:{
+        projectName:this.route.snapshot.paramMap.get('projectName')||''
+      }
     })
+    dialogref.afterClosed().subscribe(()=>{
+      this.newBugs=[];
+      this.getBugs()
+      console.log(this.newBugs);
+    }
+  )
   }
   getNewBugs(){
 
     for (let i = 0; i < this.bugs.length; i++) {
       // console.log(this.bugs)
       if (this.bugs[i].new==true) {
-       // console.log("newBugs",this.bugs[i]);
+        console.log("newBugs",this.bugs[i]);
         this.newBugs.push(this.bugs[i]);
       }
     }
@@ -65,15 +73,10 @@ export class BugsComponent {
   getBugs(){
     this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
       this.bugs = response;
-      //console.log(this.bugs);
       this.getNewBugs();
       this.getActiveBugs();
       this.getResolvedBugs();
       this.getPausedBugs();
-      // if(this.getNewBugs())this.newBugs.push(this.getNewBugs());
-      // if(this.getActiveBugs())this.activeBugs.push(this.getActiveBugs());
-      // if(this.getResolvedBugs())this.resolvedBugs.push(this.getResolvedBugs())
-      // if(this.getPausedBugs())this.pausedBugs.push(this.getPausedBugs());
     });
   }
 
@@ -81,7 +84,6 @@ export class BugsComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  createBug(){}
 
 
   previousStatus:any;
