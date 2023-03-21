@@ -8,10 +8,12 @@
 
   
   .bug-list {
-    min-height: 60px;
+    min-height: 230px;
     border-radius: 4px;
     overflow: hidden;
     display: block;
+    background-color: #f3f3f3;
+    padding: 15px 15px 0px 15px;
   }
   // .bug-content{
   //   height: 100%;
@@ -25,7 +27,7 @@
     display: flex;
     flex-direction: column;
     height: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     background-color: white;
   }
   .fa{

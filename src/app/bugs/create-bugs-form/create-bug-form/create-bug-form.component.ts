@@ -71,6 +71,8 @@ export class CreateBugFormComponent {
   onSubmit(){
     this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.bugServerSideCtrl.value).subscribe(res=>{
     })
-    this.dialogref.close();
+
+    this.dialogref.close({title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value})
+    //this.dialogref.close(this.bugDetails.get('bugTitle')?.value);
   }
 }

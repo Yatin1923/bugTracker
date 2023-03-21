@@ -36,7 +36,7 @@
                                     <a href="/projects" style="text-decoration: none;" class="bug-content">
                                         <div class="title">{{item.description}}</div>
                                     </a>
-                                    <div class="assignedTo">{{item.assignedTo}}</div>
+                                    <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                     <div class="status">
                                         <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
                                         <select (change)="optionChange($event,i,newBugs)" (focus)="previousOption($event)" class="status-select">
@@ -71,7 +71,7 @@
                                                 {{item.description}}
                                             </div>
                                         </a>
-                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                         <div class="status">
                                             <i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
                                             <select (change)="optionChange($event,i,activeBugs)" class="status-select">
@@ -105,7 +105,7 @@
                                             {{item.description}}
                                         </div>
                                     </a>
-                                    <div class="assignedTo">{{item.assignedTo}}</div>
+                                    <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                     <div class="status">
                                         <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
                                         <select (change)="optionChange($event,i,resolvedBugs)" class="status-select">
@@ -140,7 +140,7 @@
                                             {{item.description}}
                                         </div>
                                     </a>
-                                        <div class="assignedTo">{{item.assignedTo}}</div>
+                                        <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                         <div class="status"><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
                                             <select (change)="optionChange($event,i,pausedBugs)" class="status-select">
                                                 <option value="new">New</option>

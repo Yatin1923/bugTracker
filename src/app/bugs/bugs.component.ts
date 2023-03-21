@@ -29,19 +29,23 @@ export class BugsComponent {
         projectName:this.route.snapshot.paramMap.get('projectName')||''
       }
     })
-    dialogref.afterClosed().subscribe(()=>{
-      this.newBugs=[];
-      this.getBugs()
-      console.log(this.newBugs);
+    dialogref.afterClosed().subscribe((bug)=>{
+      // console.log("newBUG",bug);
+      if(bug){
+
+        this.newBugs=[];
+        this.getNewBugs()
+      }
+     // console.log(this.newBugs);
     }
   )
   }
   getNewBugs(){
 
     for (let i = 0; i < this.bugs.length; i++) {
-      // console.log(this.bugs)
+       console.log(this.bugs)
       if (this.bugs[i].new==true) {
-        console.log("newBugs",this.bugs[i]);
+        //console.log("newBugs",this.bugs[i]);
         this.newBugs.push(this.bugs[i]);
       }
     }
