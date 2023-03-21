@@ -1,7 +1,6 @@
 const { db } = require("../users/userModel")
 const userModel = require("../users/userModel")
 const bugModel = require("../bugs/bugModel");
-const { __asyncValues } = require("tslib");
 
 createBug = async(projectName,user,bug)=>{
     return new Promise(async(resolve,reject) =>{
@@ -76,6 +75,20 @@ updateBug = async(projectName,bugId,newBug,user)=>{
     }
 })
 }
+deleteBug = async(projectName,bugId,user)=>{
+    if(user!=null){
+        let project = user.projects.find(x=>x.name==projectName);
+       // console.log(project);
+    if(project){
+        let bug = project.bugs.find(x=>x._id==bugId);
+        console.log(bug);
+        let index = project.bugs.indexOf(bug);
+        console.log(index);
+        project.bugs.splice(index,1);
+    }
+    await user.save();
+}
+}
 
-module.exports = {createBug,getBugs,updateBug};
+module.exports = {createBug,getBugs,updateBug,deleteBug};
 

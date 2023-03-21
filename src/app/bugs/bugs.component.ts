@@ -16,12 +16,19 @@ export class BugsComponent {
   resolvedBugs:any = [];
   pausedBugs:any = [];
   newBugs:any=[];
+  projectName:string;
   constructor(private bugService : BugService,private route: ActivatedRoute,private dialog:MatDialog){}
 
   dataSource:any;
   // status:any;
   ngOnInit(){
-  this.getBugs();
+    this.projectName = this.route.snapshot.paramMap.get('projectName')||'';
+    this.getBugs();
+  }
+  deleteBug(bugId:any){
+    this.bugService.deleteBug(this.projectName,bugId)
+    this.getBugs();
+    //console.log("deleteBug",bugId);
   }
   openDialog(){
     const dialogref = this.dialog.open(CreateBugFormComponent,{
@@ -34,7 +41,8 @@ export class BugsComponent {
       if(bug){
 
         this.newBugs=[];
-        this.getNewBugs()
+        this.getBugs();
+        //this.getNewBugs()
       }
      // console.log(this.newBugs);
     }

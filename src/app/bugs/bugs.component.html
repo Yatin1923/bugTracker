@@ -32,6 +32,12 @@
                             <div *ngFor="let item of newBugs; let i = index">
 
                                 <div class="bug-box boxShadow" style="border-top: solid 3px #AEA5AE;" *ngIf="newBugs!=null" cdkDrag>
+                                    <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item>Edit bug</button>
+                                        <button mat-menu-item  class="text-danger"><i class="fa  fa-remove"></i>  Delete</button>
+                                    </mat-menu>
+                                    </button>
                                     <div class="id"><b> {{item.title}}</b></div>
                                     <a href="/projects" style="text-decoration: none;" class="bug-content">
                                         <div class="title">{{item.description}}</div>
@@ -65,7 +71,12 @@
                                 <div *ngFor="let item of activeBugs; let i = index">
 
                                     <div class="bug-box boxShadow" style="border-top: solid 3px #0e6ffd;" *ngIf="activeBugs" cdkDrag>
-                                        <div class="id"><b> {{item.title}}</b></div>
+                                        <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                                            <mat-menu #menu="matMenu">
+                                                <button mat-menu-item>Edit bug</button>
+                                                <button mat-menu-item  class="text-danger"><i class="fa  fa-remove"></i>  Delete</button>
+                                            </mat-menu>
+                                            </button>                                        <div class="id"><b> {{item.title}}</b></div>
                                         <a href="/projects" style="text-decoration: none;" class="bug-content">
                                             <div class="title">
                                                 {{item.description}}
@@ -99,7 +110,12 @@
                                 <div  *ngFor="let item of resolvedBugs; let i = index">
 
                                     <div class="bug-box boxShadow" style="border-top: solid 3px #339933;" *ngIf="resolvedBugs"  cdkDrag>
-                                        <div class="id"><b> {{item.title}}</b></div>
+                                        <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                                            <mat-menu #menu="matMenu">
+                                                <button mat-menu-item>Edit bug</button>
+                                                <button mat-menu-item  class="text-danger"><i class="fa  fa-remove"></i>  Delete</button>
+                                            </mat-menu>
+                                            </button>                                        <div class="id"><b> {{item.title}}</b></div>
                                     <a href="/projects" style="text-decoration: none;" class="bug-content">
                                         <div class="title">
                                             {{item.description}}
@@ -134,7 +150,12 @@
                             <div *ngFor="let item of pausedBugs; let i = index">
 
                                 <div class="bug-box boxShadow" style="border-top: solid 3px #dc3545;" *ngIf="pausedBugs" cdkDrag>
-                                    <div class="id" ><b> {{item.title}}</b></div>
+                                    <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item>Edit bug</button>
+                                            <button mat-menu-item  class="text-danger"><i class="fa  fa-remove"></i>  Delete</button>
+                                        </mat-menu>
+                                        </button>                                    <div class="id" ><b> {{item.title}}</b></div>
                                     <a href="/projects" style="text-decoration: none;" class="bug-content">
                                         <div class="title">
                                             {{item.description}}

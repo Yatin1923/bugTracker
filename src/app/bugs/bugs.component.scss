@@ -22,13 +22,22 @@
   .bug-box {
     padding: 20px 10px;
     border: 1px solid #ccc;
-    
+    position: relative;
     //border: solid 1px #ccc;
     display: flex;
     flex-direction: column;
     height: 200px;
     margin-bottom: 15px;
     background-color: white;
+  }
+  .bug-box .bug-menu{
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .bug-box:hover .bug-menu{
+    visibility: visible;   
   }
   .fa{
     padding: 4px 0 ;

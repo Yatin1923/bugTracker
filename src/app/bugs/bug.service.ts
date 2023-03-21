@@ -22,5 +22,9 @@ basedUrl:string = "http://localhost:3000/projects";
   updateBug(projectName:string,bug:any){
     const result = this.http.put(this.basedUrl+'/'+projectName+'/bugs/'+bug._id,bug, {withCredentials:true}).subscribe();
   }
+  deleteBug(projectName:string,bugId:string){
+    console.log("delete called")
+    const result = this.http.delete(this.basedUrl+'/'+projectName+'/bugs'+'/'+bugId,{withCredentials:true}).subscribe();
+  }
 }
 
