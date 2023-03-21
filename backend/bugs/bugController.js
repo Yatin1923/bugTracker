@@ -18,6 +18,7 @@ updateBug = async(req, res)=>{
 }
 deleteBug = async(req, res)=>{
     const result = await bugService.deleteBug(req.params.projectName,req.params.bugId,req.user);
+    res.send(result);
 }
 
 module.exports = {createBug,getBugs,updateBug,deleteBug};

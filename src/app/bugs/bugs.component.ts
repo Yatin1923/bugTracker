@@ -25,9 +25,11 @@ export class BugsComponent {
     this.projectName = this.route.snapshot.paramMap.get('projectName')||'';
     this.getBugs();
   }
-  deleteBug(bugId:any){
-    this.bugService.deleteBug(this.projectName,bugId)
-    this.getBugs();
+  async deleteBug(bugId:any){
+    this.bugService.deleteBug(this.projectName,bugId).subscribe(()=>{
+      console.log('bug deleted');
+    });
+
     //console.log("deleteBug",bugId);
   }
   openDialog(){

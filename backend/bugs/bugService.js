@@ -76,6 +76,7 @@ updateBug = async(projectName,bugId,newBug,user)=>{
 })
 }
 deleteBug = async(projectName,bugId,user)=>{
+    return new Promise(async(resolve,reject)=>{
     if(user!=null){
         let project = user.projects.find(x=>x.name==projectName);
        // console.log(project);
@@ -86,9 +87,10 @@ deleteBug = async(projectName,bugId,user)=>{
         console.log(index);
         project.bugs.splice(index,1);
     }
+    resolve("bug deleted");
     await user.save();
 }
+});
 }
-
 module.exports = {createBug,getBugs,updateBug,deleteBug};
 
