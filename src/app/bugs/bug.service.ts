@@ -10,8 +10,8 @@ basedUrl:string = "http://localhost:3000/projects";
   constructor(private http : HttpClient) { }
 
   createBug(projectName:string,bugTitle:any,bugDescription:any,assignedTo:any){
-    console.log(projectName);
-    const result = this.http.post(this.basedUrl+'/'+projectName+'/bugs',{title:bugTitle,description:bugDescription,assignedTo:assignedTo?assignedTo.firstname:'',new:true},{withCredentials:true})
+    //console.log(projectName);
+    const result = this.http.post(this.basedUrl+'/'+projectName+'/bugs',{title:bugTitle,description:bugDescription,assignedTo:assignedTo?assignedTo.firstname +' '+ assignedTo.lastname:'',new:true},{withCredentials:true})
    // console.log(result)
     return result
   }

@@ -4,7 +4,7 @@ const bugService = require('./bugService');
 createBug = async(req,res)=>{
 
    const result = await bugService.createBug(req.params.projectName,req.user,req.body);
-//    res.send(result);
+   res.json(result);
 }
 
 getBugs = async(req, res)=>{
@@ -18,7 +18,7 @@ updateBug = async(req, res)=>{
 }
 deleteBug = async(req, res)=>{
     const result = await bugService.deleteBug(req.params.projectName,req.params.bugId,req.user);
-    res.send(result);
+    res.json(result);
 }
 
 module.exports = {createBug,getBugs,updateBug,deleteBug};

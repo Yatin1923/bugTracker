@@ -24,7 +24,7 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Assigned to</mat-label>
-            <mat-select [formControl]="bugServerSideCtrl" placeholder="John Smith" value = "a">
+            <mat-select [formControl]="bugServerSideCtrl" placeholder="John Smith">
                 <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
                 <mat-option>
                   <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching"></ngx-mat-select-search>

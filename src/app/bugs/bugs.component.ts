@@ -25,12 +25,26 @@ export class BugsComponent {
     this.projectName = this.route.snapshot.paramMap.get('projectName')||'';
     this.getBugs();
   }
-  async deleteBug(bugId:any){
-    this.bugService.deleteBug(this.projectName,bugId).subscribe(()=>{
-      console.log('bug deleted');
+  deleteBug(bug:any,bugType:String){
+    this.bugService.deleteBug(this.projectName,bug._id).subscribe((res)=>{
+      if(bugType == 'new'){
+        let indexOfBug = this.newBugs.indexOf(bug);
+        this.newBugs.splice(indexOfBug,1);        
+      }
+      if(bugType == 'active'){
+        let indexOfBug = this.newBugs.indexOf(bug);
+        this.activeBugs.splice(indexOfBug,1);   
+      }
+      if(bugType == 'resolved'){
+        let indexOfBug = this.newBugs.indexOf(bug);
+        this.resolvedBugs.splice(indexOfBug,1);   
+      }
+      if(bugType == 'paused'){
+        let indexOfBug = this.newBugs.indexOf(bug);
+        this.pausedBugs.splice(indexOfBug,1);   
+      }
     });
 
-    //console.log("deleteBug",bugId);
   }
   openDialog(){
     const dialogref = this.dialog.open(CreateBugFormComponent,{
@@ -39,26 +53,34 @@ export class BugsComponent {
       }
     })
     dialogref.afterClosed().subscribe((bug)=>{
-      // console.log("newBUG",bug);
       if(bug){
-
-        this.newBugs=[];
-        this.getBugs();
-        //this.getNewBugs()
+        this.newBugs.push(bug);
       }
-     // console.log(this.newBugs);
     }
   )
+  }
+  editBug(bugId:string,bugTitle:string, bugDescription:string,assignedTo:string){
+    const dialogref = this.dialog.open(CreateBugFormComponent,{
+      width:'70%',
+      data:{
+        projectName:this.route.snapshot.paramMap.get('projectName')||'',
+        bugId:bugId,
+        bugTitle:bugTitle,
+        bugDescription:bugDescription,
+        assignedTo:assignedTo
+      }
+    })
   }
   getNewBugs(){
 
     for (let i = 0; i < this.bugs.length; i++) {
-       console.log(this.bugs)
+       //console.log(this.bugs)
       if (this.bugs[i].new==true) {
         //console.log("newBugs",this.bugs[i]);
         this.newBugs.push(this.bugs[i]);
       }
     }
+    this.sortList(this.newBugs);
   }
   getActiveBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -67,6 +89,7 @@ export class BugsComponent {
         this.activeBugs.push(this.bugs[i]);
       }
     }
+    this.sortList(this.activeBugs);
   }
   getResolvedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -75,6 +98,7 @@ export class BugsComponent {
         this.resolvedBugs.push(this.bugs[i]);
       }
     }
+    this.sortList(this.resolvedBugs);
   }
   getPausedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -83,17 +107,33 @@ export class BugsComponent {
         this.pausedBugs.push(this.bugs[i]);
     }
   }
+  this.sortList(this.pausedBugs);;
 }
   getBugs(){
     this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
       this.bugs = response;
+    // console.log(this.bugs)
+
       this.getNewBugs();
       this.getActiveBugs();
       this.getResolvedBugs();
       this.getPausedBugs();
     });
   }
-
+  sortList(list:any[]){
+    list.sort((a: { title: string; }, b: { title: string; }) => {
+      let fa = a.title.toLowerCase(),
+          fb = b.title.toLowerCase();
+  
+      if (fa < fb) {
+          return -1;
+      }
+      if (fa > fb) {
+          return 1;
+      }
+      return 0;
+  });
+  }
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -142,6 +182,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("new",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+      this.sortList(this.newBugs);
       break;
     }
     case "active":{
@@ -157,6 +198,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("active",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+      this.sortList(this.activeBugs);
       break;
     }
     case "resolved":{
@@ -172,6 +214,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("resolved",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+      this.sortList(this.resolvedBugs);
       break;
     }
     case "paused":{  
@@ -187,6 +230,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("paused",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+      this.sortList(this.pausedBugs);
       break;
     }
 }
@@ -210,8 +254,9 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
               value.paused = false;
             }
           })
-          console.log("new",updatedBug)
+          // console.log("new",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          this.sortList(this.newBugs);
           break;
         }
         case "active":{
@@ -225,8 +270,9 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
               value.paused = false;
             }
           })
-          console.log("active",updatedBug)
+          // console.log("active",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          this.sortList(this.activeBugs);
           break;
         }
         case "resolved":{
@@ -242,6 +288,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           console.log("resolved",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          this.sortList(this.resolvedBugs);
           break;
         }
         case "paused":{  
@@ -257,6 +304,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           console.log("paused",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          this.sortList(this.pausedBugs);
           break;
         }
     }

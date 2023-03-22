@@ -35,11 +35,11 @@
                                     <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item>Edit bug</button>
-                                        <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id)"><i class="fa  fa-remove"></i>  Delete</button>
+                                        <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'new')"><i class="fa  fa-remove"></i>  Delete</button>
                                     </mat-menu>
                                     </button>
                                     <div class="id"><b> {{item.title}}</b></div>
-                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                    <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
                                         <div class="title">{{item.description}}</div>
                                     </a>
                                     <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
@@ -74,10 +74,10 @@
                                         <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                             <mat-menu #menu="matMenu">
                                                 <button mat-menu-item>Edit bug</button>
-                                                <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id)"><i class="fa  fa-remove"></i>  Delete</button>
+                                                <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id,'active')"><i class="fa  fa-remove"></i>  Delete</button>
                                             </mat-menu>
                                             </button>                                        <div class="id"><b> {{item.title}}</b></div>
-                                        <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                        <a  href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
                                             <div class="title">
                                                 {{item.description}}
                                             </div>
@@ -113,10 +113,10 @@
                                         <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                             <mat-menu #menu="matMenu">
                                                 <button mat-menu-item>Edit bug</button>
-                                                <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id)"><i class="fa  fa-remove"></i>  Delete</button>
+                                                <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id,'resolved')"><i class="fa  fa-remove"></i>  Delete</button>
                                             </mat-menu>
                                             </button>                                        <div class="id"><b> {{item.title}}</b></div>
-                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
+                                    <a href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
                                         <div class="title">
                                             {{item.description}}
                                         </div>
@@ -153,11 +153,12 @@
                                     <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                         <mat-menu #menu="matMenu">
                                             <button mat-menu-item>Edit bug</button>
-                                            <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id)"><i class="fa  fa-remove"></i>  Delete</button>
+                                            <button mat-menu-item  class="text-danger" (click)="deleteBug(item._id,'paused')"><i class="fa  fa-remove"></i>  Delete</button>
                                         </mat-menu>
-                                        </button>                                    <div class="id" ><b> {{item.title}}</b></div>
-                                    <a href="/projects" style="text-decoration: none;" class="bug-content">
-                                        <div class="title">
+                                        </button>                                   
+                                        <div class="id" ><b> {{item.title}}</b></div>
+                                        <a href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
+                                            <div class="title">
                                             {{item.description}}
                                         </div>
                                     </a>

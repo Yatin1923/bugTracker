@@ -28,7 +28,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSelectModule} from '@angular/material/select';
 import { CreateBugFormComponent } from './bugs/create-bugs-form/create-bug-form/create-bug-form.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { BugDetailsComponent } from './bugs/bug-details/bug-details/bug-details.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import { BugDetailsComponent } from './bugs/bug-details/bug-details/bug-details.
     ProjectsComponent,
     CreateProjectFormComponent,
     BugsComponent,
-    CreateBugFormComponent,
-    BugDetailsComponent
+    CreateBugFormComponent
   ],
   imports: [
     BrowserModule,

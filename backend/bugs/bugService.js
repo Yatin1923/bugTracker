@@ -24,7 +24,8 @@ createBug = async(projectName,user,bug)=>{
                 });
             project.bugs.push(bugDetails);
             await user.save();
-            resolve("bug added successfully")
+            bug = project.bugs.find(x=>x.title == bug.title);
+            resolve(bug.id)
         }else{
            resolve("Project not found");
         }
@@ -87,7 +88,7 @@ deleteBug = async(projectName,bugId,user)=>{
         console.log(index);
         project.bugs.splice(index,1);
     }
-    resolve("bug deleted");
+    resolve({message:"bug deleted"});
     await user.save();
 }
 });

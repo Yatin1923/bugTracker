@@ -15,13 +15,14 @@ import { Inject } from '@angular/core';
   styleUrls: ['./create-bug-form.component.scss']
 })
 export class CreateBugFormComponent {
+  constructor(private authService: AuthService,private bugService:BugService,private router:ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<CreateBugFormComponent>){}
+  
   bugDetails = new FormGroup({
     bugTitle : new FormControl('',[Validators.required]),
     description : new FormControl(''),
 
   })
 
-  constructor(private authService: AuthService,private bugService:BugService,private router:ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<CreateBugFormComponent>){}
   users:any;
   public bugServerSideCtrl: FormControl = new FormControl();
   public bugServerSideFilteringCtrl: FormControl = new FormControl();
@@ -35,8 +36,9 @@ export class CreateBugFormComponent {
     return (firstname.charAt(0)+ lastname.charAt(0)).toUpperCase();
   }
   ngOnInit() {
+    console.log(this.data);
     this.projectName = this.data.projectName;
-   this.authService.getUsers().subscribe(async response => {
+    this.authService.getUsers().subscribe(async response => {
     this.users = await response;
    });
    // listen for search field value changes
@@ -69,10 +71,13 @@ export class CreateBugFormComponent {
 
   }
   onSubmit(){
+    let id;
+    console.log(this.bugServerSideCtrl.value);
     this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.bugServerSideCtrl.value).subscribe(res=>{
+       id = res;
+      this.dialogref.close({_id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value||"",new:true,active:false,resolved:false,paused:false})
     })
 
-    this.dialogref.close({title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value})
     //this.dialogref.close(this.bugDetails.get('bugTitle')?.value);
   }
 }
