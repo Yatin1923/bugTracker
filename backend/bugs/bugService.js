@@ -1,10 +1,10 @@
 const { db } = require("../users/userModel")
 const userModel = require("../users/userModel")
 const bugModel = require("../bugs/bugModel");
-
+let id = 1;
 createBug = async(projectName,user,bug)=>{
     return new Promise(async(resolve,reject) =>{
-
+        console.log("ID",id);
         if(user != null){
             let project = user.projects.find(x=>x.name == projectName);
             if(project){
@@ -12,8 +12,9 @@ createBug = async(projectName,user,bug)=>{
                 if(bugExists){
                     return resolve("bug with that name already exists");
                 }
-                console.log("Bug",bug.new)
+                //console.log("Bug",bug.new)
                 const bugDetails = new bugModel({
+                    id: id,
                     title:bug.title,
                     description:bug.description,
                     assignedTo:bug.assignedTo,
@@ -22,6 +23,7 @@ createBug = async(projectName,user,bug)=>{
                     resolved:false,
                     paused:false
                 });
+                id++;
             project.bugs.push(bugDetails);
             await user.save();
             bug = project.bugs.find(x=>x.title == bug.title);
@@ -40,6 +42,13 @@ getBugs = async(projectName,user)=>{
         //console.log("user",user);
         let project = await user.projects.find(x=>x.name==projectName);
         if(project){
+            if(project.bugs.length > 0){
+
+                console.log("bugs",project.bugs);
+                id = project.bugs[project.bugs.length-1].id+1;
+            }else{
+                id =1
+            }
             //console.log("ProjectBugs: " + project.bugs);
             return project.bugs;
         }
@@ -82,7 +91,9 @@ deleteBug = async(projectName,bugId,user)=>{
         let project = user.projects.find(x=>x.name==projectName);
        // console.log(project);
     if(project){
-        let bug = project.bugs.find(x=>x._id==bugId);
+        console.log(project);
+        console.log(bugId);
+        let bug = project.bugs.find(x=>x.id==bugId);
         console.log(bug);
         let index = project.bugs.indexOf(bug);
         console.log(index);

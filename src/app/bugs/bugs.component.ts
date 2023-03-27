@@ -2,7 +2,6 @@ import { Component,OnInit,OnDestroy,OnChanges, SimpleChanges } from '@angular/co
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { BugService } from './bug.service';
 import { ActivatedRoute } from '@angular/router';
-import { response } from 'express';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBugFormComponent } from './create-bugs-form/create-bug-form/create-bug-form.component';
 @Component({
@@ -26,7 +25,7 @@ export class BugsComponent {
     this.getBugs();
   }
   deleteBug(bug:any,bugType:String){
-    this.bugService.deleteBug(this.projectName,bug._id).subscribe((res)=>{
+    this.bugService.deleteBug(this.projectName,bug.id).subscribe((res)=>{
       if(bugType == 'new'){
         let indexOfBug = this.newBugs.indexOf(bug);
         this.newBugs.splice(indexOfBug,1);        
@@ -80,7 +79,8 @@ export class BugsComponent {
         this.newBugs.push(this.bugs[i]);
       }
     }
-    this.sortList(this.newBugs);
+    console.log(this.newBugs);
+    //this.sortList(this.newBugs);
   }
   getActiveBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -89,7 +89,7 @@ export class BugsComponent {
         this.activeBugs.push(this.bugs[i]);
       }
     }
-    this.sortList(this.activeBugs);
+    //this.sortList(this.activeBugs);
   }
   getResolvedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -98,7 +98,7 @@ export class BugsComponent {
         this.resolvedBugs.push(this.bugs[i]);
       }
     }
-    this.sortList(this.resolvedBugs);
+    //this.sortList(this.resolvedBugs);
   }
   getPausedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
@@ -107,12 +107,12 @@ export class BugsComponent {
         this.pausedBugs.push(this.bugs[i]);
     }
   }
-  this.sortList(this.pausedBugs);;
+ // this.sortList(this.pausedBugs);;
 }
   getBugs(){
     this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
       this.bugs = response;
-    // console.log(this.bugs)
+     console.log(this.bugs)
 
       this.getNewBugs();
       this.getActiveBugs();
@@ -162,8 +162,8 @@ export class BugsComponent {
     }
   }
 optionChange(event:any,previousIndex:any,previousContainer:any){
-  console.log(event.target.value);
-  console.log(previousIndex);
+  //console.log(event.target.value);
+ // console.log(previousIndex);
   
 
   transferArrayItem(previousContainer,this.getCurrentContainer(event.target.value),previousIndex,0);
@@ -182,7 +182,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("new",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      this.sortList(this.newBugs);
+     // this.sortList(this.newBugs);
       break;
     }
     case "active":{
@@ -198,7 +198,8 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("active",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      this.sortList(this.activeBugs);
+      console.log("active",this.activeBugs);
+     // this.sortList(this.activeBugs);
       break;
     }
     case "resolved":{
@@ -214,7 +215,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("resolved",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      this.sortList(this.resolvedBugs);
+      //this.sortList(this.resolvedBugs);
       break;
     }
     case "paused":{  
@@ -230,19 +231,24 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
       })
       console.log("paused",updatedBug)
       this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      this.sortList(this.pausedBugs);
+      //this.sortList(this.pausedBugs);
       break;
     }
 }
 }
   drop(event: CdkDragDrop<any[]>) {
+    if(event.container.data == event.previousContainer.data){
+      moveItemInArray(event.container.data,event.previousIndex,event.currentIndex);
+      console.log("active", this.activeBugs)
+    }else{
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex,
-      );
-      switch(event.container.id){
+        );
+        switch(event.container.id){
         case "new":{
           let updatedBug:any;
           this.newBugs.forEach(function(value: any){
@@ -256,7 +262,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           // console.log("new",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-          this.sortList(this.newBugs);
+          //this.sortList(this.newBugs);
           break;
         }
         case "active":{
@@ -272,7 +278,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           // console.log("active",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-          this.sortList(this.activeBugs);
+          //this.sortList(this.activeBugs);
           break;
         }
         case "resolved":{
@@ -288,7 +294,7 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           console.log("resolved",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-          this.sortList(this.resolvedBugs);
+          //this.sortList(this.resolvedBugs);
           break;
         }
         case "paused":{  
@@ -304,9 +310,11 @@ optionChange(event:any,previousIndex:any,previousContainer:any){
           })
           console.log("paused",updatedBug)
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-          this.sortList(this.pausedBugs);
+          //this.sortList(this.pausedBugs);
           break;
         }
+      }
     }
   }
 }
+  

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const bugSchema = new mongoose.Schema({
-    // id:{
-    //     type:String,
-    //     required:true
-    // },
+    id:{
+        type:Number,
+        required:true
+    },
     title:{
         type:String,
         required:true

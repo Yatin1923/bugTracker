@@ -75,7 +75,8 @@ export class CreateBugFormComponent {
     console.log(this.bugServerSideCtrl.value);
     this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.bugServerSideCtrl.value).subscribe(res=>{
        id = res;
-      this.dialogref.close({_id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value||"",new:true,active:false,resolved:false,paused:false})
+       console.log(id);
+      this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value||"",new:true,active:false,resolved:false,paused:false})
     })
 
     //this.dialogref.close(this.bugDetails.get('bugTitle')?.value);
