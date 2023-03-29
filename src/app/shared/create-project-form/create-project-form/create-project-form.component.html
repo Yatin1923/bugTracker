@@ -24,12 +24,25 @@
     </div>
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
-            <mat-label>Project lead</mat-label>
-            <input type="text" matInput formControlName="projectLead" 
-                   placeholder="Ex. John">
-                   <mat-error *ngIf="projectDetails.get('projectLead')?.hasError('required')">
+            <mat-label>Project Lead</mat-label>
+            <mat-select formControlName="projectLead" placeholder="John Smith">
+                <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option>--None--</mat-option>
+                <mat-option *ngFor="let bug of filteredServerSidebugs | async" [value]="bug.firstname+' '+bug.lastname">                    
+                    <div class="rows">
+                        <div class="circles">
+                            {{getInitials(bug.firstname,bug.lastname)}} 
+                          </div>
+                        {{bug.firstname}} {{bug.lastname}}
+                    </div>
+                </mat-option>
+            </mat-select>
+                   <!-- <mat-error *ngIf="bugDetails.get('projectLead')?.hasError('required')">
                     Project lead is <strong>required</strong>
-                </mat-error>
+                </mat-error> -->
           </mat-form-field>
     </div>
     <div mat-dialog-actions>

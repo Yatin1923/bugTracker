@@ -10,7 +10,7 @@ createBug = async(projectName,user,bug)=>{
             if(project){
                 let bugExists =  project.bugs.find(x=>x.title == bug.title);
                 if(bugExists){
-                    return resolve("bug with that name already exists");
+                    return resolve("Bug with that name already exists");
                 }
                 //console.log("Bug",bug.new)
                 const bugDetails = new bugModel({
@@ -77,10 +77,10 @@ updateBug = async(projectName,bugId,newBug,user)=>{
                 bug.resolved = newBug.resolved?newBug.resolved:false;
                 bug.paused = newBug.paused?newBug.paused:false;
             }else{
-                resolve("no bug with that name found");
+                resolve("No bug with that name found");
             }
         }
-        resolve("bug updated")
+        resolve("Bug updated successfully");
         await user.save();
     }
 })
@@ -99,7 +99,7 @@ deleteBug = async(projectName,bugId,user)=>{
         console.log(index);
         project.bugs.splice(index,1);
     }
-    resolve({message:"bug deleted"});
+    resolve("Bug deleted successfully");
     await user.save();
 }
 });

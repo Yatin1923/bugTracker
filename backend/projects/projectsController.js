@@ -11,33 +11,35 @@ createProject = async(req,res)=>{
 
     try{
         const result =  await projectsService.createProject(req.body,req.user);
-        res.send({"message":result.message});
+        res.json(result);
         
             
             
     }catch(err){
-        console.log(err);
-        res.send({"message": err.message});
+        console.log("error",err);
+        res.json(err);
     }
 }
 
 updateProject = async(req,res)=>{
     try{
         const result = await projectsService.updateProject(req.params.name,req.body,req.user);
-        res.send(result);
+        console.log(result);
+        res.json(result);
 
     }catch(err){
         console.log(err);
-        res.send({"message": err.message});
+        res.json(err);
     }
 }
-deleteProject = (req,res)=>{
+deleteProject = async(req,res)=>{
     try{
-        const result = projectsService.deleteProject(req.params.name,req.user)
-        res.send(result);
+        const result = await projectsService.deleteProject(req.params.name,req.user)
+        console.log(result)
+        res.json(result);
     }catch(err){
         console.log(err);
-        res.send({"message": err.message});
+        res.json(err);
     }
 }
 

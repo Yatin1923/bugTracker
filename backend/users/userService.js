@@ -10,12 +10,12 @@ createUser = (user)=>{
                 userModel.findOne({email:user.email},async(err,user)=>{
                  
                         if(err){
-                            reject({status:false,msg:'Error occured'});
+                            reject('Error occured: '+err);
                         }
                         else{
 
                             if(user != undefined && user !=null ){
-                                resolve({status:false,msg:'Account with this email already exists'});
+                                resolve('Account with this email already exists');
                                 
                             }else{
                                 bcrypt.hash(_user.password,10).then(async(hash)=>{
@@ -29,7 +29,7 @@ createUser = (user)=>{
                                         });
                                         await userDetails.save();
                                     })
-                                resolve({status:true,msg:'Account created successfully'});
+                                resolve('Account created successfully');
                                 
                             }
                         }

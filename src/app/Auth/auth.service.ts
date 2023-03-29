@@ -3,6 +3,7 @@ import { Injectable ,OnInit} from '@angular/core';
 import { Router  } from '@angular/router';
 import { response } from 'express';
 import { take } from 'rxjs';
+import { NotifyService } from '../shared/notifyService/notify.service';
 import { AuthData } from './auth-data.model';
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { AuthData } from './auth-data.model';
 export class AuthService {
   basedUrl:string = "http://localhost:3000/user"
   
-  constructor(private http: HttpClient,private router: Router){}
+  constructor(private http: HttpClient,private router: Router,private notify : NotifyService){}
   
   logout() {
     this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe();
@@ -23,6 +24,7 @@ export class AuthService {
       email: email, password: password, firstname: firstname, lastname: lastname
     }
     this.http.post(this.basedUrl+'/signup',authData).subscribe(response=>{
+      this.notify.showSuccess(response);
     })
   }
   

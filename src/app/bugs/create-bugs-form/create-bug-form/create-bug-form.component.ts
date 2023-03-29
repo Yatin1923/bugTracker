@@ -8,6 +8,7 @@ import { BugService } from '../../bug.service';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { NotifyService } from 'src/app/shared/notifyService/notify.service';
 
 @Component({
   selector: 'app-create-bug-form',
@@ -15,7 +16,7 @@ import { Inject } from '@angular/core';
   styleUrls: ['./create-bug-form.component.scss']
 })
 export class CreateBugFormComponent {
-  constructor(private authService: AuthService,private bugService:BugService,private router:ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<CreateBugFormComponent>){}
+  constructor(private notify:NotifyService, private authService: AuthService,private bugService:BugService,private router:ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<CreateBugFormComponent>){}
   
   bugDetails = new FormGroup({
     bugTitle : new FormControl('',[Validators.required]),
@@ -74,7 +75,12 @@ export class CreateBugFormComponent {
     let id;
     console.log(this.bugServerSideCtrl.value);
     this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.bugServerSideCtrl.value).subscribe(res=>{
-       id = res;
+      if(res.toString().includes("already exists")){
+        this.notify.showWarning(res)
+      } else{
+        this.notify.showSuccess("Bug created successfully")
+      }
+      id = res;
        console.log(id);
       this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,asssigendTo:this.bugServerSideCtrl.value||"",new:true,active:false,resolved:false,paused:false})
     })

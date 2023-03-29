@@ -5,12 +5,12 @@ createUser = async(req,res)=>{
 
     try{
         const result =  await userService.createUser(req.body);
-        res.send({ "status": result.status,"result": result.msg});
+        res.json(result);
         
             
             
     }catch(err){
-        res.send({"message": err.message});
+        res.json(err);
     }
 }
 logoutUser = async(req,res)=>{

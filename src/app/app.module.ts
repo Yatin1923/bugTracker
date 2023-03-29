@@ -28,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSelectModule} from '@angular/material/select';
 import { CreateBugFormComponent } from './bugs/create-bugs-form/create-bug-form/create-bug-form.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatMenuModule,
     DragDropModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {

@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NotifyService } from '../shared/notifyService/notify.service';
 import { projectModel } from './project.model';
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
   basedUrl:string = "http://localhost:3000/projects"
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private notify:NotifyService) { }
 
   getProject(){
     const result = this.http.get(this.basedUrl, {withCredentials: true});
@@ -27,7 +28,9 @@ export class ProjectService {
       key:key,
       projectLead:projectlead
     }
-    const result = this.http.put(url, projectDetails, {withCredentials: true}).subscribe();
+    const result = this.http.put(url, projectDetails, {withCredentials: true}).subscribe(response=>{
+      this.notify.showSuccess(response)
+    });
     return result;
   }
 
@@ -38,6 +41,14 @@ export class ProjectService {
       projectLead:projectlead
     }
     this.http.post(this.basedUrl,projectDetails, {withCredentials: true}).subscribe(response=>{
+      console.log(response);
+      let message:string = JSON.stringify(response);
+      if(message.includes("already exist")){
+        this.notify.showWarning(message);
+      }else{
+        this.notify.showSuccess(response);
+
+      }
     });
   }
 }

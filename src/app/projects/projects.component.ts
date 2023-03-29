@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CreateProjectFormComponent } from '../shared/create-project-form/create-project-form/create-project-form.component';
+import { NotifyService } from '../shared/notifyService/notify.service';
 import { ProjectService } from './project.service';
 import { rowsAnimation, rowUpdate } from './rowAnimation/animation';
 
@@ -14,7 +15,7 @@ import { rowsAnimation, rowUpdate } from './rowAnimation/animation';
 })
 export class ProjectsComponent {
 
-  constructor(private projectService:ProjectService,private dialog:MatDialog){}
+  constructor(private projectService:ProjectService,private dialog:MatDialog,private notify:NotifyService){}
 
   dataSource: MatTableDataSource<any>;
   ngOnInit(){
@@ -33,6 +34,7 @@ export class ProjectsComponent {
 
   getProjects(){
     this.projectService.getProject().subscribe((data:any)=>{
+      console.log(data);
       this.dataSource = new MatTableDataSource(data);
     })
   }
@@ -54,7 +56,9 @@ export class ProjectsComponent {
 
   }
   deleteProject(name:String){
-     this.projectService.deleteProject(name).subscribe(()=>{
+     this.projectService.deleteProject(name).subscribe((response)=>{
+      console.log(response)
+      this.notify.showSuccess(response);
        this.getProjects();
      })
   }

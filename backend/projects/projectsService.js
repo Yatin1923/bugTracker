@@ -25,12 +25,13 @@ createProject = (project,user)=>{
         userModel.findOne({ email:user.email},async(err,user)=>{
             if(err){
                 console.log(err);
+                reject(err);
           }
           var userProjects = user.projects
           var projectExists = false;
           for (var i = 0; i < userProjects.length; i++) {
             if (userProjects[i].name == project.name) {
-              reject({ message: "A project with that name already exists" });
+              reject("Project with that name already exists");
               projectExists = true;
             }
           }
@@ -43,7 +44,7 @@ createProject = (project,user)=>{
           });
           user.projects.push(projectDetails);
           await user.save();
-          resolve({ message: "project created successfully" });
+          resolve("Project created successfully");
           }
     })
     })
@@ -54,6 +55,7 @@ updateProject = (projectName,project,user)=>{
         userModel.findOne({ email:user.email},async(err,user)=>{
             if(err){
                 console.log(err);
+                reject(err);
           }
           var userProjects = user.projects;
           var projectExists = false;
@@ -69,9 +71,9 @@ updateProject = (projectName,project,user)=>{
             }
           }
           if(projectExists){
-              resolve({ message: "project updated successfully" });
+              resolve("Project updated successfully" );
           }else{
-            resolve({message:"project not found"});
+            reject("Project not found");
           }
           await user.save();
           
@@ -85,11 +87,17 @@ deleteProject = async(projectName,user)=>{
     userModel.findOne({ email:user.email},async(err,user)=>{
        // let userProjects = new projectModel()
         userProjects = user.projects;
+        let length = userProjects.length;
         for(var i = 0;i<userProjects.length;i++){
             if(userProjects[i].name == projectName){
                 userProjects[i].remove();
-                resolve({messge:"project deleted successfully"})
             }
+        }
+        if(length != userProjects.length){
+            
+            resolve("Project deleted successfully")
+        }else{
+            resolve("Project not found")
         }
         await user.save();
        
