@@ -38,13 +38,16 @@
                                         <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'new')"><i class="fa  fa-remove"></i>  Delete</button>
                                     </mat-menu>
                                     </button>
-                                    <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
-                                        <div class="title">{{item.title}}</div>
-                                    </a>
+                                    <div class="d-flex">
+
+                                        <div class="id"><b> {{item.id}}</b></div>
+                                        <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
+                                            <div class="title px-2">{{item.title}}</div>
+                                        </a>
+                                    </div>
                                     <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                     <div class="status">
-                                        <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
+                                        <span style="padding-right: 5px;">State </span><i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
                                         <select (change)="optionChange($event,i,newBugs)" (focus)="previousOption($event)" class="status-select">
                                             <option selected value="new">New</option>
                                             <option value="active">Active</option>
@@ -76,15 +79,17 @@
                                                 <button mat-menu-item>Edit bug</button>
                                                 <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'active')"><i class="fa  fa-remove"></i>  Delete</button>
                                             </mat-menu>
-                                            </button>                                        <div class="id"><b> {{item.id}}</b></div>
-                                        <a  href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
-                                            <div class="title">
-                                                {{item.title}}
+                                            </button>                                        
+                                            <div class="d-flex">
+
+                                                <div class="id"><b> {{item.id}}</b></div>
+                                                <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
+                                                    <div class="title px-2">{{item.title}}</div>
+                                                </a>
                                             </div>
-                                        </a>
                                         <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                         <div class="status">
-                                            <i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
+                                            <span style="padding-right: 5px;">State </span><i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
                                             <select (change)="optionChange($event,i,activeBugs)" class="status-select">
                                                 <option value="new">New</option>
                                                 <option selected value="active">Active</option>
@@ -116,15 +121,16 @@
                                                 <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'resolved')"><i class="fa  fa-remove"></i>  Delete</button>
                                             </mat-menu>
                                             </button>                                        
-                                            <div class="id"><b> {{item.id}}</b></div>
-                                    <a href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
-                                        <div class="title">
-                                            {{item.title}}
-                                        </div>
-                                    </a>
+                                            <div class="d-flex">
+
+                                                <div class="id"><b> {{item.id}}</b></div>
+                                                <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
+                                                    <div class="title px-2">{{item.title}}</div>
+                                                </a>
+                                            </div>
                                     <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                     <div class="status">
-                                        <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
+                                        <span style="padding-right: 5px;">State </span> <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
                                         <select (change)="optionChange($event,i,resolvedBugs)" class="status-select">
                                             <option value="new">New</option>
                                             <option value="active">Active</option>
@@ -157,14 +163,15 @@
                                             <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'paused')"><i class="fa  fa-remove"></i>  Delete</button>
                                         </mat-menu>
                                         </button>                                   
-                                        <div class="id" ><b> {{item.id}}</b></div>
-                                        <a href="javascript: void()" (click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
-                                            <div class="title">
-                                            {{item.title}}
+                                        <div class="d-flex">
+
+                                            <div class="id"><b> {{item.id}}</b></div>
+                                            <a href="javascript: void()"(click)="editBug(item._id,item.title,item.description,item.assignedTo)" style="text-decoration: none;" class="bug-content">
+                                                <div class="title px-2">{{item.title}}</div>
+                                            </a>
                                         </div>
-                                    </a>
                                         <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
-                                        <div class="status"><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
+                                        <div class="status"><span style="padding-right: 5px;">State </span><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
                                             <select (change)="optionChange($event,i,pausedBugs)" class="status-select">
                                                 <option value="new">New</option>
                                                 <option value="active">Active</option>

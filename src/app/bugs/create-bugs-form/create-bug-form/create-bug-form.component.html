@@ -14,8 +14,8 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
-            <input type="text" matInput formControlName="description" 
-            placeholder="">
+            <textarea type="text" matInput formControlName="description" 
+            placeholder=""></textarea>
             <!-- <mat-error *ngIf="bugDetails.get('key')?.hasError('required')">
                 Key is <strong>required</strong>
             </mat-error> -->
@@ -36,7 +36,6 @@
                           {{getInitials(bug.firstname,bug.lastname)}} 
                         </div>
                         {{bug.firstname}} {{bug.lastname}}
-                        {{bug.email}}
                     </div>
                 </mat-option>
             </mat-select>
