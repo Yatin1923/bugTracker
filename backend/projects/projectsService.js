@@ -40,7 +40,8 @@ createProject = (project,user)=>{
           const projectDetails = new projectModel({
             name: project.name,
             key: project.key,
-            projectLead: project.projectLead
+            projectLead: project.projectLead,
+            createdDate: new Date()
           });
           user.projects.push(projectDetails);
           await user.save();

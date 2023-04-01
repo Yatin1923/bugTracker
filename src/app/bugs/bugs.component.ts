@@ -16,10 +16,10 @@ export class BugsComponent {
   pausedBugs:any = [];
   newBugs:any=[];
   projectName:string;
+  filteredBugs: any;
+  totalbugs:any;
   constructor(private bugService : BugService,private route: ActivatedRoute,private dialog:MatDialog){}
 
-  dataSource:any;
-  // status:any;
   ngOnInit(){
     this.projectName = this.route.snapshot.paramMap.get('projectName')||'';
     this.getBugs();
@@ -73,47 +73,37 @@ export class BugsComponent {
   getNewBugs(){
 
     for (let i = 0; i < this.bugs.length; i++) {
-       //console.log(this.bugs)
       if (this.bugs[i].new==true) {
-        //console.log("newBugs",this.bugs[i]);
         this.newBugs.push(this.bugs[i]);
       }
     }
-    console.log(this.newBugs);
-    //this.sortList(this.newBugs);
   }
   getActiveBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
       if (this.bugs[i].active==true) {
-       // console.log("activeBug",this.bugs[i]);
         this.activeBugs.push(this.bugs[i]);
       }
     }
-    //this.sortList(this.activeBugs);
   }
   getResolvedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
       if (this.bugs[i].resolved==true) {
-       // console.log("resolvedBug",this.bugs[i]);
         this.resolvedBugs.push(this.bugs[i]);
       }
     }
-    //this.sortList(this.resolvedBugs);
   }
   getPausedBugs(){
     for (let i = 0; i < this.bugs.length; i++) {
       if (this.bugs[i].paused==true) {
-        //console.log("pausedBug",this.bugs[i]);
         this.pausedBugs.push(this.bugs[i]);
     }
   }
- // this.sortList(this.pausedBugs);;
 }
+
   getBugs(){
     this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
       this.bugs = response;
-     console.log(this.bugs)
-
+      this.totalbugs = response;
       this.getNewBugs();
       this.getActiveBugs();
       this.getResolvedBugs();
@@ -136,7 +126,22 @@ export class BugsComponent {
   }
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredBugs = this.bugs.filter((x: { id: any; })=>x.id.toString() === filterValue)
+    if(!(filterValue == undefined || filterValue == null || filterValue == "")){
+      this.bugs = this.filteredBugs
+    }
+    else{
+      this.bugs = this.totalbugs;
+    }
+    this.activeBugs = [];
+    this.resolvedBugs = [];
+    this.pausedBugs = [];
+    this.newBugs=[];
+    this.getNewBugs();
+    this.getActiveBugs();
+    this.getResolvedBugs();
+    this.getPausedBugs();
+    
   }
 
 

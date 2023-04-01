@@ -52,6 +52,10 @@ const projectSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    createdDate:{
+        type:Date,
+        required:false
+    },
     bugs:[bugSchema]
 
 });

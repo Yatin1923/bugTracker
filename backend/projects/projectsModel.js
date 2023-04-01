@@ -54,6 +54,10 @@ const projectSchema = new mongoose.Schema({
     projectLead:{
         type:String,
         required:true
+    },
+    createdDate:{
+        type:Date,
+        required:false
     }
 
 });
