@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const bugSchema = new mongoose.Schema({
     id:{
-        type:String,
+        type:Number,
         required:true
     },
     title:{
@@ -15,12 +15,12 @@ const bugSchema = new mongoose.Schema({
     },
     assignedTo:{
         type:String,
-        required:true
+        required:false
     },
     new:{
         type:Boolean,
         required:true,
-        default:true
+        default:false
     },
     active:{
         type:Boolean,
@@ -36,6 +36,22 @@ const bugSchema = new mongoose.Schema({
         type:Boolean,
         required:true,
         default:false
+    },
+    createdDate:{
+        type:Date,
+        required:false
+    },
+    updatedDate:{
+        type:Date,
+        required:false
+    },
+    comments:{
+        type:Array,
+        required:false
+    },
+    priority:{
+        type:Number,
+        required:false
     }
 
 });

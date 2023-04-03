@@ -29,7 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { CreateBugFormComponent } from './bugs/create-bugs-form/create-bug-form/create-bug-form.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrModule } from 'ngx-toastr';
-
+import { BugDetailsComponent } from './bugs/bugDetails/bug-details/bug-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +40,8 @@ import { ToastrModule } from 'ngx-toastr';
     ProjectsComponent,
     CreateProjectFormComponent,
     BugsComponent,
-    CreateBugFormComponent
+    CreateBugFormComponent,
+    BugDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,8 @@ import { ToastrModule } from 'ngx-toastr';
     DragDropModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+
   ],
   providers: [
     {

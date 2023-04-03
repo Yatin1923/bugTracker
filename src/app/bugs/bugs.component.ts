@@ -4,6 +4,7 @@ import { BugService } from './bug.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBugFormComponent } from './create-bugs-form/create-bug-form/create-bug-form.component';
+import { BugDetailsComponent } from './bugDetails/bug-details/bug-details.component';
 @Component({
   selector: 'app-bugs',
   templateUrl: './bugs.component.html',
@@ -23,6 +24,7 @@ export class BugsComponent {
   ngOnInit(){
     this.projectName = this.route.snapshot.paramMap.get('projectName')||'';
     this.getBugs();
+    console.log(this.newBugs)
   }
   deleteBug(bug:any,bugType:String){
     this.bugService.deleteBug(this.projectName,bug.id).subscribe((res)=>{
@@ -58,15 +60,12 @@ export class BugsComponent {
     }
   )
   }
-  editBug(bugId:string,bugTitle:string, bugDescription:string,assignedTo:string){
-    const dialogref = this.dialog.open(CreateBugFormComponent,{
+  bugDetails(bug:any){
+    const dialogref = this.dialog.open(BugDetailsComponent,{
       width:'70%',
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
-        bugId:bugId,
-        bugTitle:bugTitle,
-        bugDescription:bugDescription,
-        assignedTo:assignedTo
+       bug:bug
       }
     })
   }
@@ -165,6 +164,11 @@ export class BugsComponent {
         return this.pausedBugs;
       }
     }
+  }
+  priorityUpdate(event:any,bug:any){
+    console.log("priorityUpdate",event.target.value,bug);
+    bug.priority = event.target.value;
+    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
   }
 optionChange(event:any,previousIndex:any,previousContainer:any){
   //console.log(event.target.value);

@@ -36,6 +36,22 @@ const bugSchema = new mongoose.Schema({
         type:Boolean,
         required:true,
         default:false
+    },
+    createdDate:{
+        type:Date,
+        required:false
+    },
+    updatedDate:{
+        type:Date,
+        required:false
+    },
+    comments:{
+        type:Array,
+        required:false
+    },
+    priority:{
+        type:Number,
+        required:false
     }
 
 });

@@ -3,7 +3,7 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Bug title</mat-label>
-            <input type="text"  matInput formControlName="bugTitle" 
+            <input type="text"  matInput maxlength="50" formControlName="bugTitle" 
                    placeholder="Ex. Dashboard bug">
             <mat-error *ngIf="bugDetails.get('bugTitle')?.hasError('required')">
                 Bug title is <strong>required</strong>

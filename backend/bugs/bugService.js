@@ -21,7 +21,8 @@ createBug = async(projectName,user,bug)=>{
                     new:true,
                     active:false,
                     resolved:false,
-                    paused:false
+                    paused:false,
+                    createdDate : new Date()
                 });
                 id++;
             project.bugs.push(bugDetails);
@@ -76,6 +77,8 @@ updateBug = async(projectName,bugId,newBug,user)=>{
                 bug.active = newBug.active?newBug.active:false;
                 bug.resolved = newBug.resolved?newBug.resolved:false;
                 bug.paused = newBug.paused?newBug.paused:false;
+                bug.updatedDate = new Date();
+                bug.priority = newBug.priority;
             }else{
                 resolve("No bug with that name found");
             }
