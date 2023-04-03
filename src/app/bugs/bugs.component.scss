@@ -5,7 +5,9 @@
     display: inline-block;
     vertical-align: top;
   }
-
+  .mat-dialog-container{
+    padding: 0px !important;
+  }
   
   .bug-list {
     min-height: 230px;

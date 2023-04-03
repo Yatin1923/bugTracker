@@ -1,21 +1,51 @@
-<div class="title row">
-    <h4 class="col-2">{{id}}</h4>
-    <h4 class="col-8"> {{title}}</h4>
-    <h4 class="col-2" style="margin-left: auto;"> Sprint 4</h4>
-</div>
-<div class="row">
+
+    <div class="header">
+        <i class="fa fa-lg fa-book" aria-hidden="true" style="color: aquamarine;"></i>
+ 
+    </div>
+    <div class="row">
+        <h4 class="col-1">{{id}}</h4>
+        <h4 class="title col-11"> {{title}}</h4>
+    </div>
+    <div class="row">
     <div class="description col-8">
         <br>
-        <h4>Description</h4>
+        <p>Description</p>
         <textarea rows="10" cols="80">
             {{description}}
         </textarea>
     </div>
-    <div class="col-4">
+    <div class="col-4 m-auto">
         <br>
-        <div class="priority">priority</div>
-        <div class="assignedTo">AssignedTo</div>
+        <div class=" mb-4">
+            <span style="padding-right: 5px;color: #737373;">Priority </span>
+            <div class="priority">
+                <select  class="priority-select" [value]="priority">
+                    <option selected value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                </select>
+            </div>
+        </div>
+        <div class="assignedTo">
+            <div class="">
+                Assigned To 
+            </div>
+            <div class="">
+                <mat-select [formControl]="bugServerSideCtrl" [placeholder]="assignedTo">
+                <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching" placeholderLabel="Search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option>--None--</mat-option>
+                <mat-option *ngFor="let bug of filteredServerSidebugs | async" [value]="bug">                    
+                    {{bug.firstname}} {{bug.lastname}}
+                </mat-option>
+            </mat-select>
+        </div>
     </div>
+</div>
 </div>
 <div class="comments">
     Comments

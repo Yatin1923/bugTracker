@@ -5,10 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBugFormComponent } from './create-bugs-form/create-bug-form/create-bug-form.component';
 import { BugDetailsComponent } from './bugDetails/bug-details/bug-details.component';
+import {ViewEncapsulation} from '@angular/core';
 @Component({
   selector: 'app-bugs',
   templateUrl: './bugs.component.html',
-  styleUrls: ['./bugs.component.scss']
+  styleUrls: ['./bugs.component.scss'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class BugsComponent {
   bugs:any;
@@ -48,7 +50,7 @@ export class BugsComponent {
 
   }
   openDialog(){
-    const dialogref = this.dialog.open(CreateBugFormComponent,{
+    const dialogref = this.dialog.open(CreateBugFormComponent,{panelClass:"custom-dialog-container",
       width:'30%',data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||''
       }

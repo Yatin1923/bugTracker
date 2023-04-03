@@ -1,4 +1,34 @@
+.custom-dialog-container .mat-dialog-container {
+    /* add your styles */
+    padding: 0px;
+}
+.header{
+
+}
 .title{
-    border: 2px solid #ccc;
     padding: 5px 8px;
 }
+.title:hover{
+    border: 2px solid #dfdfdf;
+}
+select {
+    padding: 0 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    outline: none;
+  }
+  .priority{
+    display: flex;
+    padding-left: 0px;
+    width: 100%;
+  }
+  .priority:hover{
+    border: solid 1px #ccc;
+  }
+  .priority-select{
+    width: 100%;
+    text-decoration: none;
+    border: none;
+  }
