@@ -30,6 +30,7 @@ import { CreateBugFormComponent } from './bugs/create-bugs-form/create-bug-form/
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrModule } from 'ngx-toastr';
 import { BugDetailsComponent } from './bugs/bugDetails/bug-details/bug-details.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,7 @@ import { BugDetailsComponent } from './bugs/bugDetails/bug-details/bug-details.c
     MatSelectModule,
     NgxMatSelectSearchModule,
     ToastrModule.forRoot(),
-
+    AngularEditorModule
   ],
   providers: [
     {

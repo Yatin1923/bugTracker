@@ -9,7 +9,7 @@ const passport = require('passport');
 const { initializePassport } = require('./passport-config');
 
 mongoose.set('strictQuery',false);
-mongoose.connect('mongodb://127.0.0.1/bugTracker',(err)=>{
+mongoose.connect('mongodb+srv://bugTracker123:Monsoon2023@bugtracker.c1zj8px.mongodb.net/bugTracker',(err)=>{
     if(err)
     console.log(err);
     else

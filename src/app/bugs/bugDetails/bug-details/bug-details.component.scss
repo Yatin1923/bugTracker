@@ -1,9 +1,7 @@
-.custom-dialog-container .mat-dialog-container {
-    /* add your styles */
-    padding: 0px;
-}
-.header{
 
+.header{
+  position: relative;
+  margin-bottom: 15px;
 }
 .title{
     padding: 5px 8px;
@@ -31,4 +29,7 @@ select {
     width: 100%;
     text-decoration: none;
     border: none;
+  }
+  .angular-editor-toolbar-set{
+    margin: 20px;
   }

@@ -64,7 +64,8 @@ export class BugsComponent {
   }
   bugDetails(bug:any){
     const dialogref = this.dialog.open(BugDetailsComponent,{
-      width:'70%',
+      width:'100%',
+      height:'90%',
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
        bug:bug
@@ -127,7 +128,9 @@ export class BugsComponent {
   }
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredBugs = this.bugs.filter((x: { id: any; })=>x.id.toString() === filterValue)
+    console.log(filterValue);
+    this.bugs = this.totalbugs;
+    this.filteredBugs = this.bugs.filter((x: { id: any; title:any;assignedTo:any;})=>x.id.toString() === filterValue || x.title.toString().toLowerCase().includes(filterValue.toLowerCase()) || x.assignedTo.toString().toLowerCase().includes(filterValue.toLowerCase()))
     if(!(filterValue == undefined || filterValue == null || filterValue == "")){
       this.bugs = this.filteredBugs
     }

@@ -1,16 +1,18 @@
-<h1 mat-dialog-title class="textAlignCenter h0">Create Bug</h1>
-<form [formGroup]="bugDetails" class = "signUpForm"  (submit)="onSubmit()">
+<div class="container p-4">
+
+    <h1 mat-dialog-title class="textAlignCenter h0">Create Bug</h1>
+    <form [formGroup]="bugDetails" class = "signUpForm"  (submit)="onSubmit()">
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Bug title</mat-label>
             <input type="text"  matInput maxlength="50" formControlName="bugTitle" 
-                   placeholder="Ex. Dashboard bug">
+            placeholder="Ex. Dashboard bug">
             <mat-error *ngIf="bugDetails.get('bugTitle')?.hasError('required')">
                 Bug title is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
-    <div  mat-dialog-content>
+        <div  mat-dialog-content>
 
         <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
@@ -39,14 +41,15 @@
                     </div>
                 </mat-option>
             </mat-select>
-                   <!-- <mat-error *ngIf="bugDetails.get('projectLead')?.hasError('required')">
-                    Project lead is <strong>required</strong>
-                </mat-error> -->
-          </mat-form-field>
+            <!-- <mat-error *ngIf="bugDetails.get('projectLead')?.hasError('required')">
+                Project lead is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button type="submit" [disabled]="bugDetails.invalid">Create</button>
         <button mat-button mat-dialog-close type="button">Cancel</button>
     </div>
 </form>
- 
+
+</div>
