@@ -26,13 +26,13 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline">
             <mat-label>Assigned to</mat-label>
-            <mat-select [formControl]="bugServerSideCtrl" placeholder="John Smith">
+            <mat-select formControlName="assignedTo" placeholder="John Smith">
                 <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
                 <mat-option>
-                  <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching"></ngx-mat-select-search>
+                  <ngx-mat-select-search [formControl]="filteringUsers" [searching]="searching"></ngx-mat-select-search>
                 </mat-option>
                 <mat-option>--None--</mat-option>
-                <mat-option *ngFor="let bug of filteredServerSidebugs | async" [value]="bug">                    
+                <mat-option *ngFor="let bug of filteredUsers | async" [value]="bug">                    
                     <div class="rows">
                         <div class="circles">
                           {{getInitials(bug.firstname,bug.lastname)}} 

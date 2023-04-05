@@ -25,14 +25,15 @@
                             id="new"
                             cdkDropList
                             #new="cdkDropList"
-                            [cdkDropListData]="newBugs"
+                            [cdkDropListData]="bugs"
                             [cdkDropListConnectedTo]="[active,resolved,paused]"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
-                            <div *ngFor="let item of newBugs; let i = index">
+                            <div *ngFor="let item of bugs; let i = index">
+                                <div *ngIf="item.status == 'new'">
 
-                                <div class="bug-box boxShadow" style="border-top: solid 5px #AEA5AE;" *ngIf="newBugs!=null" cdkDrag>
-                                    <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+                                    <div class="bug-box boxShadow" style="border-top: solid 5px #AEA5AE;" *ngIf="bugs!=null" cdkDrag>
+                                        <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item>Edit bug</button>
                                         <button mat-menu-item  class="text-danger" (click)="deleteBug(item,'new')"><i class="fa  fa-remove"></i>  Delete</button>
@@ -51,7 +52,7 @@
                                         <span style="padding-right: 5px;">State </span>
                                         <div class="status">
                                             <i class="fa fa-circle" aria-hidden="true" style="color: #AEA5AE;"> </i> 
-                                            <select (change)="optionChange($event,i,newBugs)" (focus)="previousOption($event)" class="status-select">
+                                            <select (change)="statusChange($event,item)"  class="status-select">
                                                 <option selected value="new">New</option>
                                                 <option value="active">Active</option>
                                                 <option value="resolved">Resolved</option>
@@ -72,6 +73,7 @@
                                     </div>
                                     
                                 </div>
+                            </div>
                                 
                             </div>
                             </div>
@@ -83,12 +85,12 @@
                             cdkDropList
                             #active="cdkDropList"
                             [cdkDropListConnectedTo]="[new,resolved,paused]"
-                            [cdkDropListData]="activeBugs"
+                            [cdkDropListData]="bugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
-                                <div *ngFor="let item of activeBugs; let i = index">
-
-                                    <div class="bug-box boxShadow" style="border-top: solid 5px #0e6ffd;" *ngIf="activeBugs" cdkDrag>
+                                <div *ngFor="let item of bugs; let i = index">
+                                    <div *ngIf="item.status == 'active'">
+                                    <div class="bug-box boxShadow" style="border-top: solid 5px #0e6ffd;" *ngIf="bugs" cdkDrag>
                                         <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                             <mat-menu #menu="matMenu">
                                                 <button mat-menu-item>Edit bug</button>
@@ -108,7 +110,7 @@
                                             <span style="padding-right: 5px;">State </span>
                                             <div class="status">
                                                 <i class="fa fa-circle" aria-hidden="true" style="color: #0e6ffd;"></i>
-                                                <select (change)="optionChange($event,i,activeBugs)" class="status-select">
+                                                <select (change)="statusChange($event,item)" class="status-select">
                                                     <option value="new">New</option>
                                                     <option selected value="active">Active</option>
                                                     <option value="resolved">Resolved</option>
@@ -129,6 +131,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                                 
                             </div>
                         </div>
@@ -139,12 +142,12 @@
                             cdkDropList
                             #resolved = "cdkDropList"
                             [cdkDropListConnectedTo]="[new,active,paused]"
-                            [cdkDropListData]="resolvedBugs"
+                            [cdkDropListData]="bugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
-                                <div  *ngFor="let item of resolvedBugs; let i = index">
-
-                                    <div class="bug-box boxShadow" style="border-top: solid 5px #339933;" *ngIf="resolvedBugs"  cdkDrag>
+                                <div  *ngFor="let item of bugs; let i = index">
+                                    <div *ngIf="item.status == 'resolved'">
+                                    <div class="bug-box boxShadow" style="border-top: solid 5px #339933;" *ngIf="bugs"  cdkDrag>
                                         <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                             <mat-menu #menu="matMenu">
                                                 <button mat-menu-item>Edit bug</button>
@@ -164,7 +167,7 @@
                                         <span style="padding-right: 5px;">State </span>
                                         <div class="status">
                                             <i class="fa fa-circle" aria-hidden="true" style="color: #339933;"></i>
-                                            <select (change)="optionChange($event,i,resolvedBugs)" class="status-select">
+                                            <select (change)="statusChange($event,item)" class="status-select">
                                                 <option value="new">New</option>
                                                 <option value="active">Active</option>
                                                 <option selected value="resolved">Resolved</option>
@@ -185,7 +188,7 @@
                                     </div>
                                 </div>
                                 </div>
-
+                                </div>
                             </div>
                         </div>
 
@@ -196,12 +199,12 @@
                             id="paused"
                             #paused="cdkDropList"
                             [cdkDropListConnectedTo]="[new,active,resolved]"
-                            [cdkDropListData]="pausedBugs"
+                            [cdkDropListData]="bugs"
                             class="bug-list"
                             (cdkDropListDropped)="drop($event)">
-                            <div *ngFor="let item of pausedBugs; let i = index">
-
-                                <div class="bug-box boxShadow" style="border-top: solid 5px #dc3545;" *ngIf="pausedBugs" cdkDrag>
+                            <div *ngFor="let item of bugs; let i = index">
+                                <div *ngIf="item.status == 'paused'">
+                                <div class="bug-box boxShadow" style="border-top: solid 5px #dc3545;" *ngIf="bugs" cdkDrag>
                                     <button mat-button [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="bug-menu"><i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
                                         <mat-menu #menu="matMenu">
                                             <button mat-menu-item>Edit bug</button>
@@ -219,7 +222,7 @@
                                         <div class="assignedTo">{{item.assignedTo||"Unassigned"}}</div>
                                         <div class="d-flex">
                                             <span style="padding-right: 5px;">State </span><div class="status"><i class="fa fa-circle text-danger" aria-hidden="true"></i> 
-                                                <select (change)="optionChange($event,i,pausedBugs)" class="status-select">
+                                                <select (change)="statusChange($event,item)" class="status-select">
                                                     <option value="new">New</option>
                                                     <option value="active">Active</option>
                                                     <option value="resolved">Resolved</option>
@@ -239,7 +242,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>

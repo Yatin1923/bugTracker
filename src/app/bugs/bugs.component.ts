@@ -14,10 +14,6 @@ import {ViewEncapsulation} from '@angular/core';
 })
 export class BugsComponent {
   bugs:any;
-  activeBugs:any = [];
-  resolvedBugs:any = [];
-  pausedBugs:any = [];
-  newBugs:any=[];
   projectName:string;
   filteredBugs: any;
   totalbugs:any;
@@ -34,22 +30,8 @@ export class BugsComponent {
 // Delete bug
   deleteBug(bug:any,bugType:String){
     this.bugService.deleteBug(this.projectName,bug.id).subscribe((res)=>{
-      if(bugType == 'new'){
-        let indexOfBug = this.newBugs.indexOf(bug);
-        this.newBugs.splice(indexOfBug,1);        
-      }
-      if(bugType == 'active'){
-        let indexOfBug = this.newBugs.indexOf(bug);
-        this.activeBugs.splice(indexOfBug,1);   
-      }
-      if(bugType == 'resolved'){
-        let indexOfBug = this.newBugs.indexOf(bug);
-        this.resolvedBugs.splice(indexOfBug,1);   
-      }
-      if(bugType == 'paused'){
-        let indexOfBug = this.newBugs.indexOf(bug);
-        this.pausedBugs.splice(indexOfBug,1);   
-      }
+        let indexOfBug = this.bugs.indexOf(bug);
+        this.bugs.splice(indexOfBug,1);   
     });
 
   }
@@ -63,10 +45,17 @@ export class BugsComponent {
     })
     dialogref.afterClosed().subscribe((bug)=>{
       if(bug){
-        this.newBugs.push(bug);
+        this.bugs.push(bug);
       }
     }
   )
+  }
+  // Get all bugs
+  getBugs(){
+    this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
+      this.bugs = response;
+      this.totalbugs = response;
+    });
   }
 
 // Open bug Detail Component
@@ -82,254 +71,70 @@ export class BugsComponent {
   }
 
 
-  getNewBugs(){
-
-    for (let i = 0; i < this.bugs.length; i++) {
-      if (this.bugs[i].new==true) {
-        this.newBugs.push(this.bugs[i]);
-      }
-    }
-  }
-
-
-  getActiveBugs(){
-    for (let i = 0; i < this.bugs.length; i++) {
-      if (this.bugs[i].active==true) {
-        this.activeBugs.push(this.bugs[i]);
-      }
-    }
-  }
-
-
-  getResolvedBugs(){
-    for (let i = 0; i < this.bugs.length; i++) {
-      if (this.bugs[i].resolved==true) {
-        this.resolvedBugs.push(this.bugs[i]);
-      }
-    }
-  }
-
-
-  getPausedBugs(){
-    for (let i = 0; i < this.bugs.length; i++) {
-      if (this.bugs[i].paused==true) {
-        this.pausedBugs.push(this.bugs[i]);
-    }
-  }
-}
-
-// Get all bugs
-  getBugs(){
-    this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
-      this.bugs = response;
-      this.totalbugs = response;
-      this.getNewBugs();
-      this.getActiveBugs();
-      this.getResolvedBugs();
-      this.getPausedBugs();
-    });
-  }
+ 
 
 
 
 
+
+// Filter bugs
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     this.bugs = this.totalbugs;
-    this.filteredBugs = this.bugs.filter((x: { id: any; title:any;assignedTo:any;})=>x.id.toString() === filterValue || x.title.toString().toLowerCase().includes(filterValue.toLowerCase()) || x.assignedTo.toString().toLowerCase().includes(filterValue.toLowerCase()))
+    this.filteredBugs = this.bugs.filter((x: { id: any; title:any;assignedTo:any;})=>x.id.toString().toLowerCase().indexOf(filterValue) > -1 || x.title.toString().toLowerCase().indexOf(filterValue) >-1 || x.assignedTo.toString().toLowerCase().indexOf(filterValue)>-1)
     if(!(filterValue == undefined || filterValue == null || filterValue == "")){
       this.bugs = this.filteredBugs
     }
     else{
       this.bugs = this.totalbugs;
     }
-    this.activeBugs = [];
-    this.resolvedBugs = [];
-    this.pausedBugs = [];
-    this.newBugs=[];
-    this.getNewBugs();
-    this.getActiveBugs();
-    this.getResolvedBugs();
-    this.getPausedBugs();
     
   }
 
 
-  previousStatus:any;
-  previousOption(event:any){
-    this.previousStatus = event.target.value;
-  }
-
-
-  getCurrentContainer(name:string){
-    switch(name){
-      case "new":{
-        return this.newBugs;
-      }
-      case "active":{
-        return this.activeBugs;
-      }
-      case "resolved":{
-        return this.resolvedBugs;
-      }
-      case "paused":{
-        return this.pausedBugs;
-      }
-    }
-  }
-
-
+// Update priority of bug
   priorityUpdate(event:any,bug:any){
     console.log("priorityUpdate",event.target.value,bug);
     bug.priority = event.target.value;
     this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
   }
 
-  
-optionChange(event:any,previousIndex:any,previousContainer:any){
-
-  
-
-  transferArrayItem(previousContainer,this.getCurrentContainer(event.target.value),previousIndex,0);
-
-  switch(event.target.value){
-    case "new":{
-      let updatedBug:any;
-      this.newBugs.forEach(function(value: any){
-        if(value.new == false){
-          updatedBug =value;
-          value.active = false;
-          value.new = true;
-          value.resolved = false;
-          value.paused = false;
-        }
-      })
-      console.log("new",updatedBug)
-      this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      break;
-    }
-    case "active":{
-      let updatedBug:any;
-      this.activeBugs.forEach(function(value: any){
-        if(value.active == false){
-          updatedBug =value;
-          value.active = true;
-          value.new = false;
-          value.resolved = false;
-          value.paused = false;
-        }
-      })
-      console.log("active",updatedBug)
-      this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      console.log("active",this.activeBugs);
-      break;
-    }
-    case "resolved":{
-      let updatedBug:any;
-      this.resolvedBugs.forEach(function(value: any){
-        if(value.resolved == false){
-          updatedBug =value;
-          value.active = false;
-          value.new = false;
-          value.resolved = true;
-          value.paused = false;
-        }
-      })
-      console.log("resolved",updatedBug)
-      this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      break;
-    }
-    case "paused":{  
-      let updatedBug:any;
-      this.pausedBugs.forEach(function(value: any){
-        if(value.paused == false){
-          updatedBug =value;
-          value.active = false;
-          value.new = false;
-          value.resolved = false;
-          value.paused = true;
-        }
-      })
-      console.log("paused",updatedBug)
-      this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
-      break;
-    }
+  // Change status of bug (by select option)
+statusChange(event:any,bug:any){
+    bug.status = event.target.value;
+    console.log("optionChange",bug);
+    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
 }
-}
+  // Change status of bug (by drag and drop)
   drop(event: CdkDragDrop<any[]>) {
-    if(event.container.data == event.previousContainer.data){
-      moveItemInArray(event.container.data,event.previousIndex,event.currentIndex);
-      console.log("active", this.activeBugs)
-    }else{
-
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-        );
+      transferArrayItem(event.previousContainer.data,event.container.data,event.previousIndex,event.currentIndex);
         switch(event.container.id){
         case "new":{
-          let updatedBug:any;
-          this.newBugs.forEach(function(value: any){
-            if(value.new == false){
-              updatedBug =value;
-              value.active = false;
-              value.new = true;
-              value.resolved = false;
-              value.paused = false;
-            }
-          })
+          let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
+          updatedBug.status = "new";
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
           break;
         }
         case "active":{
-          let updatedBug:any;
-          this.activeBugs.forEach(function(value: any){
-            if(value.active == false){
-              updatedBug =value;
-              value.active = true;
-              value.new = false;
-              value.resolved = false;
-              value.paused = false;
-            }
-          })
+          let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
+          console.log(event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex]);
+          updatedBug.status = "active";
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
           break;
         }
         case "resolved":{
-          let updatedBug:any;
-          this.resolvedBugs.forEach(function(value: any){
-            if(value.resolved == false){
-              updatedBug =value;
-              value.active = false;
-              value.new = false;
-              value.resolved = true;
-              value.paused = false;
-            }
-          })
-          console.log("resolved",updatedBug)
+          let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
+          updatedBug.status = "resolved"
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
           break;
         }
         case "paused":{  
-          let updatedBug:any;
-          this.pausedBugs.forEach(function(value: any){
-            if(value.paused == false){
-              updatedBug =value;
-              value.active = false;
-              value.new = false;
-              value.resolved = false;
-              value.paused = true;
-            }
-          })
-          console.log("paused",updatedBug)
+          let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
+          updatedBug.status = "paused";
           this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
           break;
         }
       }
     }
-  }
 }
   

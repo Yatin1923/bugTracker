@@ -9,19 +9,24 @@ basedUrl:string = "http://localhost:3000/projects";
 
   constructor(private http : HttpClient) { }
 
+  // Create bug
   createBug(projectName:string,bugTitle:any,bugDescription:any,assignedTo:any){
-    //console.log(projectName);
-    const result = this.http.post(this.basedUrl+'/'+projectName+'/bugs',{title:bugTitle,description:bugDescription,assignedTo:assignedTo?assignedTo.firstname +' '+ assignedTo.lastname:'',new:true},{withCredentials:true})
-   // console.log(result)
+    const result = this.http.post(this.basedUrl+'/'+projectName+'/bugs',{title:bugTitle,description:bugDescription,assignedTo:assignedTo?assignedTo.firstname +' '+ assignedTo.lastname:'',status:"new"},{withCredentials:true})
     return result
   }
+
+  // Get all bugs
   getBugs(projectName:string){
     const result = this.http.get(this.basedUrl+'/'+projectName+'/bugs', {withCredentials: true});
     return result;
   }
+
+  // Update bug
   updateBug(projectName:string,bug:any){
-    const result = this.http.put(this.basedUrl+'/'+projectName+'/bugs/'+bug._id,bug, {withCredentials:true}).subscribe();
+    const result = this.http.put(this.basedUrl+'/'+projectName+'/bugs/'+bug.id,bug, {withCredentials:true}).subscribe();
   }
+
+  // Delete bug
   deleteBug(projectName:string,bugId:string){
     console.log("delete called",projectName,bugId);
     const result = this.http.delete(this.basedUrl+'/'+projectName+'/bugs'+'/'+bugId,{withCredentials:true});

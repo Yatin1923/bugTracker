@@ -18,10 +18,7 @@ createBug = async(projectName,user,bug)=>{
                     title:bug.title,
                     description:bug.description,
                     assignedTo:bug.assignedTo,
-                    new:true,
-                    active:false,
-                    resolved:false,
-                    paused:false,
+                    status:bug.status,
                     createdDate : new Date()
                 });
                 id++;
@@ -66,17 +63,12 @@ updateBug = async(projectName,bugId,newBug,user)=>{
             let project = user.projects.find(x=>x.name==projectName);
            // console.log(project);
         if(project){
-            let bug = project.bugs.find(x=>x._id==bugId);
+            let bug = project.bugs.find(x=>x.id==bugId);
             if(bug){
-
-               // console.log(bug);
                 bug.title = newBug.title;
                 bug.assignedTo = newBug.assignedTo;
                 bug.description = newBug.description;
-                bug.new = newBug.new?newBug.new:newBug.active?false:newBug.resolved?false:newBug.paused?false:true;
-                bug.active = newBug.active?newBug.active:false;
-                bug.resolved = newBug.resolved?newBug.resolved:false;
-                bug.paused = newBug.paused?newBug.paused:false;
+                bug.status = newBug.status;
                 bug.updatedDate = new Date();
                 bug.priority = newBug.priority;
             }else{

@@ -21,60 +21,52 @@ export class CreateBugFormComponent {
   bugDetails = new FormGroup({
     bugTitle : new FormControl('',[Validators.required]),
     description : new FormControl(''),
-
   })
 
   users:any;
-  public bugServerSideCtrl: FormControl = new FormControl();
-  public bugServerSideFilteringCtrl: FormControl = new FormControl();
-  public  filteredServerSidebugs: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  public assignedTo: FormControl = new FormControl(); // assignedTo is outside of form group for simplicity
+  public filteringUsers: FormControl = new FormControl();
+  public filteredUsers: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   public searching: boolean = false;
-  protected _onDestroy = new Subject<void>();
   projectName:any;
 
+  // Get Initials of Name
   getInitials(firstname:string, lastname:string){
     return (firstname.charAt(0)+ lastname.charAt(0)).toUpperCase();
   }
+
+  // Get All Users and filter bugs
   ngOnInit() {
-    // console.log(this.data);
     this.projectName = this.data.projectName;
     this.authService.getUsers().subscribe(async response => {
     this.users = await response;
    });
+
    // listen for search field value changes
-   this.bugServerSideFilteringCtrl.valueChanges
+   this.filteringUsers.valueChanges
    .pipe(
-     filter(search => search),
      tap(() => this.searching = true),
-     takeUntil(this._onDestroy),
      debounceTime(200),
      map(search => {
        if (!this.users) {
          return [];
         }
-        
-        console.log(this.users.filter((user: { firstname: string;lastname:string }) => user.firstname.toLowerCase().indexOf(search) > -1 ||user.lastname.toLowerCase().indexOf(search) > -1 ));
-          // simulate server fetching and filtering data
-          return this.users.filter((user: { firstname: string;lastname:string }) => user.firstname.toLowerCase().indexOf(search) > -1 ||user.lastname.toLowerCase().indexOf(search) > -1 );
+          return this.users.filter((user: { firstname: string; lastname:string }) => user.firstname.toLowerCase().indexOf(search) > -1 ||user.lastname.toLowerCase().indexOf(search) > -1 );
         }),
         delay(500)
       )
-      .subscribe(filteredbugs => {
+      .subscribe(filteredUsers => {
         this.searching = false;
-        this.filteredServerSidebugs.next(filteredbugs);
-      },
-        error => {
-          // no errors in our simulated example
-          this.searching = false;
-          // handle error...
-        });
+        this.filteredUsers.next(filteredUsers);
+      });
 
   }
+
+  // Create bug onSubmit
   onSubmit(){
     let id;
-    // console.log(this.bugServerSideCtrl.value);
-    this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.bugServerSideCtrl.value).subscribe(res=>{
+    this.bugService.createBug(this.projectName,this.bugDetails.get('bugTitle')?.value,this.bugDetails.get('description')?.value,this.assignedTo.value).subscribe(res=>{
       if(res.toString().includes("already exists")){
         this.notify.showWarning(res)
       } else{
@@ -82,9 +74,7 @@ export class CreateBugFormComponent {
       }
       id = res;
        console.log(id);
-      this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,assignedTo:this.bugServerSideCtrl.value.firstname +' '+this.bugServerSideCtrl.value.lastname ||"",new:true,active:false,resolved:false,paused:false})
+      this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,assignedTo:this.assignedTo.value?this.assignedTo.value.firstname +' '+this.assignedTo.value.lastname :"",status:"new"})
     })
-
-    //this.dialogref.close(this.bugDetails.get('bugTitle')?.value);
   }
 }

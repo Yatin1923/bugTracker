@@ -17,25 +17,10 @@ const bugSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    new:{
-        type:Boolean,
+    status:{
+        type:String,
         required:true,
-        default:false
-    },
-    active:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    resolved:{
-        type:Boolean,
-        required:true,
-        default:false
-    },
-    paused:{
-        type:Boolean,
-        required:true,
-        default:false
+        default:"new"
     },
     createdDate:{
         type:Date,
