@@ -13,12 +13,17 @@ export class AuthService {
   
   constructor(private http: HttpClient,private router: Router,private notify : NotifyService){}
   
+  // Logout user
   logout() {
     this.http.post(this.basedUrl+'/logout','',{withCredentials:true}).subscribe();
 }
+
+// Get all users
   getUsers(){
      return this.http.get(this.basedUrl+'/'+"users",{withCredentials:true});
   }
+
+  // Create User
   CreateUser(email:string,password:string, firstname:string,lastname:string){
     const authData:AuthData = {
       email: email, password: password, firstname: firstname, lastname: lastname
@@ -28,6 +33,7 @@ export class AuthService {
     })
   }
   
+  // Login user
   loginUser(email:string,password:string){
    return new Promise((resolve,reject)=>{
 
@@ -46,6 +52,7 @@ export class AuthService {
     }) 
   }
 
+  // Check if user is authenticated
   isAuthenticated() {
    return this.http.get(this.basedUrl,{withCredentials:true})
 }

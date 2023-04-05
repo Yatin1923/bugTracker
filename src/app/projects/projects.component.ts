@@ -1,29 +1,31 @@
 import { Component,OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { CreateProjectFormComponent } from '../shared/create-project-form/create-project-form/create-project-form.component';
+import { CreateProjectFormComponent } from './create-project-form/create-project-form.component';
 import { NotifyService } from '../shared/notifyService/notify.service';
 import { ProjectService } from './project.service';
-import { rowsAnimation, rowUpdate } from './rowAnimation/animation';
 
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss'],
-  animations: [rowsAnimation,rowUpdate]
+  styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent {
 
   constructor(private projectService:ProjectService,private dialog:MatDialog,private notify:NotifyService){}
-
+  
+  // Mat table variables
   dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['name', 'key', 'projectLead','action'];
+
+  // Get project on init
   ngOnInit(){
     this.getProjects();
   }
 
-  
-  openDialog(){
+  // Create project
+  createProject(){
     const dialogref = this.dialog.open(CreateProjectFormComponent,{
       width:'30%',
     })
@@ -32,15 +34,16 @@ export class ProjectsComponent {
     )
   }
 
+  // Get projects
   getProjects(){
     this.projectService.getProject().subscribe((data:any)=>{
-      console.log(data);
       this.dataSource = new MatTableDataSource(data);
     })
   }
 
+
+  // Edit projects
   editProjectForm(name:string,key:string,projectLead:string){
-    //console.log(name + ": " + key + ": " + projectLead)
     const dialogref = this.dialog.open(CreateProjectFormComponent,{
       width:'30%',
       data:{
@@ -52,25 +55,18 @@ export class ProjectsComponent {
     dialogref.afterClosed().subscribe(()=>
       this.getProjects()
     )
-    
-
   }
+
+  // Delete projects
   deleteProject(name:String){
      this.projectService.deleteProject(name).subscribe((response)=>{
-      console.log(response)
       this.notify.showSuccess(response);
        this.getProjects();
      })
   }
-  displayedColumns: string[] = ['name', 'key', 'projectLead','action'];
 
 
-  isEmpty(){
-    if(this.dataSource.data){
-      return false;
-    }
-    return true;
-  }
+// Mat table filter
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

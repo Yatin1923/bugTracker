@@ -16,7 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProjectsComponent } from './projects/projects.component';
 import {MatTableModule} from '@angular/material/table';
-import { CreateProjectFormComponent } from './shared/create-project-form/create-project-form/create-project-form.component';
+import { CreateProjectFormComponent } from './projects/create-project-form/create-project-form.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider,

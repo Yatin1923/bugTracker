@@ -6,19 +6,26 @@ import { projectModel } from './project.model';
   providedIn: 'root'
 })
 export class ProjectService {
+
   basedUrl:string = "http://localhost:3000/projects"
+
+
   constructor(private http: HttpClient,private notify:NotifyService) { }
 
+// Get Projects
   getProject(){
     const result = this.http.get(this.basedUrl, {withCredentials: true});
     return result;
   }
+
+  // Delete Projects
   deleteProject(name:String){
     const url = this.basedUrl +'/'+name;
     const result = this.http.delete(url, {withCredentials: true})
     return result;
   }
   
+  // Edit projects
   editProject(_name:string,name:String,key:String,projectlead:String){
     // console.log("editProject: ",_name)
     const url = this.basedUrl +'/'+_name;
@@ -34,6 +41,8 @@ export class ProjectService {
     return result;
   }
 
+  
+// Create Projects
   createProject(name:String,key:String,projectlead:String){
     const projectDetails:projectModel = {
       name:name,

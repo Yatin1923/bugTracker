@@ -1,0 +1,61 @@
+<h1 mat-dialog-title class="textAlignCenter h0" *ngIf="!data">Create project</h1>
+<h1 mat-dialog-title class="textAlignCenter h0" *ngIf="data">Edit project</h1>
+<form [formGroup]="projectDetails" class = "signUpForm"  (submit)="onSubmit()">
+
+    <!-- Project Name -->
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Project name</mat-label>
+            <input type="text"  matInput formControlName="projectName" 
+                   placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="projectDetails.get('projectName')?.hasError('required')">
+                Project name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Key -->
+    <div  mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Key</mat-label>
+            <input type="text" matInput formControlName="key" 
+            placeholder="">
+            <mat-error *ngIf="projectDetails.get('key')?.hasError('required')">
+                Key is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- Project Lead -->
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Project Lead</mat-label>
+            <mat-select formControlName="projectLead" placeholder="John Smith">
+                <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="userFiltering" [searching]="searching"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option>--None--</mat-option>
+                <mat-option *ngFor="let bug of filteredUsers | async" [value]="bug.firstname+' '+bug.lastname">                    
+                    <div class="rows">
+                        <div class="circles">
+                            {{getInitials(bug.firstname,bug.lastname)}} 
+                          </div>
+                        {{bug.firstname}} {{bug.lastname}}
+                    </div>
+                </mat-option>
+            </mat-select>
+                   <!-- <mat-error *ngIf="bugDetails.get('projectLead')?.hasError('required')">
+                    Project lead is <strong>required</strong>
+                </mat-error> -->
+          </mat-form-field>
+    </div>
+
+    <!-- Action buttons -->
+    <div mat-dialog-actions>
+        <button mat-button type="submit" [disabled]="projectDetails.invalid" *ngIf="!data">Create</button>
+        <button mat-button type="submit" [disabled]="projectDetails.invalid" *ngIf="data">Update</button>
+        <button mat-button mat-dialog-close type="button">Cancel</button>
+    </div>
+</form>
+ 
