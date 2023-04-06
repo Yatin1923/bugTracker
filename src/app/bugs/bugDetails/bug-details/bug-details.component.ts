@@ -1,8 +1,8 @@
 import { Component ,OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ReplaySubject, Subject, debounceTime, delay, filter, map, takeUntil, tap } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ReplaySubject, debounceTime, delay, map, tap } from 'rxjs';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Component({
@@ -22,6 +22,15 @@ export class BugDetailsComponent {
   priority:any = this.data.bug.priority;
   assignedTo:any = this.data.bug.assignedTo;
   description:any = this.data.bug.description;
+  comments:any = this.data.bug.comments;
+
+  // Form Group
+  bugDetails = new FormGroup({
+    bugTitle:new FormControl(this.title),
+    bugDescription:new FormControl(this.description),
+    assignedTo:new FormControl(this.assignedTo),
+    comments:new FormControl(this.comments)
+  })
 
   editorConfig: AngularEditorConfig = {
     outline:false,
@@ -72,40 +81,34 @@ export class BugDetailsComponent {
 };
 
 public bugServerSideCtrl: FormControl = new FormControl();
-public bugServerSideFilteringCtrl: FormControl = new FormControl();
-public  filteredServerSidebugs: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+public filteringUsers: FormControl = new FormControl();
+public  filteredUsers: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 public searching: boolean = false;
-protected _onDestroy = new Subject<void>();
 
 ngOnInit(){
     this.authService.getUsers().subscribe(async response => {
       this.users = await response;
      });
+    //  console.log(this.data);
+     this.filteringUsers.valueChanges
+     .pipe(
+       tap(() => this.searching = true),
+       debounceTime(200),
+       map(search => {
+         if (!this.users) {
+           return [];
+          }
+            return this.users.filter((user: { firstname: string; lastname:string }) => user.firstname.toLowerCase().indexOf(search) > -1 ||user.lastname.toLowerCase().indexOf(search) > -1 );
+          }),
+          delay(500)
+        )
+        .subscribe(filteredUsers => {
+          this.searching = false;
+          this.filteredUsers.next(filteredUsers);
+        });
+  }
 
-    this.bugServerSideFilteringCtrl.valueChanges
-    .pipe(
-      filter(search => search),
-      tap(() => this.searching = true),
-      takeUntil(this._onDestroy),
-      debounceTime(200),
-      map(search => {
-        if (!this.users) {
-          return [];
-         }
-         
-           // simulate server fetching and filtering data
-           return this.users.filter((user: { firstname: string;lastname:string }) => user.firstname.toLowerCase().indexOf(search) > -1 ||user.lastname.toLowerCase().indexOf(search) > -1 );
-         }),
-         delay(500)
-       )
-       .subscribe(filteredbugs => {
-         this.searching = false;
-         this.filteredServerSidebugs.next(filteredbugs);
-       },
-         error => {
-           // no errors in our simulated example
-           this.searching = false;
-           // handle error...
-         });
+  copyText(text: string){
+    navigator.clipboard.writeText(text);
   }
 }

@@ -62,18 +62,16 @@ export class BugsComponent {
   bugDetails(bug:any){
     const dialogref = this.dialog.open(BugDetailsComponent,{
       width:'100%',
-      height:'90%',
+      height:'80%',
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
-       bug:bug
+        bug:bug
       }
     })
   }
 
 
  
-
-
 
 
 
@@ -92,6 +90,7 @@ export class BugsComponent {
   }
 
 
+
 // Update priority of bug
   priorityUpdate(event:any,bug:any){
     console.log("priorityUpdate",event.target.value,bug);
@@ -99,12 +98,16 @@ export class BugsComponent {
     this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
   }
 
+
+
   // Change status of bug (by select option)
 statusChange(event:any,bug:any){
     bug.status = event.target.value;
     console.log("optionChange",bug);
     this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
 }
+
+
   // Change status of bug (by drag and drop)
   drop(event: CdkDragDrop<any[]>) {
       transferArrayItem(event.previousContainer.data,event.container.data,event.previousIndex,event.currentIndex);

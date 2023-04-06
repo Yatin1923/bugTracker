@@ -1,19 +1,33 @@
-
-    <div class="header">
+<div [formGroup] = "bugDetails">
+    <div class="header" >
         <mat-icon style="color: #0e6ffd;">book</mat-icon> USER STORY {{id}}
         <mat-icon mat-raised-button mat-dialog-close aria-hidden="false" aria-label="Example home icon" fontIcon="closethick" style="position: absolute; right: 5px; top:5px;"></mat-icon>
+        <br>
+        <div class="row mt-3 m-0">
+            <h4 class="col-1 ">#{{id}}</h4>
+            <div class="title col-11 d-flex">
+                <input formControlName ="bugTitle" class="bugTitle"/>
+                <button class="copyIcon" (click)="copyText(bugDetails.get('bugTitle')?.value)" >
+                    <i class="fa fa-lg fa-copy" ></i>
+                </button>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="noOfComments col">{{comments.length}} Comments <i class="fa fa-comments" aria-hidden="true"></i></div>
+            <div class="saveBtn  col mt-3">
+                <button mat-button color="primary">Save and Close</button>
+                <button mat-button class="">Cancel</button>
+            </div>
+        </div>
     </div>
-    <div class="row m-0">
-        <h5 class="col-1 px-3">#{{id}}</h5>
-        <h4 class="title col-10"> {{title}}</h4>
-    </div>
-    <hr>
+    <hr class="m-0">
+    <br>
     <p class="mx-4">Description</p>
     <div class="row  mx-4">
-    <div class="description col-8 p-0">
-        <angular-editor (blur)="editorConfig.showToolbar = false" (focus)="editorConfig.showToolbar = true" [config]="editorConfig" style="border: none;">{{description}}</angular-editor>
-    </div>
-    <div class="col-4">
+        <div class="description col-9 p-0">
+            <angular-editor formControlName = "bugDescription" (blur)="editorConfig.showToolbar = false" (focus)="editorConfig.showToolbar = true" [config]="editorConfig" style="border: none;"></angular-editor>
+        </div>
+    <div class="col-3">
         <br>
         <div class=" mb-4">
             <span style="padding-right: 5px;color: #737373;">Priority </span>
@@ -31,20 +45,24 @@
                 Assigned To 
             </div>
             <div class="">
-                <mat-select [formControl]="bugServerSideCtrl" [placeholder]="assignedTo">
-                <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
-                <mat-option>
-                    <ngx-mat-select-search [formControl]="bugServerSideFilteringCtrl" [searching]="searching" placeholderLabel="Search"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option>--None--</mat-option>
-                <mat-option *ngFor="let bug of filteredServerSidebugs | async" [value]="bug">                    
-                    {{bug.firstname}} {{bug.lastname}}
-                </mat-option>
-            </mat-select>
+                <mat-select formControlName="assignedTo" [placeholder]="assignedTo" >
+                    <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="filteringUsers" [searching]="searching" placeholderLabel="Search"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option>--None--</mat-option>
+                    <mat-option *ngFor="let bug of filteredUsers | async" [value]="bug">                    
+                        {{bug.firstname}} {{bug.lastname}}
+                    </mat-option>
+                </mat-select>
+            </div>
         </div>
     </div>
 </div>
-</div>
 <div class="comments mx-4">
     Comments
+</div>
+<div class="comments mx-4">
+    <angular-editor  class="comments" formControlName = "bugComments" (blur)="editorConfig.showToolbar = false" (focus)="editorConfig.showToolbar = true" [config]="editorConfig" style="border: none;"></angular-editor>
+</div>
 </div>

@@ -73,3 +73,7 @@ html, body { height: 100%;
 a{
   color: var(--textPrimary);
 }
+.comments .angular-editor-textarea {
+  height: auto !important;
+  min-height: 150px !important;
+}

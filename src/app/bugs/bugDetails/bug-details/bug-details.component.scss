@@ -1,13 +1,47 @@
 
 .header{
   position: relative;
-  margin-bottom: 15px;
+  min-height: 100px;
+  border-left: 8px solid #0e6ffd;
+}
+.bugTitle{
+    // padding: 0px 8px;
+    width:90%;
+    border: none;
+    font-size: 26px;
+    background-color: transparent;
+}
+.copyIcon{
+  visibility: hidden;
 }
 .title{
-    padding: 5px 8px;
+  position: absolute;
+  margin-left: 5rem;
+  margin-right: 0;
 }
 .title:hover{
-    border: 2px solid #dfdfdf;
+  .copyIcon{
+    visibility: visible;
+    background-color: #dfdfdf;
+    // width: 48px;
+     padding: 12px;
+    // padding-top: 17px;
+     border: none;
+  }
+  .bugTitle{
+      border: 2px solid #dfdfdf;
+  }
+}
+.noOfComments{
+  padding-top: 20px;
+  text-align: center;
+}
+.fa-copy{
+  border: none;
+  background-color: transparent;
+}
+.saveBtn{
+  text-align: end;
 }
 select {
     padding: 0 2px;
@@ -30,6 +64,7 @@ select {
     text-decoration: none;
     border: none;
   }
-  .angular-editor-toolbar-set{
-    margin: 20px;
+  .comments{
+    width: 50%;
   }
+
