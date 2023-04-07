@@ -61,8 +61,9 @@ export class BugsComponent {
 // Open bug Detail Component
   bugDetails(bug:any){
     const dialogref = this.dialog.open(BugDetailsComponent,{
-      width:'100%',
-      height:'80%',
+      maxWidth:'500vh',
+      width:'90%',
+      height:'85%',
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
         bug:bug

@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ReplaySubject, debounceTime, delay, map, tap } from 'rxjs';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { BugService } from '../../bug.service';
 @Component({
   selector: 'app-bug-details',
   templateUrl: './bug-details.component.html',
@@ -13,26 +14,76 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class BugDetailsComponent {
 
-  constructor( @Inject (MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<BugDetailsComponent>,private authService:AuthService){
+  constructor( @Inject (MAT_DIALOG_DATA) public data: any,public dialogref:MatDialogRef<BugDetailsComponent>,private authService:AuthService,private bugService:BugService){
     
   }
   users:any;
+  projectName:any = this.data.projectName;
   id:any = this.data.bug.id;
   title: any = this.data.bug.title;
   priority:any = this.data.bug.priority;
   assignedTo:any = this.data.bug.assignedTo;
   description:any = this.data.bug.description;
   comments:any = this.data.bug.comments;
-
+  nullUser:any;
   // Form Group
   bugDetails = new FormGroup({
-    bugTitle:new FormControl(this.title),
-    bugDescription:new FormControl(this.description),
+    id:new FormControl(this.id),
+    title:new FormControl(this.title),
+    description:new FormControl(this.description),
     assignedTo:new FormControl(this.assignedTo),
-    comments:new FormControl(this.comments)
+    comments:new FormControl(this.comments),
+    priority:new FormControl(this.priority)
   })
 
-  editorConfig: AngularEditorConfig = {
+  descEditorConfig: AngularEditorConfig = {
+    outline:false,
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '400px',
+      maxHeight: 'auto',
+      width: 'auto',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: false,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      toolbarPosition:'bottom',
+      toolbarHiddenButtons: [
+        [
+          'undo',
+          'redo',
+          'strikeThrough',
+          'subscript',
+          'superscript',
+          'justifyLeft',
+          'justifyCenter',
+          'justifyRight',
+          'justifyFull',
+          'fontName'
+        ],
+        [
+          'fontSize',
+          'customClasses',
+          'link',
+          'unlink',
+          'insertVideo',
+          'removeFormat',
+          'toggleEditorMode'
+        ]
+      ]
+      
+};
+  commentEditorConfig: AngularEditorConfig = {
     outline:false,
     editable: true,
       spellcheck: true,
@@ -110,5 +161,11 @@ ngOnInit(){
 
   copyText(text: string){
     navigator.clipboard.writeText(text);
+  }
+
+  updateBug(){
+    console.log("Update Bug: ", this.bugDetails.value);
+     this.bugService.updateBug(this.projectName,this.bugDetails.value);
+     this.dialogref.close();
   }
 }

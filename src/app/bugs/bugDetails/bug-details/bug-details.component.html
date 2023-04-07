@@ -1,4 +1,4 @@
-<div [formGroup] = "bugDetails">
+<div class="bugDetails" [formGroup] = "bugDetails">
     <div class="header" >
         <mat-icon style="color: #0e6ffd;">book</mat-icon> USER STORY {{id}}
         <mat-icon mat-raised-button mat-dialog-close aria-hidden="false" aria-label="Example home icon" fontIcon="closethick" style="position: absolute; right: 5px; top:5px;"></mat-icon>
@@ -6,26 +6,35 @@
         <div class="row mt-3 m-0">
             <h4 class="col-1 ">#{{id}}</h4>
             <div class="title col-11 d-flex">
-                <input formControlName ="bugTitle" class="bugTitle"/>
-                <button class="copyIcon" (click)="copyText(bugDetails.get('bugTitle')?.value)" >
+                <input formControlName ="title" class="bugTitle"/>
+                <button class="copyIcon" (click)="copyText(bugDetails.get('title')?.value)" >
                     <i class="fa fa-lg fa-copy" ></i>
                 </button>
             </div>
         </div>
-        <div class="row m-0">
+        <div class="row hearderBottom">
             <div class="noOfComments col">{{comments.length}} Comments <i class="fa fa-comments" aria-hidden="true"></i></div>
             <div class="saveBtn  col mt-3">
-                <button mat-button color="primary">Save and Close</button>
-                <button mat-button class="">Cancel</button>
+                <button mat-button color="primary" (click)="updateBug()" [disabled]="bugDetails.untouched">Save and Close</button>
+                <button mat-button matDialogClose>Cancel</button>
             </div>
         </div>
     </div>
-    <hr class="m-0">
     <br>
-    <p class="mx-4">Description</p>
+    <p class="mx-4"><b style="color: rgb(100, 100, 100);">Description</b></p>
     <div class="row  mx-4">
         <div class="description col-9 p-0">
-            <angular-editor formControlName = "bugDescription" (blur)="editorConfig.showToolbar = false" (focus)="editorConfig.showToolbar = true" [config]="editorConfig" style="border: none;"></angular-editor>
+            <hr class="hr">
+            <angular-editor formControlName = "description" (blur)="descEditorConfig.showToolbar = false" (focus)="descEditorConfig.showToolbar = true" [config]="descEditorConfig" style="border: none;"></angular-editor>
+            <div class="comments mt-3"> <b style="color: rgb(100, 100, 100);">
+                Comments
+            </b>
+            </div>
+            <hr class="hr">
+            <div class="comments ">
+                <angular-editor  class="comments" formControlName = "comments" (blur)="commentEditorConfig.showToolbar = false" (focus)="commentEditorConfig.showToolbar = true" [config]="commentEditorConfig" style="border: none;"></angular-editor>
+            </div>
+            
         </div>
     <div class="col-3">
         <br>
@@ -58,11 +67,5 @@
             </div>
         </div>
     </div>
-</div>
-<div class="comments mx-4">
-    Comments
-</div>
-<div class="comments mx-4">
-    <angular-editor  class="comments" formControlName = "bugComments" (blur)="editorConfig.showToolbar = false" (focus)="editorConfig.showToolbar = true" [config]="editorConfig" style="border: none;"></angular-editor>
 </div>
 </div>

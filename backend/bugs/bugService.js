@@ -68,9 +68,10 @@ updateBug = async(projectName,bugId,newBug,user)=>{
                 bug.title = newBug.title;
                 bug.assignedTo = newBug.assignedTo;
                 bug.description = newBug.description;
-                bug.status = newBug.status;
+                // bug.status = newBug.status;
                 bug.updatedDate = new Date();
                 bug.priority = newBug.priority;
+                bug.comments.push(newBug.comments);
             }else{
                 resolve("No bug with that name found");
             }

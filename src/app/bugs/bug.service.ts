@@ -28,7 +28,6 @@ basedUrl:string = "http://localhost:3000/projects";
 
   // Delete bug
   deleteBug(projectName:string,bugId:string){
-    console.log("delete called",projectName,bugId);
     const result = this.http.delete(this.basedUrl+'/'+projectName+'/bugs'+'/'+bugId,{withCredentials:true});
     return result;
   }

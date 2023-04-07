@@ -17,13 +17,16 @@
   }
   body
   {
+    zoom: 90%;
     background-color: var(--backgroundColor);
     color: var(--textPrimary);
     font-family:  "Poppins";
   }
 html, body { height: 100%;
    }
- 
+ .cdk-overlay-connected-position-bounding-box{
+  right: 176.2283px !important;
+ }
 
 .h0{
   font-size: 65px;
@@ -76,4 +79,70 @@ a{
 .comments .angular-editor-textarea {
   height: auto !important;
   min-height: 150px !important;
+  border: #f7f7f7!important;
 }
+.description .angular-editor-textarea{
+  border: none !important;
+  height: auto !important;
+  min-height: 150px !important;
+  overflow: auto !important;
+}
+.description .angular-editor-textarea:hover{
+  border: 2px solid #f7f7f7 !important;
+}
+.description .angular-editor-textarea:focus-visible{
+  border: 2px solid #0e6ffd !important;
+  border-bottom: none !important;
+  overflow: auto !important;
+}
+.description .comments .angular-editor-textarea{
+  border: 2px solid #f7f7f7 !important;
+}
+.description .comments .angular-editor-textarea:focus-visible{
+  border: 2px solid #0e6ffd !important;
+  border-bottom: none !important;
+}
+.angular-editor-textarea{
+  resize: none !important;
+}
+.angular-editor-toolbar{
+  background-color: transparent !important;
+  border: 2px solid #0e6ffd !important;
+  border-top: none !important;
+}
+.angular-editor-button{
+  border: none !important;
+}
+.cdk-overlay-backdrop{
+  pointer-events: none;
+}
+
+
+@media (min-width: 576px){
+  .container {
+    min-width: 630px !important;
+  }
+}
+@media (min-width: 768px){
+  .container {
+    min-width: 720px !important;
+  }
+}
+@media (min-width: 992px){
+  .container {
+    min-width: 1080px !important;
+  }
+}
+@media (min-width: 1200px){
+  .container {
+    min-width: 1340px !important;
+  }
+}
+
+@media (min-width: 1400px){
+  .container {
+    min-width: 1450px !important;
+  }
+}
+
+
