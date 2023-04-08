@@ -31,7 +31,7 @@ const bugSchema = new mongoose.Schema({
         required:false
     },
     comments:{
-        type:Array,
+        type:Object,
         required:false
     },
     priority:{

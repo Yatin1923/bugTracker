@@ -23,7 +23,8 @@ basedUrl:string = "http://localhost:3000/projects";
 
   // Update bug
   updateBug(projectName:string,bug:any){
-    const result = this.http.put(this.basedUrl+'/'+projectName+'/bugs/'+bug.id,bug, {withCredentials:true}).subscribe();
+    const result = this.http.put(this.basedUrl+'/'+projectName+'/bugs/'+bug.id,bug, {withCredentials:true});
+    return result;
   }
 
   // Delete bug

@@ -1,10 +1,7 @@
-const { db } = require("../users/userModel")
-const userModel = require("../users/userModel")
 const bugModel = require("../bugs/bugModel");
 let id = 1;
 createBug = async(projectName,user,bug)=>{
     return new Promise(async(resolve,reject) =>{
-        console.log("ID",id);
         if(user != null){
             let project = user.projects.find(x=>x.name == projectName);
             if(project){
@@ -42,7 +39,6 @@ getBugs = async(projectName,user)=>{
         if(project){
             if(project.bugs.length > 0){
 
-                console.log("bugs",project.bugs);
                 id = project.bugs[project.bugs.length-1].id+1;
             }else{
                 id =1
@@ -60,18 +56,26 @@ updateBug = async(projectName,bugId,newBug,user)=>{
     return new Promise(async(resolve,reject)=>{
 
         if(user!=null){
+            console.log("user",user);
             let project = user.projects.find(x=>x.name==projectName);
-           // console.log(project);
         if(project){
             let bug = project.bugs.find(x=>x.id==bugId);
             if(bug){
                 bug.title = newBug.title;
                 bug.assignedTo = newBug.assignedTo;
                 bug.description = newBug.description;
-                // bug.status = newBug.status;
+                bug.status = newBug.status||"new";
                 bug.updatedDate = new Date();
                 bug.priority = newBug.priority;
-                bug.comments.push(newBug.comments);
+                console.log("message",typeof newBug.comments == "string");
+                console.log("comment type",typeof newBug.comments,newBug.comments);
+                if(newBug.comments!=null && newBug.comments != '' && typeof newBug.comments == "string"){
+                    bug.comments.push({
+                        message:newBug.comments,
+                        user:{firstname:user.firstname,lastname:user.lastname},
+                        time: Date.now()
+                    });
+                }
             }else{
                 resolve("No bug with that name found");
             }
@@ -87,12 +91,8 @@ deleteBug = async(projectName,bugId,user)=>{
         let project = user.projects.find(x=>x.name==projectName);
        // console.log(project);
     if(project){
-        console.log(project);
-        console.log(bugId);
         let bug = project.bugs.find(x=>x.id==bugId);
-        console.log(bug);
         let index = project.bugs.indexOf(bug);
-        console.log(index);
         project.bugs.splice(index,1);
     }
     resolve("Bug deleted successfully");

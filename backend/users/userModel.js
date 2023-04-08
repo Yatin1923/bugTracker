@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+const commentsSchema  = new mongoose.Schema({
+    message:{
+        type:String,
+        required:false
+    },
+    user:{
+        type:{firstname:{type:String, required:false},lastname:{type:String, required:false}},
+        required:false
+    },
+    time:{
+        type:Date,
+        required:false
+    }
+})
+
 const bugSchema = new mongoose.Schema({
     id:{
         type:Number,
@@ -31,7 +46,7 @@ const bugSchema = new mongoose.Schema({
         required:false
     },
     comments:{
-        type:Array,
+        type:[commentsSchema],
         required:false
     },
     priority:{
@@ -80,7 +95,6 @@ const userSchema = new mongoose.Schema({
     },
     projects:[projectSchema],
 });
-
 
 
 module.exports = mongoose.model('users',userSchema);

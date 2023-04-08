@@ -1,4 +1,4 @@
-<div class="bugDetails" [formGroup] = "bugDetails">
+<div class="bugDetails" [formGroup] = "bugDetails" >
     <div class="header" >
         <mat-icon style="color: #0e6ffd;">book</mat-icon> USER STORY {{id}}
         <mat-icon mat-raised-button mat-dialog-close aria-hidden="false" aria-label="Example home icon" fontIcon="closethick" style="position: absolute; right: 5px; top:5px;"></mat-icon>
@@ -15,7 +15,7 @@
         <div class="row hearderBottom">
             <div class="noOfComments col">{{comments.length}} Comments <i class="fa fa-comments" aria-hidden="true"></i></div>
             <div class="saveBtn  col mt-3">
-                <button mat-button color="primary" (click)="updateBug()" [disabled]="bugDetails.untouched">Save and Close</button>
+                <button mat-button color="primary"  (click)="updateBug()" type="submit" [disabled]="bugDetails.untouched">Save and Close</button>
                 <button mat-button matDialogClose>Cancel</button>
             </div>
         </div>
@@ -31,8 +31,12 @@
             </b>
             </div>
             <hr class="hr">
-            <div class="comments ">
-                <angular-editor  class="comments" formControlName = "comments" (blur)="commentEditorConfig.showToolbar = false" (focus)="commentEditorConfig.showToolbar = true" [config]="commentEditorConfig" style="border: none;"></angular-editor>
+            <div class="comments mb-2">
+                <angular-editor  class="comments" formControlName = "comments" (blur)="commentEditorConfig.showToolbar = false" (focus)="commentEditorConfig.showToolbar = true" [config]="commentEditorConfig"></angular-editor>
+            </div>
+            <div class="comments mb-2" *ngFor="let comment of comments.reverse()">
+                <h6 style="color: rgb(100, 100, 100);">{{comment.user.firstname +' '+comment.user.lastname }}<u>commented {{currentTime}}</u></h6>
+                <angular-editor  class="comments" [ngModel] = "comment.message" [ngModelOptions]="{standalone:true}" [config]="{editable:false,showToolbar:false}" ></angular-editor>
             </div>
             
         </div>
@@ -41,11 +45,22 @@
         <div class=" mb-4">
             <span style="padding-right: 5px;color: #737373;">Priority </span>
             <div class="priority">
-                <select  class="priority-select" [value]="priority">
+                <select  class="priority-select" formControlName = "priority" [value]="priority">
                     <option selected value=1>1</option>
                     <option value=2>2</option>
                     <option value=3>3</option>
                     <option value=4>4</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-5">
+            <span style="padding-right: 5px;">State </span>
+            <div class="status">
+                <select (change)="statusChange($event,bugDetails.value)" [value]="state"  class="status-select">
+                    <option selected value="new">New</option>
+                    <option value="active">Active</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="paused">Paused</option>
                 </select>
             </div>
         </div>
@@ -60,7 +75,7 @@
                         <ngx-mat-select-search [formControl]="filteringUsers" [searching]="searching" placeholderLabel="Search"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option>--None--</mat-option>
-                    <mat-option *ngFor="let bug of filteredUsers | async" [value]="bug">                    
+                    <mat-option *ngFor="let bug of filteredUsers | async" [value]="bug.firstname + ' '+bug.lastname">                    
                         {{bug.firstname}} {{bug.lastname}}
                     </mat-option>
                 </mat-select>

@@ -73,7 +73,7 @@ export class CreateBugFormComponent {
         this.notify.showSuccess("Bug created successfully")
       }
       id = res;
-      this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,assignedTo:this.assignedTo.value?this.assignedTo.value.firstname +' '+this.assignedTo.value.lastname :"",status:"new"})
+      this.dialogref.close({id:id,title:this.bugDetails.get('bugTitle')?.value,description:this.bugDetails.get('description')?.value,assignedTo:this.assignedTo.value?this.assignedTo.value.firstname +' '+this.assignedTo.value.lastname :"",status:"new",comments:[],})
     })
   }
 }

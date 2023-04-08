@@ -44,14 +44,15 @@ export class BugsComponent {
       }
     })
     dialogref.afterClosed().subscribe((bug)=>{
-      if(bug){
-        this.bugs.push(bug);
-      }
+      this.getBugs();
+      // if(bug){
+      //   this.bugs.push(bug);
+      // }
     }
   )
   }
   // Get all bugs
-  getBugs(){
+   getBugs(){
     this.bugService.getBugs(this.route.snapshot.paramMap.get('projectName')||'').subscribe(response=>{
       this.bugs = response;
       this.totalbugs = response;
@@ -67,6 +68,13 @@ export class BugsComponent {
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
         bug:bug
+      }
+    })
+    dialogref.afterClosed().subscribe((bug)=>{
+      if(bug){
+        console.log("bug",bug);
+        this.getBugs();
+        console.log(this.bugs); 
       }
     })
   }
@@ -94,9 +102,8 @@ export class BugsComponent {
 
 // Update priority of bug
   priorityUpdate(event:any,bug:any){
-    console.log("priorityUpdate",event.target.value,bug);
     bug.priority = event.target.value;
-    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
+    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug).subscribe();
   }
 
 
@@ -104,8 +111,7 @@ export class BugsComponent {
   // Change status of bug (by select option)
 statusChange(event:any,bug:any){
     bug.status = event.target.value;
-    console.log("optionChange",bug);
-    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug);
+    this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',bug).subscribe();
 }
 
 
@@ -116,26 +122,29 @@ statusChange(event:any,bug:any){
         case "new":{
           let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
           updatedBug.status = "new";
-          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          console.log(updatedBug);
+          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug).subscribe();
           break;
         }
         case "active":{
           let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
-          console.log(event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex]);
           updatedBug.status = "active";
-          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          console.log(updatedBug);
+          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug).subscribe();
           break;
         }
         case "resolved":{
           let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
           updatedBug.status = "resolved"
-          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          console.log(updatedBug);
+          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug).subscribe();
           break;
         }
         case "paused":{  
           let updatedBug:any = event.previousContainer.data.filter(x=>x.status == event.previousContainer.id)[event.previousIndex];
-          updatedBug.status = "paused";
-          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug);
+          updatedBug.status = "paused"; 
+          console.log(updatedBug);
+          this.bugService.updateBug(this.route.snapshot.paramMap.get('projectName')||'',updatedBug).subscribe();
           break;
         }
       }

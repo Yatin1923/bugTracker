@@ -25,15 +25,18 @@ export class BugDetailsComponent {
   assignedTo:any = this.data.bug.assignedTo;
   description:any = this.data.bug.description;
   comments:any = this.data.bug.comments;
+  state:any = this.data.bug.status;
   nullUser:any;
+  currentTime:any;
   // Form Group
   bugDetails = new FormGroup({
-    id:new FormControl(this.id),
-    title:new FormControl(this.title),
-    description:new FormControl(this.description),
-    assignedTo:new FormControl(this.assignedTo),
-    comments:new FormControl(this.comments),
-    priority:new FormControl(this.priority)
+    id:new FormControl(this.id||''),
+    title:new FormControl(this.title||''),
+    description:new FormControl(this.description||''),
+    assignedTo:new FormControl(this.assignedTo||''),
+    comments:new FormControl(),
+    priority:new FormControl(this.priority||''),
+    status:new FormControl(this.state||'')
   })
 
   descEditorConfig: AngularEditorConfig = {
@@ -137,10 +140,11 @@ public  filteredUsers: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 public searching: boolean = false;
 
 ngOnInit(){
+
+    this.currentTime = Date();
     this.authService.getUsers().subscribe(async response => {
       this.users = await response;
      });
-    //  console.log(this.data);
      this.filteringUsers.valueChanges
      .pipe(
        tap(() => this.searching = true),
@@ -162,10 +166,13 @@ ngOnInit(){
   copyText(text: string){
     navigator.clipboard.writeText(text);
   }
-
+  statusChange(event:any,bug:any){
+    bug.status = event.target.value;
+  }
   updateBug(){
-    console.log("Update Bug: ", this.bugDetails.value);
-     this.bugService.updateBug(this.projectName,this.bugDetails.value);
-     this.dialogref.close();
+    console.log(this.bugDetails.value)
+    this.bugService.updateBug(this.projectName,this.bugDetails.value).subscribe(()=>{
+      this.dialogref.close(this.bugDetails.value);
+    });
   }
 }
