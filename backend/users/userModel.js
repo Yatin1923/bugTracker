@@ -10,7 +10,7 @@ const commentsSchema  = new mongoose.Schema({
         required:false
     },
     time:{
-        type:Date,
+        type:String,
         required:false
     }
 })

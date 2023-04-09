@@ -69,12 +69,14 @@ updateBug = async(projectName,bugId,newBug,user)=>{
                 bug.priority = newBug.priority;
                 console.log("message",typeof newBug.comments == "string");
                 console.log("comment type",typeof newBug.comments,newBug.comments);
+                let currentTime = new Date().toLocaleString("en-Us", {timeZone: 'Asia/Kolkata'})
                 if(newBug.comments!=null && newBug.comments != '' && typeof newBug.comments == "string"){
                     bug.comments.push({
                         message:newBug.comments,
                         user:{firstname:user.firstname,lastname:user.lastname},
-                        time: Date.now()
+                        time:  currentTime
                     });
+                    console.log("Added bug",currentTime);
                 }
             }else{
                 resolve("No bug with that name found");

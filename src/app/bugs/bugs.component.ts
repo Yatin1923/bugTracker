@@ -65,6 +65,7 @@ export class BugsComponent {
       maxWidth:'500vh',
       width:'90%',
       height:'85%',
+      disableClose:true,
       data:{
         projectName:this.route.snapshot.paramMap.get('projectName')||'',
         bug:bug

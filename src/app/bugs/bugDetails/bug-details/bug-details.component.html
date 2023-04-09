@@ -35,7 +35,7 @@
                 <angular-editor  class="comments" formControlName = "comments" (blur)="commentEditorConfig.showToolbar = false" (focus)="commentEditorConfig.showToolbar = true" [config]="commentEditorConfig"></angular-editor>
             </div>
             <div class="comments mb-2" *ngFor="let comment of comments.reverse()">
-                <h6 style="color: rgb(100, 100, 100);">{{comment.user.firstname +' '+comment.user.lastname }}<u>commented {{currentTime}}</u></h6>
+                <h6 style="color: rgb(100, 100, 100);">{{comment.user.firstname +' '+comment.user.lastname }}<u>commented {{comment.time}}</u></h6>
                 <angular-editor  class="comments" [ngModel] = "comment.message" [ngModelOptions]="{standalone:true}" [config]="{editable:false,showToolbar:false}" ></angular-editor>
             </div>
             

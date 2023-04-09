@@ -141,7 +141,7 @@ public searching: boolean = false;
 
 ngOnInit(){
 
-    this.currentTime = Date();
+    this.currentTime = Date.now();
     this.authService.getUsers().subscribe(async response => {
       this.users = await response;
      });

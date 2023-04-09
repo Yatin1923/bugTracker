@@ -17,16 +17,13 @@
   }
   body
   {
-    zoom: 90%;
     background-color: var(--backgroundColor);
     color: var(--textPrimary);
     font-family:  "Poppins";
   }
 html, body { height: 100%;
    }
- .cdk-overlay-connected-position-bounding-box{
-  right: 176.2283px !important;
- }
+
 
 .h0{
   font-size: 65px;
@@ -113,9 +110,9 @@ a{
 .angular-editor-button{
   border: none !important;
 }
-.cdk-overlay-backdrop{
-  pointer-events: none;
-}
+// .cdk-overlay-backdrop{
+//   pointer-events: none;
+// }
 
 
 @media (min-width: 576px){
